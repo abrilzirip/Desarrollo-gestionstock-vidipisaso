@@ -8,3 +8,16 @@ body{
     border-radius: 15;
     border: 0px solid black;
 }
+
+.navbar {
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+ 
+  .navbar li :hover {
+    overflow:visible;
+    background-color: #888282;
+  }
+
+  
