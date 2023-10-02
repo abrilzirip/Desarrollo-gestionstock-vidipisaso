@@ -114,7 +114,7 @@
         </section>
     </template>
 
-    <template id="template-pantalla-principal">
+    <template id="template-pantalla-principal-Vendedor">
         <div>
             <nav class="navbar navbar-expand-lg  bg-black">
                 <div class="container-fluid">
@@ -132,7 +132,7 @@
                                 <a class="nav-link text-warning mt-1 fs-6" href="#">Vender</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-warning mt-1 fs-6" href="#">Crear cliente</a>
+                                <a class="nav-link text-warning mt-1 fs-6" href="#">Crear Cliente</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-warning mt-1 fs-6" href="#">Producto</a>
@@ -147,11 +147,128 @@
                 </div>
             </nav>
         </div>
-        <div>
-            <h1 class="text-center mt-3">Bienvenido</h1>
+        <!-- implementar pantalla de venta-->
+        <div id="container-pantalla-vender-productos">
+            <h1 class="text-center mt-3">Vender</h1>
+
+            <div class="col-md-6" id="idtabla-venta-producto">
+                <table class="table">
+                <thead>
+                    <tr> <!-- encabezado de tabla -->
+                        <td colspan="5"> <b>Cliente:</b> </td> 
+                    </tr>
+                    <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <th scope="row">1</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">2</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">3</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">4</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">5</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">6</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <th scope="row">7</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">8</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">9</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <th scope="row">10</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <th scope="row"></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <th scope="row"></th>
+                    <td></td>
+                    <td></td>
+                    <td><b>Total:</b></td>
+                    <td></td>
+                    </tr>
+                </tbody>
+                </table>               
+            </div>
+
+            <div id="iddisplay-Calculadora">
+                
+            </div>
+
+            <div id="idbotones-pantalla-venta">
+                <button>Vender</button>
+                <button>Borrar</button>
+                <button>Cliente</button>
+            </div>
+
         </div>
+        <!-- implementar pantalla de venta-->
+
     </template>
 
+     
 
     <!-- implementar template administrador -->
     <template id="template-pantalla-principal-administrador">

@@ -1,5 +1,5 @@
 const login = document.getElementById("template-log-in");
-const pantalla_principal_vendedor = document.getElementById("template-pantalla-principal").innerHTML;
+const pantalla_principal_vendedor = document.getElementById("template-pantalla-principal-Vendedor").innerHTML;
 const pantalla_principal_administrador = document.getElementById("template-pantalla-principal-administrador").innerHTML;
 const fragment = document.createDocumentFragment();
 

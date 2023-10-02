@@ -20,4 +20,13 @@ body{
     background-color: #888282;
   }
 
+  #idtabla-venta-producto{
+    padding: 15px;
+    margin-left: 15px;
+  }
   
+  #iddisplay-Calculadora{
+    width: 40px;
+    height: 80px;
+    background-color: #000;
+  }
