@@ -75,3 +75,8 @@ body{
 #idventa-radio{
   display: inline-block;
 }
+
+/* estilos para los elementos de tipo radio */
+input[type="radio"] {
+  margin-right: 10px; /* separacion entre los elementos de radio */
+}
