@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="CSS/mystyle.css">
+    <link rel="icon" href="/Icon.ico">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
+    <script src="JS/scriptVendedor.js" defer></script>
+    <title>StVent-Vender</title>
+</head>
+
+<body>
+        <div>
+            <nav class="navbar navbar-expand-lg  bg-black">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-light fs-5" href="#">StVent</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="VendedorVender.html">Vender</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-warning mt-1 fs-6" href="VendedorCrearCliente.html">Crear Cliente</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-warning mt-1 fs-6" href="VendedorProductoBuscarCargarStock.html">Producto</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item text-end">
+                            <a class="nav-link" href="index.html"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- implementar pantalla de venta-->
+        <div id="container-pantalla-vender-productos">
+            <h2 class="text-center mt-3">Vender</h2>
+
+    <div class="row col-md-11">
+        <div class="col-md-8 m-b-4">
+            <div class="table-responsive">
+                <table class="table tabla-condensed table-striped" id="productosTable">
+                    <thead>
+                    <th>#</th>
+                    <th scope="col">Marca</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Acción</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>-</td>
+                            <td scope="row"><p id="idmarcaproducto"></p></td>
+                             <td><input type="text" id="idnombreProducto-input"><select id="idresultado"></select></td>   
+                            <!--    <td><input type="text" id="idnombreProducto-input"><select id="idresultado"class="visually-hidden"></select></td>   
+                            buscar solucion para ocultar clase boostrap
+                            -->
+                            <td><p id="idprecioproducto"></p></td>
+                            <td><input id="idcantidadproducto" type="number" class="input-group w-25 p-1" min="1" value="1"></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <button class="btn btn-success btn-sm"><i class="bi bi-eye"></i></button>
+                                    <button id="idagregarproducto" class="btn btn-primary btn-sm"><i class="bi bi-check-lg"></i></button>
+                                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                                    </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="row">1</td>
+                            <td><p id="idmarcafila1"></p></td>
+                            <td><p id="idnombrefila1"></p></td>
+                            <td><p id="idpreciofila1"></p></td>
+                            <td><p id="idcantidadfila1"></p></td>
+                            <td><p id=""></p></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">2</td>
+                            <td><p id="idmarcafila2"></p></td>
+                            <td><p id="idnombrefila2"></p></td>
+                            <td><p id="idpreciofila2"></p></td>
+                            <td><p id="idcantidadfila2"></p></td>
+                            <td><p id=""></p></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">3</td>
+                            <td><p id="idmarcafila3"></p></td>
+                            <td><p id="idnombrefila3"></p></td>
+                            <td><p id="idpreciofila3"></p></td>
+                            <td><p id="idcantidadfila3"></p></td>
+                            <td><p id=""></p></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">4</td>
+                            <td><p id="idmarcafila4"></p></td>
+                            <td><p id="idnombrefila4"></p></td>
+                            <td><p id="idpreciofila4"></p></td>
+                            <td><p id="idcantidadfila4"></p></td>
+                            <td><p id=""></p></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">5</td>
+                            <td><p id="idmarcafila5"></p></td>
+                            <td><p id="idnombrefila5"></p></td>
+                            <td><p id="idpreciofila5"></p></td>
+                            <td><p id="idcantidadfila5"></p></td>
+                            <td><p id=""></p></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">6</td>
+                            <td><p id="idmarcafila6"></p></td>
+                            <td><p id="idnombrefila6"></p></td>
+                            <td><p id="idpreciofila6"></p></td>
+                            <td><p id="idcantidadfila6"></p></td>
+                            <td><p id=""></p></td>
+                        </tr>
+                        <tr>
+                            <td scope="row">7</td>
+                            <td><p id="idmarcafila7"></p></td>
+                            <td><p id="idnombrefila7"></p></td>
+                            <td><p id="idpreciofila7"></p></td>
+                            <td><p id="idcantidadfila7"></p></td>
+                            <td><p id=""></p></td>
+                        </tr>
+                        <tr>
+                            <td scope="row"></td>
+                            <td></td>
+                            <td></td>
+                            <td><b>Total:</b></td>
+                            <td><b><p id="idsumadeproductos"></p></b></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td scope="row"></td>
+                            <td></td>
+                            <td></td>
+                            <td><b>Vuelto:</b></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            <div class="col-md-1 w-25 -p10" id="iddisplay-Calculadora">
+
+                <div class="p-3 mb-2 bg-dark text-white">
+                    <h3  class="text-success"><b>Total:  <p id="idtotal"></p></b></h3>
+                    <p> </p>
+                    <h3 class="text-success" id="idvuelto"><b>Vuelto: </b></h3>
+                </div>
+            </div>
+
+    </div>    
+
+    
+    
+
+
+        <div id="idbotones-pantalla-venta">
+            <div>
+            <button class="btn btn-danger py-1">Vender</button>
+            <button class="btn btn-danger py-1">Borrar</button>
+            <button class="btn btn-danger py-1">Cliente</button>                    
+            </div>
+
+        </div>
+
+        </div>
+
+        <br>
+        <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
+            <div class="btn-group btn-group-toggle" >
+                <label class="btn btn-light" id="idlabelventaverde">
+                    
+                </label>
+                <label class="btn btn-dark" id="idlabelventarojo">
+                    
+                </label>
+            </div>
+        </div>
+       
+        <!-- implementar pantalla de venta-->
+</body>
+</html>
+
+
