@@ -18,7 +18,7 @@ $query = mysqli_query($con, $sql);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/Icon.ico">
-    
+    <script src="crudusuario.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
    
     <title>Crear Usuario</title>
@@ -74,7 +74,7 @@ $query = mysqli_query($con, $sql);
                         <input type="password" name="password" placeholder="Password">
                         <input type="email" name="email" placeholder="Email">
 
-                        <input type="submit" value="Agregar">
+                        <input type="submit" value="Agregar" >
                     </form>
                 </div>
 
@@ -104,7 +104,7 @@ $query = mysqli_query($con, $sql);
                                     <th><?= $row['password'] ?></th>
                                     <th><?= $row['email'] ?></th>
                                     <th><a href="actualizausuario.php?id=<?= $row['id'] ?>" class="users-table--edit">Editar</a></th>
-                                    <th><a href="borrarusuario.php?id=<?= $row['id'] ?>" class="users-table--delete" >Eliminar</a></th>
+                                    <th><a href="borrarusuario.php?id=<?= $row['id'] ?>" class="users-table--delete"  onclick="eliminar(1)" >Eliminar</a></th>
                                 </tr>
                             <?php endwhile; ?>
                             <!-- termina bloque while -->
