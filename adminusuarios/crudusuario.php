@@ -70,7 +70,7 @@ $query = mysqli_query($con, $sql);
                     <form action="insert_user.php" method="POST">
                         <input type="text" name="name" placeholder="Nombre">
                         <input type="text" name="lastname" placeholder="Apellidos">
-                        <input type="text" name="username" placeholder="Username">
+                        <input type="text" name="username" placeholder="Cargo">
                         <input type="password" name="password" placeholder="Password">
                         <input type="email" name="email" placeholder="Email">
 
