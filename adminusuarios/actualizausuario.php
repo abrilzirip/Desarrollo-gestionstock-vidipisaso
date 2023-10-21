@@ -21,7 +21,7 @@
     </head>
     <body>
         <div class="users-form">
-            <form action="edit_user.php" method="POST">
+            <form action="editarusuario.php" method="POST">
                 <input type="hidden" name="id" value="<?= $row['id']?>">
                 <input type="text" name="name" placeholder="Nombre" value="<?= $row['name']?>">
                 <input type="text" name="lastname" placeholder="Apellidos" value="<?= $row['lastname']?>">
