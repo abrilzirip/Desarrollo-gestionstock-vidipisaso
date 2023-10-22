@@ -1,6 +1,7 @@
 function inicio() {
     document.getElementById("autocompletadoBuscarCliente").addEventListener("input", buscarCliente, false);
-    document.getElementById("id_Agregar_producto_Tabla").addEventListener("click", agregarProductosTabla, false);
+    document.getElementById("id_Agregar_producto_Tabla").addEventListener("click", agregarProductoTabla, false);
+    document.getElementById("id_Eliminar_producto_Tabla").addEventListener("click", eliminarProductosTabla, false);
 }
 // const keywords = [
 //     "Alfajor Triple Milka Oreo 61g",
@@ -74,9 +75,14 @@ function mostrarListadoCliente(palabraFiltrada) {
     }
 }
 
-function agregarProductosTabla(){
+function eliminarProductosTabla(){
+    console.log("eliminos productos");
+}
+
+
+function agregarProductoTabla(){
     //id_Agregar_producto_Tabla   tablaCliente
-    console.log("agrego producto");
+    //console.log("agrego producto");
 
     const tablaVenta= document.getElementById("tablaCliente");
 
@@ -111,7 +117,7 @@ function agregarProductosTabla(){
     cell6.innerHTML = `<button type="button" class="btn btn-danger btn-sm "
                          data-btn-grupo="eliminar-cliente"><i
         class="bi bi-trash"></i></button>`;
-        console.log(tablaVenta);
+        //console.log(tablaVenta);
 
 
     document.getElementById("idtotal").innerHTML=100+"$";    
