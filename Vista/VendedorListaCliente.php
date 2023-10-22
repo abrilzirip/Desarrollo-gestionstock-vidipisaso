@@ -19,7 +19,7 @@
     <!--JavaScript-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
     <script src="./JS/scriptBuscarCliente.js"></script>
-    <script src="./JS/scriptFuncionalidadBotones.js"></script>
+    <!-- <script src="./JS/scriptFuncionalidadBotones.js"></script> -->
     <title>StVent-Iniciar Sesion</title>
 </head>
 
@@ -42,8 +42,7 @@
             </div>
             <ul class="navbar-nav">
                 <li class="nav-item text-end">
-                    <a class="nav-link" href="index.html"><button class="btn btn-danger py-1" id="salir">Cerrar
-                            sesion</button></a>
+                    <a class="nav-link" href="index.html"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
                 </li>
             </ul>
         </div>
@@ -77,14 +76,14 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorId">
-                            <label class="form-check-label text-warning" for="flexRadioFiltrarPorId">ID</label>
+                            <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorIdCliente">
+                            <label class="form-check-label text-warning" for="flexRadioFiltrarPorIdCliente">ID Cliente</label>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorEmail">
-                            <label class="form-check-label text-warning" for="flexRadioFiltrarPorEmail">Email</label>
+                            <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarFecha">
+                            <label class="form-check-label text-warning" for="flexRadioFiltrarFecha">Fecha</label>
                         </div>
                     </div>
                 </div>
@@ -100,28 +99,28 @@
                             <table id="tablaCliente" class="table table-dark table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md" scope="col">#</th>
-                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">ID</th>
-                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">Nombre</th>
-                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">Apellido</th>
-                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">Apodo</th>
-                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm text-center" scope="col">Email</th>
+                                        <th class="" scope="col">#</th>
+                                        <th class="" scope="col">ID Cliente</th>
+                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">ID Vendedor</th>
+                                        <th class="" scope="col">Nombre</th>
+                                        <th class="ocultar-en-pantalla-xs" scope="col">Apellido</th>
+                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">Fecha de Alta</th>
                                         <th class="text-center" scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $nroFila=1;
-                                    $consultaSelect = $conn->query("SELECT `id`, `nombre`, `apellido`, `apodo`, `email` FROM `usuario`");
+                                    $nroFila = 1;
+                                    $consultaSelect = $conn->query("SELECT `ID_CLIENTE`, `ID_USUARIO_REGISTRADO`, `NOMBRE`, `APELLIDO`, `APODO`, `FECHA_ALTA`, `FECHA_BAJA` FROM `cliente`");
                                     while ($row = $consultaSelect->fetch()) {
                                         echo "<tr>";
-                                        echo "<td class='text-center'>".$nroFila. "</td>";
-                                        echo "<td class='text-center'>" . $row['id'] . "</td>";
-                                        echo "<td class='text-center'>" . $row['nombre'] . "</td>";
-                                        echo "<td class='text-center'>" . $row['apellido'] . "</td>";
-                                        echo "<td class='text-center'>" . $row['apodo'] . "</td>";
-                                        echo "<td class='text-center'>" . $row['email'] . "</td>";
-                                        echo "<td class='text-center'><div class='btn-group' role='group' aria-label='Grupo botones'><button class='btn btn-success btn-sm' data-btn-grupo='mostrar-detalles-cliente'><i class='bi bi-eye'></i></button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'><i class='bi bi-pencil'></i></button><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'><i class='bi bi-trash'></i></button></div></td>";  
+                                        echo "<td class='text-center'>" . $nroFila . "</td>";
+                                        echo "<td class='text-center'>" . $row['ID_CLIENTE'] . "</td>";
+                                        echo "<td class='text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center'>" . $row['ID_USUARIO_REGISTRADO'] . "</td>";
+                                        echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
+                                        echo "<td class='text-center ocultar-en-pantalla-xs'>" . $row['APELLIDO'] . "</td>";
+                                        echo "<td class='text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md'>" . $row['FECHA_ALTA'] . "</td>";
+                                        echo "<td class='text-center'><div class='btn-group' role='group' aria-label='Grupo botones'><a href='VendedorMostrarDetalle.php' class='text-light'><button class='btn btn-success btn-sm' data-btn-grupo='mostrar-detalles-cliente'><i class='bi bi-eye'></i></a></button><a href='VendedorEditarCliente.php'><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'><i class='bi bi-pencil'></i></button></a><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'><i class='bi bi-trash'></i></button></div></td>";
                                         echo "</tr>";
                                         $nroFila++;
                                     }
@@ -154,69 +153,12 @@
             </div>
         </div>
     </section>
-    <!-- formulario: nuevo usuario - fin -->
-    <section class="container mt-4 w-75 d-none" id="divMostrarOcultarDetallesCliente">
-        <div class="row">
-            <div class="bg-black pt-3 pb-3 px-3 rounded-1">
-                <div id="divMostrarOcultarDetallesCliente" class="mx-auto my-1 col-12">
-                    <form id="frmModificarCliente" action="VendedorListaCliente.php" method="POST">
-                        <div class="card bg-dark text-light">
-                            <div class="card-header text-light">
-                                <h5 id="infoCliente"></h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4" id="divFrmClienteID">
-                                        <label for="frmClienteID" class="form-label">ID</label>
-                                        <input type="number" class="form-control" id="frmClienteID" name="frmClienteID" disabled />
-                                        <div class="invalid-feedback" id="errorClienteID"></div>
-                                    </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4" id="divFrmClienteNombre">
-                                        <label for="frmClienteNombre" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="frmClienteNombre" name="frmClienteNombre" disabled />
-                                        <div class="invalid-feedback" id="errorClienteNombre"></div>
-                                    </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4" id="divFrmClienteApellido">
-                                        <label for="frmClienteApellido" class="form-label">Apellido</label>
-                                        <input type="text" class="form-control" id="frmClienteApellido" name="frmClienteApellido" disabled />
-                                        <div class="invalid-feedback" id="errorClienteApellido"></div>
-                                    </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmClienteApodo">
-                                        <label for="frmClienteApodo" class="form-label">Apodo</label>
-                                        <input type="text" class="form-control" id="frmClienteApodo" name="frmClienteApodo" disabled />
-                                        <div class="invalid-feedback" id="errorClienteApodo"></div>
-                                    </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmClienteEmail">
-                                        <label for="frmClienteEmail" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="frmClienteEmail" name="frmClienteEmail" disabled />
-                                        <div class="invalid-feedback" id="errorClienteEmail"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="d-grid gap-2">
-                                    <button type="button" id="btnEditarFormulario" class="btn btn-primary"><i class="bi bi-pencil"></i>Editar</button>
-                                    <button id="btnGuargarCambios" type="submit" class="btn btn-primary d-none"><i class="bi bi-save"></i> Guardar cambios</button>
-                                    <button type="button" id="btnCancelarEdicioncliente" class="btn btn-secondary"><i class="bi bi-x-circle"></i> Cancelar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <footer>
-        <div class="row">
-            <div id="iddivindicadores" class="position-absolute bottom-0 end-0">
-                <div class="btn-group btn-group-toggle">
-                    <label class="btn btn-light" id="idlabelventaverde"></label>
-                    <label class="btn btn-dark" id="idlabelventarojo"></label>
-                </div>
-            </div>
+    <footer class="bg-black text-center text-lg-start mt-4 d-flex">
+        <div class="text-center p-3 text-warning">
+            © 2020 Copyright:
+            <a class="text-warning" href="https://mdbootstrap.com/">MDBootstrap.com</a>
         </div>
     </footer>
-    <!-- modal mensajes - inicio -->
     <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content bg-dark text-light">
@@ -235,11 +177,9 @@
             </div>
         </div>
     </div>
-    <!-- modal mensajes - fin -->
 </body>
 
 </html>
-<!--En correcion-->
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") { // Verifica si la solicitud es de tipo POST
 
@@ -249,18 +189,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // Verifica si la solicitud es de ti
     $apodo = $_POST['frmClienteApodo'];
     $email = $_POST['frmClienteEmail'];
 
-    if (!empty($id) && !empty($nombre) && !empty($apellido) && !empty($email)) { // Comprueba si las variables no están vacías
+    if (!empty($id) && !empty($nombre) && !empty($apellido)) { // Comprueba si las variables no están vacías
 
         try {
             $consultaUpdate = "UPDATE `usuario` SET `nombre`=:nombre, `apellido`=:apellido, `apodo`=:apodo, `email`=:email WHERE `id`=:id";
-            
+
             $consulta = $conn->prepare($consultaUpdate);
             $consulta->bindParam(':nombre', $nombre);
             $consulta->bindParam(':apellido', $apellido);
             $consulta->bindParam(':apodo', $apodo);
             $consulta->bindParam(':email', $email);
             $consulta->bindParam(':id', $id);
-            
+
             $consulta->execute();
             $conn->beginTransaction();
             $conn->commit();
@@ -273,4 +213,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // Verifica si la solicitud es de ti
     }
 }
 ?>
-<?php $conn = null; ?>
