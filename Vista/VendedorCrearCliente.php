@@ -71,11 +71,7 @@
                                     <input type="text" name="frmNuevoClienteApodo" class="form-control" id="frmNuevoClienteApodo" />
                                     <div class="invalid-feedback" id="errorNuevoClienteApodo"></div>
                                 </div>
-                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                    <label for="frmNuevoClienteEmail" class="form-label">Email</label>
-                                    <input type="email" name="frmNuevoClienteEmail" class="form-control" id="frmNuevoClienteEmail" />
-                                    <div class="invalid-feedback" id="errorNuevoClienteEmail"></div>
-                                </div>
+             
                             </div>
                         </div>
                         <div class="card-footer">
@@ -94,22 +90,17 @@
         </div>
     </section>
     <!-- formulario: nuevo usuario - fin -->
-    <footer id="indicador" class=" bg-black">
-        <div class="row">
-            <div class="mx-auto mb-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-3">
-                <div id="iddivindicadores" class="text-white">Indicador
-                    <div class="btn-group btn-group-toggle">
-                        <label class="btn btn-danger" id="idlabelventaverde">
-
-                        </label>
-                        <label class="btn btn-success" id="idlabelventarojo">
-
-                        </label>
-                    </div>
-                </div>
+    <br>
+        <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
+            <div class="btn-group btn-group-toggle" >
+                <label class="btn btn-light" id="idlabelventaverde">
+                    
+                </label>
+                <label class="btn btn-dark" id="idlabelventarojo">
+                    
+                </label>
             </div>
         </div>
-    </footer>
     <!-- modal mensajes - inicio -->
     <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -135,29 +126,36 @@
 </html>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $usuario_registrado =2;
     $nombre = $_POST['frmNuevoClienteNombre'];
     $apellido = $_POST['frmNuevoClienteApellido'];
     $apodo = $_POST['frmNuevoClienteApodo'];
-    $email = $_POST['frmNuevoClienteEmail'];
+    date_default_timezone_set('America/Argentina/Buenos_Aires');
+    $fecha_alta = date('Y-m-d H:i:s');
+    $fecha_baja = null;
 
-    if (!empty($nombre) && !empty($apellido) && !empty($email)) {
-        $consultaInsert = "INSERT INTO `usuario`(`nombre`, `apellido`, `apodo`, `email`) 
-        VALUES (:nombre, :apellido, :apodo, :email)";
+    if (!empty($nombre) && !empty($apellido) && !empty($apodo)) {
+        $consultaInsert = "INSERT INTO `cliente`(`ID_USUARIO_REGISTRADO`, `nombre`, `apellido`, `apodo`,
+         `FECHA_ALTA`, `FECHA_BAJA`) 
+        VALUES (:ID_USUARIO_REGISTRADO,:nombre, :apellido, :apodo,:FECHA_ALTA,:FECHA_BAJA)";
 
         try {
             $consulta = $conn->prepare($consultaInsert);
+            $consulta->bindParam(':ID_USUARIO_REGISTRADO', $usuario_registrado);
             $consulta->bindParam(':nombre', $nombre);
             $consulta->bindParam(':apellido', $apellido);
             // if (!empty($apodo)) {
             $consulta->bindParam(':apodo', $apodo);
+            $consulta->bindParam(':FECHA_ALTA', $fecha_alta);
+            $consulta->bindParam(':FECHA_BAJA', $fecha_baja);
             // };
-            $consulta->bindParam(':email', $email);
+
 
             $consulta->execute();
             $conn->beginTransaction();
             $conn->commit();
             echo "<h6>Insercion exitosa</h6>";
-            header("Location: VendedorCrearCliente.php?exito=true");
+            //header("Location: VendedorCrearCliente.php?exito=true");
             exit; 
 
         } catch (PDOException $e) {
