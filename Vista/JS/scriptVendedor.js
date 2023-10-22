@@ -84,7 +84,7 @@ function agregarProductoTabla(){
     //id_Agregar_producto_Tabla   tablaCliente
     //console.log("agrego producto");
 
-    const tablaVenta= document.getElementById("tablaCliente");
+    const tablaVenta= document.getElementById("tablaProductos");
 
     let marca=keyword[posicionJson].marca;
     let nombre=keyword[posicionJson].nombre;
