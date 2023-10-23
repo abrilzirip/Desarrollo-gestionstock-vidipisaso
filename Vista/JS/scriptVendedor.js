@@ -2,6 +2,9 @@ function inicio() {
     document.getElementById("autocompletadoBuscarCliente").addEventListener("input", buscarCliente, false);
     document.getElementById("id_Agregar_producto_Tabla").addEventListener("click", agregarProductoTabla, false);
     document.getElementById("id_Eliminar_producto_Tabla").addEventListener("click", eliminarProductosTabla, false);
+    document.getElementById("listaProductos").addEventListener("click", seleccionarListaProducto, false);
+   
+
 }
 // const keywords = [
 //     "Alfajor Triple Milka Oreo 61g",
@@ -27,7 +30,7 @@ function buscarCliente() {
     const autocompletadoInput = document.getElementById("autocompletadoBuscarCliente");
     const inputTexto = autocompletadoInput.value.toLowerCase();
 
-    const listaCliente = document.getElementById("listaCliente");
+    const listaCliente = document.getElementById("listaProductos");
 
     if (inputTexto.trim() === "") {
         listaCliente.classList.add("d-none");
@@ -42,7 +45,7 @@ function buscarCliente() {
             const palabraFiltrada = templista.filter(templista => templista.toLowerCase().includes(inputTexto));
             
             //console.log(templista);
-            mostrarListadoCliente(palabraFiltrada);
+            mostrarListadoCliente(palabraFiltrada);        
         }
 
     }
@@ -52,7 +55,7 @@ function mostrarListadoCliente(palabraFiltrada) {
 
     const autocompletadoInput = document.getElementById("autocompletadoBuscarCliente");
 
-    const listaCliente = document.getElementById("listaCliente");
+    const listaCliente = document.getElementById("listaProductos");
 
     const smsErrorResultado = document.getElementById('smsResultado');
 
@@ -75,6 +78,21 @@ function mostrarListadoCliente(palabraFiltrada) {
     }
 }
 
+function seleccionarListaProducto(){
+    console.log("selcciono producto lista");
+    const filaProductoPrecio=document.getElementById("idfilaPrecio");
+   // const filaProductoCantidad=document.getElementById("idfilaCantidad");
+
+   filaProductoPrecio.innerHTML=keyword[posicionJson].precio;
+    let cantidamax=keyword[posicionJson].cantidad;
+    
+    const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
+    filaProductoPrincipal.classList.remove("d-none")
+    // filaProductoCantidad.innerHTML=`<td class="col-1 text-center">                                                
+    //                         <input type="number" class="form-control text-center" value="1" max="${cantidamax}" min="1">
+    //                    </td>`;
+}
+
 function eliminarProductosTabla(){
     console.log("eliminos productos");
 }
@@ -82,45 +100,61 @@ function eliminarProductosTabla(){
 
 function agregarProductoTabla(){
     //id_Agregar_producto_Tabla   tablaCliente
-    //console.log("agrego producto");
-
-    const tablaVenta= document.getElementById("tablaProductos");
-
-    let marca=keyword[posicionJson].marca;
-    let nombre=keyword[posicionJson].nombre;
-    let precio=keyword[posicionJson].precio;
-    let cantida=keyword[posicionJson].cantidad;
-
-                                      
+    console.log(document.getElementById("autocompletadoBuscarCliente").value.length );
     
-    //const templetaFila=document.getElementById("idtempleteTablaFila");
-    //let clon = templetaFila.content.cloneNode(true);
-    //tablaVenta.appendChild(clon);
-    //
-    ///
-    var row = tablaVenta.insertRow(-1);
+    if (document.getElementById("autocompletadoBuscarCliente").value.length>=3) {
+        console.log("y paso");
+       // console.log(document.getElementById("idcantidadinput").value);    
+            //esto va evaluar mejor cuando se conecte ala base ya que trae datos de cantidad
+        
 
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    var cell5 = row.insertCell(4);
-    var cell6 = row.insertCell(5);
+            let tablaVenta= document.getElementById("tablaProductos");
+            let marca=keyword[posicionJson].marca;
+            let nombre=keyword[posicionJson].nombre;
+            let precio=keyword[posicionJson].precio;
+            let cantida=keyword[posicionJson].cantidad;
 
-    cell1.innerHTML = 1;
-    cell2.innerHTML = marca;
-    cell3.innerHTML = nombre;
-    cell4.innerHTML = precio+" $";
-    cell5.innerHTML = `<td class="col-1 text-center">                                                
-                            <input type="number" class="form-control text-center" value="1" min="1">
-                       </td>`;
-    cell6.innerHTML = `<button type="button" class="btn btn-danger btn-sm "
-                         data-btn-grupo="eliminar-cliente"><i
-        class="bi bi-trash"></i></button>`;
-        //console.log(tablaVenta);
+                                            
+            
+            //const templetaFila=document.getElementById("idtempleteTablaFila");
+            //let clon = templetaFila.content.cloneNode(true);
+            //tablaVenta.appendChild(clon);
+            //
+            ///
+            var row = tablaVenta.insertRow(-1);
+
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            var cell5 = row.insertCell(4);
+            var cell6 = row.insertCell(5);
+
+            let filaCantidadInput=document.getElementById("idfilaCantidadinput").value;
+           
+
+            cell1.innerHTML = 1;
+            cell2.innerHTML = marca;
+            cell3.innerHTML = nombre;
+            cell4.innerHTML = precio+" $";
+            cell5.innerHTML = `<td class=" text-center">${filaCantidadInput}</td>`;
+            cell6.innerHTML = `<button type="button" class="btn btn-danger btn-sm text-center"
+                                data-btn-grupo="eliminar-cliente"><i
+                class="bi bi-trash"></i></button>`;
+                //console.log(tablaVenta);
 
 
-    document.getElementById("idtotal").innerHTML=100+"$";    
+            document.getElementById("idtotal").innerHTML=100+"$";    
+        
+        
+    }
+    document.getElementById("autocompletadoBuscarCliente").value="";
+    // document.getElementById("idfilaPrecio").innerHTML="";
+    
+    document.getElementById("idfilaCantidadinput").value=1;
+    const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
+    filaProductoPrincipal.classList.add("d-none")
+   
 }
 
 

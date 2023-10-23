@@ -63,7 +63,7 @@
                                     <button class="input-group-text btn btn-outline-danger" type="button"><i class="bi bi-search"></i></button>
                                 
 
-                                        <ul id="listaCliente" class="card position-absolute top-100 start-10">
+                                        <ul id="listaProductos" class="card position-absolute top-100 start-10">
                                         </ul>
                                          <div id="smsResultado" class="card position-absolute d-none text-danger">No se encontraron resultados</div> 
 
@@ -87,22 +87,29 @@
                                                     scope="col">Cantidad</th>
                                                 <th class="text-center" scope="col">Acciones</th>
                                             </tr>
-                                            <tr>
+                                            <tr id="idfilaProductoprincipal" class="d-none">
                                                 <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md" scope="row"></td>
-                                                <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"></td>
-                                                <td class="text-center"></td>
-                                                <td class="ocultar-en-pantalla-xs text-center"></td>
-                                                <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"></td>
+                                                <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col"></td>
+                                                <td class="text-center" scope="col"></td>
+                                                <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" 
+                                                id="idfilaPrecio" scope="col">
+                                                    <!-- si saco el td solucion el problema de reajuste
+                                                         de pagina pero no accedo a idfilaCantidadinput-->
+                                                    <td class="col-1 text-center" scope="col">                                                
+                                                        <input type="number" id="idfilaCantidadinput" class="form-control text-center" value="1" max="${cantidamax}" min="1">
+                                                    </td>
+                                                </td>
+                                                <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"
+                                                id="idfilaCantidad" scope="col"></td>
 
-                                                <td class="text-center">
+                                                <td  class="col-1 ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"scope="col">
                                                     <div class="btn-group" role="group" aria-label="Grupo botones">
-                                                       
-                                                        <button class="btn btn-primary btn-sm"
-                                                            data-btn-grupo="modificar-cliente"><i
-                                                               id="id_Agregar_producto_Tabla" class="bi bi-check-lg"></i></button>
-                                                        <button type="button" class="btn btn-danger btn-sm"
-                                                            data-btn-grupo="eliminar-cliente"><i 
-                                                                id="id_Eliminar_producto_Tabla" class="bi bi-trash"></i></button>
+                                                        <button class="btn btn-primary btn-sm" data-btn-grupo="modificar-cliente">
+                                                            <i id="id_Agregar_producto_Tabla" class="bi bi-check-lg"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger btn-sm" data-btn-grupo="eliminar-cliente">
+                                                            <i id="id_Eliminar_producto_Tabla" class="bi bi-trash"></i>
+                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>
