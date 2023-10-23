@@ -15,6 +15,8 @@ function inicio() {
 //     "Manteca Dia 250 g"
 // ];
 const posicionJson=0;
+let cantidadDeFilas=1;
+localStorage.setItem("cantidadDeFilas", cantidadDeFilas);
 
 // implemento Json para recibir de base de datos
 let keyword=[
@@ -87,7 +89,11 @@ function seleccionarListaProducto(){
     let cantidamax=keyword[posicionJson].cantidad;
     
     const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
+    
     filaProductoPrincipal.classList.remove("d-none")
+
+    const filaCantidadinput = document.getElementById('idfilaCantidadinput');
+    filaCantidadinput.setAttribute("max",cantidamax);
     // filaProductoCantidad.innerHTML=`<td class="col-1 text-center">                                                
     //                         <input type="number" class="form-control text-center" value="1" max="${cantidamax}" min="1">
     //                    </td>`;
@@ -100,10 +106,11 @@ function eliminarProductosTabla(){
 
 function agregarProductoTabla(){
     //id_Agregar_producto_Tabla   tablaCliente
-    console.log(document.getElementById("autocompletadoBuscarCliente").value.length );
+    //console.log(document.getElementById("autocompletadoBuscarCliente").value.length );
+    localStorage.getItem("cantidadDeFilas", cantidadDeFilas);
     
     if (document.getElementById("autocompletadoBuscarCliente").value.length>=3) {
-        console.log("y paso");
+       // console.log("y paso");
        // console.log(document.getElementById("idcantidadinput").value);    
             //esto va evaluar mejor cuando se conecte ala base ya que trae datos de cantidad
         
@@ -112,39 +119,61 @@ function agregarProductoTabla(){
             let marca=keyword[posicionJson].marca;
             let nombre=keyword[posicionJson].nombre;
             let precio=keyword[posicionJson].precio;
-            let cantida=keyword[posicionJson].cantidad;
+           // let cantida=keyword[posicionJson].cantidad;
 
-                                            
-            
+            let filaCantidadInput=document.getElementById("idfilaCantidadinput").value;
+           
+
+            var row = tablaVenta.insertRow(-1).innerHTML =` <tr>
+            <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md" scope="row">${cantidadDeFilas}</td>
+            <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">${marca}</td>
+            <td class="text-center" scope="col">${nombre}</td>
+            <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">
+            ${precio} $
+            </td>
+            <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"
+             scope="col">                                                        
+            ${filaCantidadInput}
+             </td>
+
+            <td  class="col-1 ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"scope="col">
+            <button type="button" class="btn btn-danger btn-sm text-center"
+                                 data-btn-grupo="eliminar-cliente"><i
+                 class="bi bi-trash"></i></button>
+            </td>
+        </tr>`;      
+        cantidadDeFilas++;              
+                  
+        localStorage.getItem("cantidadDeFilas", cantidadDeFilas);
             //const templetaFila=document.getElementById("idtempleteTablaFila");
             //let clon = templetaFila.content.cloneNode(true);
             //tablaVenta.appendChild(clon);
             //
             ///
-            var row = tablaVenta.insertRow(-1);
+            // var row = tablaVenta.insertRow(-1);
 
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            var cell4 = row.insertCell(3);
-            var cell5 = row.insertCell(4);
-            var cell6 = row.insertCell(5);
+            // var cell1 = row.insertCell(0);
+            // var cell2 = row.insertCell(1);
+            // var cell3 = row.insertCell(2);
+            // var cell4 = row.insertCell(3);
+            // var cell5 = row.insertCell(4);
+            // var cell6 = row.insertCell(5);
 
-            let filaCantidadInput=document.getElementById("idfilaCantidadinput").value;
+            // let filaCantidadInput=document.getElementById("idfilaCantidadinput").value;
            
 
-            cell1.innerHTML = 1;
-            cell2.innerHTML = marca;
-            cell3.innerHTML = nombre;
-            cell4.innerHTML = precio+" $";
-            cell5.innerHTML = `<td class=" text-center">${filaCantidadInput}</td>`;
-            cell6.innerHTML = `<button type="button" class="btn btn-danger btn-sm text-center"
-                                data-btn-grupo="eliminar-cliente"><i
-                class="bi bi-trash"></i></button>`;
-                //console.log(tablaVenta);
+            // cell1.innerHTML = 1;
+            // cell2.innerHTML = marca;
+            // cell3.innerHTML = nombre;
+            // cell4.innerHTML = precio+" $";
+            // cell5.innerHTML = `<td class=" text-center">${filaCantidadInput}</td>`;
+            // cell6.innerHTML = `<button type="button" class="btn btn-danger btn-sm text-center"
+            //                     data-btn-grupo="eliminar-cliente"><i
+            //     class="bi bi-trash"></i></button>`;
+            //     //console.log(tablaVenta);
 
 
-            document.getElementById("idtotal").innerHTML=100+"$";    
+            // document.getElementById("idtotal").innerHTML=100+"$";    
         
         
     }
