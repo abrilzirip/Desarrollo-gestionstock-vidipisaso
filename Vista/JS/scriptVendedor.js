@@ -15,8 +15,9 @@ function inicio() {
 //     "Manteca Dia 250 g"
 // ];
 const posicionJson=0;
-let cantidadDeFilas=1;
+let cantidadDeFilas=1, subTotal=0;
 localStorage.setItem("cantidadDeFilas", cantidadDeFilas);
+localStorage.setItem("subTotal", subTotal);
 
 // implemento Json para recibir de base de datos
 let keyword=[
@@ -107,7 +108,7 @@ function eliminarProductosTabla(){
 function agregarProductoTabla(){
     //id_Agregar_producto_Tabla   tablaCliente
     //console.log(document.getElementById("autocompletadoBuscarCliente").value.length );
-    localStorage.getItem("cantidadDeFilas", cantidadDeFilas);
+    
     
     if (document.getElementById("autocompletadoBuscarCliente").value.length>=3) {
        // console.log("y paso");
@@ -142,7 +143,12 @@ function agregarProductoTabla(){
                  class="bi bi-trash"></i></button>
             </td>
         </tr>`;      
-        cantidadDeFilas++;              
+        cantidadDeFilas++;      
+        
+        let cantidaDeProductosInput=document.getElementById("idfilaCantidadinput").value;
+        subTotal=subTotal+(precio*cantidaDeProductosInput);
+
+        localStorage.setItem("subTotal", subTotal);        
                   
         localStorage.getItem("cantidadDeFilas", cantidadDeFilas);
             //const templetaFila=document.getElementById("idtempleteTablaFila");
@@ -183,6 +189,8 @@ function agregarProductoTabla(){
     document.getElementById("idfilaCantidadinput").value=1;
     const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
     filaProductoPrincipal.classList.add("d-none")
+
+    document.getElementById("idtotal").innerHTML=subTotal+" $";
    
 }
 
