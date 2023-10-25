@@ -3,7 +3,7 @@ function inicio() {
     document.getElementById("id_Agregar_producto_Tabla").addEventListener("click", agregarProductoTabla, false);
     document.getElementById("id_Eliminar_producto_Tabla").addEventListener("click", eliminarProductosTabla, false);
     document.getElementById("listaProductos").addEventListener("click", seleccionarListaProducto, false);
-   
+    document.getElementById("idvenderboton").addEventListener("click", venderProductos,false);
 
 }
 // const keywords = [
@@ -16,17 +16,21 @@ function inicio() {
 // ];
 const posicionJson=0;
 let cantidadDeFilas=1, subTotal=0;
+let ProductoSeleccionado;
 localStorage.setItem("cantidadDeFilas", cantidadDeFilas);
 localStorage.setItem("subTotal", subTotal);
-
+//let datuss=TraerProductosdeDDBB();
 // implemento Json para recibir de base de datos
-let keyword=[
-    {id:0,marca:"Milka",nombre:"Alfajor Triple Milka Oreo 61g",precio:300,cantidad:200},
-    {id:1,marca:"Milka",nombre:"Alfajor Milka Mousse Simple 42g",precio:300,cantidad:200},
-    {id:2,marca:"Leys",nombre:"Papas fritas Lays clásica 379 g",precio:1500,cantidad:200},
-    {id:3,marca:"Tatin",nombre:"Chupetin de coca",precio:150,cantidad:200},
-    {id:4,marca:"Sugus",nombre:"Caramelos Sugus",precio:30,cantidad:200} 
-];  
+// let keyword=[
+//     {id:0,marca:"Milka",nombre:"Alfajor Triple Milka Oreo 61g",precio:300,cantidad:200},
+//     {id:1,marca:"Milka",nombre:"Alfajor Milka Mousse Simple 42g",precio:300,cantidad:200},
+//     {id:2,marca:"Leys",nombre:"Papas fritas Lays clásica 379 g",precio:1500,cantidad:200},
+//     {id:3,marca:"Tatin",nombre:"Chupetin de coca",precio:150,cantidad:200},
+//     {id:4,marca:"Sugus",nombre:"Caramelos Sugus",precio:30,cantidad:200} 
+// ];  
+
+//console.log(datuss);
+//console.log(keyword);
 
 function buscarCliente() {
 
@@ -40,15 +44,17 @@ function buscarCliente() {
     }
     else {
         //comienza a buscar luego de las 2 coincidencias
-        if (inputTexto.length>2) {
-            let templista=[];
+        if (inputTexto.length>1) {
+            //
             listaCliente.classList.remove("d-none");
             //const palabraFiltrada = keyword.filter(keyword => keyword.toLowerCase().includes(inputTexto));
-            const AuxPalabraFiltrada = keyword.filter( keyword => templista.push(keyword.nombre));
-            const palabraFiltrada = templista.filter(templista => templista.toLowerCase().includes(inputTexto));
+            TraerProductosdeDDBB(inputTexto);
+            //console.log(ProductoSeleccionado);
+            //const AuxPalabraFiltrada = datuss.filter( datuss => templista.push(datuss.NOMBRE));
+            //const palabraFiltrada = templista.filter(templista => templista.toLowerCase().includes(inputTexto));
             
             //console.log(templista);
-            mostrarListadoCliente(palabraFiltrada);        
+           // mostrarListadoCliente(palabraFiltrada);        
         }
 
     }
@@ -86,8 +92,8 @@ function seleccionarListaProducto(){
     const filaProductoPrecio=document.getElementById("idfilaPrecio");
    // const filaProductoCantidad=document.getElementById("idfilaCantidad");
 
-   filaProductoPrecio.innerHTML=keyword[posicionJson].precio;
-    let cantidamax=keyword[posicionJson].cantidad;
+   filaProductoPrecio.innerHTML=ProductoSeleccionado.PROD_PRECIO_VENTA;
+    let cantidamax=ProductoSeleccionado.CANTIDAD;
     
     const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
     
@@ -104,6 +110,11 @@ function eliminarProductosTabla(){
     console.log("eliminos productos");
 }
 
+function venderProductos() {
+    console.log("vendio productos");
+   
+}
+
 
 function agregarProductoTabla(){
     //id_Agregar_producto_Tabla   tablaCliente
@@ -117,15 +128,15 @@ function agregarProductoTabla(){
         
 
             let tablaVenta= document.getElementById("tablaProductos");
-            let marca=keyword[posicionJson].marca;
-            let nombre=keyword[posicionJson].nombre;
-            let precio=keyword[posicionJson].precio;
+            let marca=ProductoSeleccionado.MARCA;
+            let nombre=ProductoSeleccionado.NOMBRE;
+            let precio=ProductoSeleccionado.PROD_PRECIO_VENTA;
            // let cantida=keyword[posicionJson].cantidad;
 
             let filaCantidadInput=document.getElementById("idfilaCantidadinput").value;
            
 
-            var row = tablaVenta.insertRow(-1).innerHTML =` <tr>
+            tablaVenta.insertRow(-1).innerHTML =` <tr>
             <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md" scope="row">${cantidadDeFilas}</td>
             <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">${marca}</td>
             <td class="text-center" scope="col">${nombre}</td>
@@ -194,6 +205,61 @@ function agregarProductoTabla(){
    
 }
 
+
+function TraerProductosdeDDBB(inputTexto){
+    let datasalida="",resultado="";
+    fetch('../Controlador/MostrarProductos.php', {
+        method: 'POST'
+    })
+    // .then(function(data){
+
+      
+    // for (var n in data) {
+    //     console.log(n);
+    // }
+    //   console.log (data.json());
+    // })
+    .then((res)=>res.json())
+    //.then((data)=>console.log(data));
+    .then((data)=>{
+        console.log(data);
+        datasalida=JSON.parse(JSON.stringify(data));
+        // let objson=JSON.stringify(data[0].categoria);
+        // console.log(objson);
+      
+        // datasalida.forEach(element => {
+        //    document.getElementById("idvuelto").innerHTML+=element.NOMBRE; 
+        // });
+        let templista=[];
+        const AuxPalabraFiltrada = datasalida.filter( datasalida => templista.push(datasalida.NOMBRE)
+                                                     , resultado=datasalida                             );
+        const palabraFiltrada = templista.filter(templista => templista.toLowerCase().includes(inputTexto));
+        mostrarListadoCliente(palabraFiltrada); 
+        console.log("---"+resultado[0].PROD_PRECIO_VENTA);
+        //ProductoSeleccionado=resultado[0];
+
+        datasalida.forEach(element => {
+         
+            if (element.NOMBRE==palabraFiltrada) {
+                ProductoSeleccionado=element;
+                console.log("++"+element.NOMBRE)
+            }
+                
+            
+        });
+        // for(var valor in objson){
+        //   console.log(valor);  
+        // }
+        
+        // console.log(data);
+        // for (var valor in data[0].categoria) {
+        //     CrearElementosSelecOption(valor);
+        //     console.log(valor);
+            
+        // }
+    });
+    return resultado;
+}
 
 window.addEventListener("load", inicio, false);
 
