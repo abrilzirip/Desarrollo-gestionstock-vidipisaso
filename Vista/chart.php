@@ -44,8 +44,8 @@
     </div> -->
     <div class="chartCard">
       <div class="chartBox">
-        <input type="date" onchange='startDateFilter(this)' value='2023-09-01' min='2023-09-01' max='2023-09-30'>
-        <input type="date" onchange='endDateFilter(this)' value='2023-09-30' min='01-09-2023' max='30-09-2023'>
+        <input type="date" onchange='startDateFilter(this)' value='2023-09-01'>
+        <input type="date" onchange='endDateFilter(this)' value='2023-09-30'>
         <canvas id="myChart"></canvas>
       </div>
     </div>
@@ -112,8 +112,8 @@
         autoSkip: false,
         scales: {
           x: {
-            min:'2023-09-01',
-            max:'2023-09-30',
+            // min:'2023-09-01',
+            // max:'2023-09-30',
             type: 'time',
             time: {
               unit: 'day'
