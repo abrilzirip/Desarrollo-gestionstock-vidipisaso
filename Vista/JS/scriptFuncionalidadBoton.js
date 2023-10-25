@@ -21,17 +21,11 @@ function Formulario(evento) {
     if (ValidarEditarFormulario()) {
         mostrarModal();
         setTimeout(enviarFormulario, 1000);
-        setTimeout(ActualizarPagina, 3000);
-
     }
 }
 
 function enviarFormulario() {
     document.getElementById("frmModificarCliente").submit();
-}
-
-function ActualizarPagina() {
-    window.location.href = "VendedorListaCliente.php";
 }
 
 function mostrarDetalle(evento) {

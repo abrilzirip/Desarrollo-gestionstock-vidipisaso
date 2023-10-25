@@ -19,8 +19,9 @@
     <!--JavaScript-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./JS/scriptBuscarCliente.js"></script>
-    <script src="./JS/scriptFuncionalidadBoton.js.js"></script>
+    <script src="./JS/scriptFuncionalidadBoton.js"></script>
     <title>StVent-Iniciar Sesion</title>
 </head>
 
@@ -101,13 +102,13 @@
                                 <thead>
                                     <tr>
                                         <th class="" scope="col">#</th>
-                                        <th class="" scope="col">ID Cliente</th>
-                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">ID Vendedor</th>
-                                        <th class="" scope="col">Nombre</th>
-                                        <th class="ocultar-en-pantalla-xs" scope="col">Apellido</th>
-                                        <th class="d-none" scope="col">Apodo</th>
-                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">Fecha de Alta</th>
-                                        <th class="d-none" scope="col">Fecha de Baja</th>
+                                        <th class="text-center" scope="col">ID Cliente</th>
+                                        <th class="text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">ID Vendedor</th>
+                                        <th class="text-center" scope="col">Nombre</th>
+                                        <th class="text-center ocultar-en-pantalla-xs" scope="col">Apellido</th>
+                                        <th class="text-center d-none" scope="col">Apodo</th>
+                                        <th class="text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">Fecha de Alta</th>
+                                        <th class="text-center d-none" scope="col">Fecha de Baja</th>
                                         <th class="text-center" scope="col">Acciones</th>
                                     </tr>
                                 </thead>
