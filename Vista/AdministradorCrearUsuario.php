@@ -1,4 +1,49 @@
-<?php include 'conetDataBase.php'; ?>
+<?php
+include '../Controlador/db.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user = 2;
+    $idturno = 1;
+    $idperfil = 1;
+    $Nombre = $_POST['nombre'];
+    $pass = $_POST['password'];
+    $mail = $_POST['email'];
+    date_default_timezone_set('America/Argentina/Buenos_Aires');
+    $pFechaalta = date('Y-m-d H:i:s');
+    $fecha_baja = date('Y-m-d H:i:s');
+
+    if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
+        $consultaInsert = "INSERT INTO `usuario` (`ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_PERFIL`, `NOMBRE`, `PASSWORD`, `F_BAJA`, `F_ALTA`, `MAIL`) 
+                          VALUES (:user, :idturno, :idperfil, :Nombre, :pass, :fecha_baja, :pFechaalta, :mail)";
+
+        try {
+            $consulta = $conn->prepare($consultaInsert);
+            $consulta->bindParam(':user', $user);
+            $consulta->bindParam(':idturno', $idturno);
+            $consulta->bindParam(':idperfil', $idperfil);
+            $consulta->bindParam(':Nombre', $Nombre);
+            $consulta->bindParam(':pass', $pass);
+            $consulta->bindParam(':fecha_baja', $fecha_baja);
+            $consulta->bindParam(':pFechaalta', $pFechaalta);
+            $consulta->bindParam(':mail', $mail);
+
+            $consulta->execute();
+            $conn->beginTransaction();
+            $conn->commit();
+            echo "Inserción exitosa";
+
+            exit;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    } else {
+        echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
+    }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -115,13 +160,37 @@
                     <tr>
                     <th></th>
                     <th>Id_Usuario</th>
-                    <th>Nombre</th>
+                    <th>ID_TURNO</th>
+                    <th>ID_PERFIL</th>
+                    <th>NombreUsuario</th>
                     <th>Password</th>
+                    <th>F_ALTA</th>
+                    <th>F_BAJA</th>
                     <th>Email</th>
-                    <th></th>
+                    <th>#</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                            $nroFila = 1;
+                            $consultaSelect = $conn->query
+                            ("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_PERFIL`, `NOMBRE`, `PASSWORD`, `F_BAJA`, `F_ALTA`, `MAIL` FROM `usuario` ");
+                            while ($row = $consultaSelect->fetch()) {
+                                echo "<tr>";
+                                echo "<td class='text-center'>" . $nroFila . "</td>";
+                                echo "<td class='text-center'>" . $row['ID_USUARIO_REGISTRADO'] . "</td>";
+                                echo "<td class='text-center'>" . $row['ID_TURNO'] . "</td>";
+                                echo "<td class='text-center'>" . $row['ID_PERFIL'] . "</td>";
+                                echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
+                                echo "<td class='text-center'>" . $row['PASSWORD'] . "</td>";
+                                echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
+                                echo "<td class='text-center'>" . $row['F_ALTA'] . "</td>";
+                                echo "<td class='text-center'>" . $row['MAIL'] . "</td>";
+                                echo "<td class='text-center'><div class='btn-group' role='group' aria-label='Grupo botones'></button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'><i class='bi bi-pencil'></i></button><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'><i class='bi bi-trash'></i></button></div></td>";
+                                echo "</tr>";
+                                $nroFila++;
+                            }
+                            ?>
 
 
 
@@ -182,9 +251,7 @@
   
         <!-- Modal body -->
         <div class="modal-body bg-dark text-white">
-            <form action="/action_page.php" id="formProducto" required>
-                <label for="id">ID</label><br>
-                <input class="form-control" type="text" id="id" name="id" required><br>
+            <form action="/AdministradorCrearUsuario.php" id="formProducto" required>
 
                 <label for="nombre">Nombre</label><br>
                 <input class="form-control" type="text" id="nombre" name="nombre" required><br>
@@ -231,3 +298,5 @@
 
 
 </html>
+
+<?php $conn = null; ?>
