@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/mystyle.css">
+    <link rel="stylesheet" href="CSS/mystyle.css">
     <link rel="icon" href="/Icon.ico">
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
@@ -145,10 +145,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
         </nav>
       </div>
-    <div class="card" id="cardProductos">
+    <div  id="cardProductos">
     <div class="card-header py-2">
     <h1 class="text-center mt-3">Crear Usuario</h1>
-    <div class="card-body">
+    <div >
 
 
 
@@ -158,14 +158,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    
                     <thead>    
                     <tr>
-                    <th></th>
+                    <th>Fila</th>
                     <th>Id_Usuario</th>
                     <th>ID_TURNO</th>
                     <th>ID_PERFIL</th>
                     <th>NombreUsuario</th>
                     <th>Password</th>
-                    <th>F_ALTA</th>
                     <th>F_BAJA</th>
+                    <th>F_ALTA</th>
                     <th>Email</th>
                     <th>#</th>
                     </tr>
