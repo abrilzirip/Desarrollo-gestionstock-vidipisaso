@@ -251,7 +251,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
         <!-- Modal body -->
         <div class="modal-body bg-dark text-white">
-            <form action="/AdministradorCrearUsuario.php" id="formProducto" required>
+            <form action="/Desarrollo-gestionstock-vidipisaso2/Vista/AdministradorCrearUsuario.php" id="formProducto" required>
 
                 <label for="nombre">Nombre</label><br>
                 <input class="form-control" type="text" id="nombre" name="nombre" required><br>
