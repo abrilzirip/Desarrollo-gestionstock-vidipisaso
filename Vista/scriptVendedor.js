@@ -44,7 +44,7 @@ function buscarCliente() {
     }
     else {
         //comienza a buscar luego de las 2 coincidencias
-        if (inputTexto.length>2) {
+        if (inputTexto.length>1) {
             //
             listaCliente.classList.remove("d-none");
             //const palabraFiltrada = keyword.filter(keyword => keyword.toLowerCase().includes(inputTexto));
@@ -60,7 +60,7 @@ function buscarCliente() {
     }
 }
 
-function mostrarListadoCliente(palabraFiltrada,objetoProductoSeleccionado) {
+function mostrarListadoCliente(palabraFiltrada) {
 
     const autocompletadoInput = document.getElementById("autocompletadoBuscarCliente");
 
@@ -77,8 +77,7 @@ function mostrarListadoCliente(palabraFiltrada,objetoProductoSeleccionado) {
 
         palabraFiltrada.forEach(listado => {
             const li = document.createElement('li');
-            li.textContent = listado+" "+objetoProductoSeleccionado.MARCA+" "+
-            objetoProductoSeleccionado.PROD_PRECIO_VENTA+"$";
+            li.textContent = listado;
             li.addEventListener('click', () => {
                 autocompletadoInput.value = listado;
                 listaCliente.innerHTML = '';
@@ -136,7 +135,7 @@ function agregarProductoTabla(){
 
             let filaCantidadInput=document.getElementById("idfilaCantidadinput").value;
            
-
+            //inserta al principio de la tabla
             tablaVenta.insertRow(0).innerHTML =` <tr>
             <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md" scope="row">${cantidadDeFilas}</td>
             <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">${marca}</td>
@@ -205,7 +204,25 @@ function agregarProductoTabla(){
     document.getElementById("idtotal").innerHTML=subTotal+" $";
    
 }
-
+//crear funcion para guarda en base
+function GuardarDatosVenta() {
+    let data = {
+        name: 'Sammy'
+      }
+      
+      let fetchData = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8'
+        })
+      }
+      
+      fetch(url, fetchData)
+        .then(function() {
+          // Handle response you get from the API
+        });
+}
 
 function TraerProductosdeDDBB(inputTexto){
     let datasalida="",resultado="";
@@ -235,7 +252,7 @@ function TraerProductosdeDDBB(inputTexto){
         const AuxPalabraFiltrada = datasalida.filter( datasalida => templista.push(datasalida.NOMBRE)
                                                      , resultado=datasalida                             );
         const palabraFiltrada = templista.filter(templista => templista.toLowerCase().includes(inputTexto));
-        
+        mostrarListadoCliente(palabraFiltrada); 
         console.log("---"+resultado[0].PROD_PRECIO_VENTA);
         //ProductoSeleccionado=resultado[0];
 
@@ -248,9 +265,6 @@ function TraerProductosdeDDBB(inputTexto){
                 
             
         });
-        
-        mostrarListadoCliente(palabraFiltrada,ProductoSeleccionado); 
-
         // for(var valor in objson){
         //   console.log(valor);  
         // }
