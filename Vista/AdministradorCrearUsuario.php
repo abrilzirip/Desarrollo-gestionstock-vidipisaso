@@ -2,44 +2,48 @@
 include '../Controlador/db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user = 2;
-    $idturno = 1;
-    $idperfil = 1;
-    $Nombre = $_POST['nombre'];
-    $pass = $_POST['password'];
-    $mail = $_POST['email'];
-    date_default_timezone_set('America/Argentina/Buenos_Aires');
-    $pFechaalta = date('Y-m-d H:i:s');
-    $fecha_baja = date('Y-m-d H:i:s');
+  $idturno = 1;
+  $idperfil = 1;
+  $Nombre = $_POST['nombre'];
+  $pass = $_POST['password'];
+  $mail = $_POST['email'];
+  date_default_timezone_set('America/Argentina/Buenos_Aires');
+  $pFechaalta = date('Y-m-d H:i:s');
+  $fecha_baja = date('Y-m-d H:i:s');
+  
+  
+  if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
+    $consultaInsert = "INSERT INTO `usuario` ( `ID_TURNO`, `ID_PERFIL`, `NOMBRE`, `PASSWORD`, `F_BAJA`, `F_ALTA`, `MAIL`) 
+                          VALUES ( :idturno, :idperfil, :Nombre, :pass, :fecha_baja, :pFechaalta, :mail)";
 
-    if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
-        $consultaInsert = "INSERT INTO `usuario` (`ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_PERFIL`, `NOMBRE`, `PASSWORD`, `F_BAJA`, `F_ALTA`, `MAIL`) 
-                          VALUES (:user, :idturno, :idperfil, :Nombre, :pass, :fecha_baja, :pFechaalta, :mail)";
+try {
+  $consulta = $conn->prepare($consultaInsert);
+  $consulta->bindParam(':idturno', $idturno);
+  $consulta->bindParam(':idperfil', $idperfil);
+  $consulta->bindParam(':Nombre', $Nombre);
+  $consulta->bindParam(':pass', $pass);
+  $consulta->bindParam(':fecha_baja', $fecha_baja);
+  $consulta->bindParam(':pFechaalta', $pFechaalta);
+  $consulta->bindParam(':mail', $mail);
+  
+  $consulta->execute();
+  $conn->beginTransaction();
+  $conn->commit();
+  echo "";
+  header('Location: ' . htmlspecialchars($_SERVER["PHP_SELF"])."?succes_ok=1", true, 303);
+ exit;
 
-        try {
-            $consulta = $conn->prepare($consultaInsert);
-            $consulta->bindParam(':user', $user);
-            $consulta->bindParam(':idturno', $idturno);
-            $consulta->bindParam(':idperfil', $idperfil);
-            $consulta->bindParam(':Nombre', $Nombre);
-            $consulta->bindParam(':pass', $pass);
-            $consulta->bindParam(':fecha_baja', $fecha_baja);
-            $consulta->bindParam(':pFechaalta', $pFechaalta);
-            $consulta->bindParam(':mail', $mail);
-
-            $consulta->execute();
-            $conn->beginTransaction();
-            $conn->commit();
-            echo "Inserción exitosa";
-
-            exit;
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    } else {
-        echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
-    }
+  
+  
+} catch (PDOException $e) {
+  echo "Error: " . $e->getMessage();
 }
+} else {
+  echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
+}
+}
+$consultaSelect = $conn->query
+("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_PERFIL`, `NOMBRE`, `PASSWORD`, `F_BAJA`, `F_ALTA`, `MAIL` FROM `usuario` order by ID_USUARIO_REGISTRADO desc");
 ?>
 
 
@@ -173,8 +177,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <tbody>
                     <?php
                             $nroFila = 1;
-                            $consultaSelect = $conn->query
-                            ("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_PERFIL`, `NOMBRE`, `PASSWORD`, `F_BAJA`, `F_ALTA`, `MAIL` FROM `usuario` ");
                             while ($row = $consultaSelect->fetch()) {
                                 echo "<tr>";
                                 echo "<td class='text-center'>" . $nroFila . "</td>";
@@ -251,7 +253,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
         <!-- Modal body -->
         <div class="modal-body bg-dark text-white">
-            <form action="/Desarrollo-gestionstock-vidipisaso2/Vista/AdministradorCrearUsuario.php" id="formProducto" required>
+            <form action="/Desarrollo-gestionstock-vidipisaso2/Vista/AdministradorCrearUsuario.php" id="formProducto" method="post">
 
                 <label for="nombre">Nombre</label><br>
                 <input class="form-control" type="text" id="nombre" name="nombre" required><br>
