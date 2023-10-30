@@ -13,28 +13,28 @@ h2{
     padding: 0;
     font-family: sans-serif;
   }
-  .chartMenu {
+  /* .chartMenu {
     width: 100vw;
     height: 40px;
     background: #1A1A1A;
     color: rgba(54, 162, 235, 1);
-  }
+  } */
   /* .chartMenu p {
     padding: 10px;
     font-size: 20px;
   } */
-  .chartCard {
+  /* .chartCard {
     width: 100vw;
     height: calc(100vh - 40px);
     background: linear-gradient(to right, #f2994a, #f2c94c);;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  .chartBox {
+  } */
+  /* .chartBox {
     width: 700px;
-    padding: 20px;
+    padding: 200px;
     border-radius: 20px;
     border: solid 3px rgba(54, 162, 235, 1);
     background: black;
-  }
+  } */
