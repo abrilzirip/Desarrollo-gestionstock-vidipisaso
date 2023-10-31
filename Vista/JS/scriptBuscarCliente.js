@@ -10,8 +10,6 @@ var xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
         keywordsCliente = JSON.parse(xhr.responseText);
-        // Ahora 'keywordsCliente' contiene los datos
-        console.log(keywordsCliente);
     }
 };
 

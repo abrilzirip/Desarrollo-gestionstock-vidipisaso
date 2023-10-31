@@ -117,6 +117,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario_registrado = 2;
+    $estado=1;
     $nombre = $_POST['frmNuevoClienteNombre'];
     $apellido = $_POST['frmNuevoClienteApellido'];
     $apodo = $_POST['frmNuevoClienteApodo'];
@@ -125,18 +126,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha_baja = null;
 
     if (!empty($nombre) && !empty($apellido)) {
-        $consultaInsert = "INSERT INTO `cliente`(`ID_USUARIO_REGISTRADO`, `nombre`, `apellido`, `apodo`, `FECHA_ALTA`, `FECHA_BAJA`) 
-        VALUES (:ID_USUARIO_REGISTRADO,:nombre, :apellido, :apodo,:FECHA_ALTA,:FECHA_BAJA)";
+        $consultaInsert = "INSERT INTO `cliente`(`ID_usuario_registrado`, `Nombre`, `Apellido`, `Apodo`, `Fecha_alta`, `Fecha_baja`, `Estado`) 
+        VALUES (:ID_usuario_registrado,:Nombre, :Apellido, :Apodo,:Fecha_alta,:Fecha_baja,:Estado)";
 
         try {
             $consulta = $conn->prepare($consultaInsert);
-            $consulta->bindParam(':ID_USUARIO_REGISTRADO', $usuario_registrado);
-            $consulta->bindParam(':nombre', $nombre);
-            $consulta->bindParam(':apellido', $apellido);
+            $consulta->bindParam(':ID_usuario_registrado', $usuario_registrado);
+            $consulta->bindParam(':Nombre', $nombre);
+            $consulta->bindParam(':Apellido', $apellido);
             // if (!empty($apodo)) {
-            $consulta->bindParam(':apodo', $apodo);
-            $consulta->bindParam(':FECHA_ALTA', $fecha_alta);
-            $consulta->bindParam(':FECHA_BAJA', $fecha_baja);
+            $consulta->bindParam(':Apodo', $apodo);
+            $consulta->bindParam(':Fecha_alta', $fecha_alta);
+            $consulta->bindParam(':Fecha_baja', $fecha_baja);
+            $consulta->bindParam(':Estado', $estado);
             // };
 
 
