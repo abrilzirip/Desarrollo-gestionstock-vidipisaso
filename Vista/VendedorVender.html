@@ -49,8 +49,8 @@
 
         <h2 class="text-center mt-3"></h2>
 
-        <div class="row col-md-11">
-            <div class="col-md-8 m-b-4">
+        <div class="d-inline-flex p-3">
+            <div class="w-75 ">
                     <div class="card bg-black text-light">
                         <div class="card-header text-light">
                             <h5>Vender a cliente n/a</h5>
@@ -141,9 +141,9 @@
                         </div>
                     </div>
             </div>
-            <div class="col-md-1 w-25 -p10" id="iddisplay-Calculadora">
+            <div class="w-25" id="iddisplay-Calculadora">
 
-                <div class="card bg-black text-light">
+                <div class="card bg-black text-light p-3">
                     <div class="card-header text-light">
                     </div>
                     <div class="card-body">
@@ -159,7 +159,7 @@
 
                 <div id="idbotones-pantalla-venta">
                     <div>
-                    <button class="btn btn-danger py-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Vender</button>
+                    <button class="btn btn-danger py-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Aceptar</button>
                    <!-- <button class="btn btn-danger py-1">Borrar</button>- fin -->
                     <button class="btn btn-danger py-1">Cliente</button>                    
                     </div>
@@ -175,10 +175,11 @@
                             </div>
                             <div class="modal-body">
                                 ...
+                                <p id="idestadoDeVenta"></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" id="idvenderboton" class="btn btn-primary">Realizar Venta</button>
+                                <button type="submit" id="idvenderboton" class="btn btn-primary">Realizar Venta</button>
                             </div>
                         </div>
                     </div>

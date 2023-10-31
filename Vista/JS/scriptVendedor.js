@@ -113,7 +113,7 @@ function eliminarProductosTabla(){
 
 function venderProductos() {
     console.log("vendio productos");
-   
+    GuardarVenta();
 }
 
 
@@ -206,6 +206,18 @@ function agregarProductoTabla(){
    
 }
 
+function GuardarVenta() {
+    fetch('../Controlador/RealizarVenta.php', {
+        method: 'POST'
+    })
+  
+
+    .then((data)=>{
+         console.log(data);
+         document.getElementById("idestadoDeVenta").innerHTML="Venta Exitosa";
+        // }
+    });
+}
 
 function TraerProductosdeDDBB(inputTexto){
     let datasalida="",resultado="";
