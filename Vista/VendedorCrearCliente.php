@@ -1,4 +1,13 @@
 <?php include 'conetDataBase.php'; ?>
+
+<?php
+session_start();
+
+if (isset($_SESSION['usuario']) && $_SESSION['contraseña']) {
+    header('location:Login.php');
+    die();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -84,7 +93,7 @@
             </div>
         </div>
     </section>
-    
+
     <footer class="bg-black text-center text-lg-start mt-4 d-flex">
         <div class="text-center p-3 text-warning">
             © 2020 Copyright:
@@ -117,7 +126,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario_registrado = 2;
-    $estado=1;
+    $estado = 1;
     $nombre = $_POST['frmNuevoClienteNombre'];
     $apellido = $_POST['frmNuevoClienteApellido'];
     $apodo = $_POST['frmNuevoClienteApodo'];
