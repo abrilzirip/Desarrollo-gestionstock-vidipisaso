@@ -2,6 +2,22 @@
 
 require_once("./db.php");
 
+$producto=1;
+$cantidad=3;
+$precio=150;
+
+$search = $_POST['datostxt'];
+if(!empty($search)){
+    //escribo en la base
+    $cantidad=$search;
+    
+    echo "recibio";
+
+}else{
+    echo "error en al grabar Producto";
+
+}
+
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 $FECHA_ALTA = date('Y-m-d H:i:s');
 
@@ -9,7 +25,7 @@ $consultaInsert = "INSERT INTO `venta`(`ID_USUARIO_REGISTRADO`, `FECHA`, `ID_CLI
 VALUES (2,:FECHA_ALTA,1)";
 
 $consultaInsertDos="INSERT INTO `detalle_venta`(`ID_VENTA`, `ID_PRODUCTO`, `precio`, `cantidad`, `TOTAL`) 
-VALUES (:idUltimaVenta,1,150,1,150),(:idUltimaVenta,1,150,1,150)";
+VALUES (:idUltimaVenta,1,150,1,150),(:idUltimaVenta,:producto,:precio,:cantidad,:precio)";
 
         try {
             $consulta = $conn->prepare($consultaInsert);
@@ -25,6 +41,9 @@ VALUES (:idUltimaVenta,1,150,1,150),(:idUltimaVenta,1,150,1,150)";
             //realiza segundo insert 
             $consulta =$conn->prepare($consultaInsertDos);
             $consulta->bindParam(':idUltimaVenta', $idUltimaVenta);
+            $consulta->bindParam(':cantidad', $cantidad);
+            $consulta->bindParam(':producto', $producto);
+            $consulta->bindParam(':precio', $precio);
             $consulta->execute();
             $conn->beginTransaction();
             $conn->commit();

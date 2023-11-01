@@ -125,10 +125,7 @@
                                                 <td class="ocultar-en-pantalla-xs text-center"></td>
                                                 <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"></td>
                                                 <td class="col-3 text-center">
-                                                    <div class="input-group mb-2">
-                                                        <input type="number" class="form-control" min="1" placeholder="Abona" aria-label="Abono">
-                                                        <span class="input-group-text">$</span>
-                                                    </div>
+                                                  
                                                 </td>
                                             </tfoot>
                                         </tbody>
@@ -148,18 +145,26 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <h3  class="text-white"><b>Total:<p id="idtotal"></p></b></h3>
-                            <p> </p>
-                            <h3 class="text-white" id="idvuelto"><b>Vuelto:</b></h3>
-                        </div>   
-                    </div>
 
+                            <h3 class="text-white" id="idvuelto"><b>Sub Total:</b></h3>
+                            <h3> <b><p class="text-white" id="idtotal">0 $</p></b></h3>
+                            <h3 class="text-white" ><b>Redondeo:</b></h3>
+                            <h3> <b><p class="text-white" id="idRedondeo">0 $</p></b></h3>
+                            <h3  class="text-white"><b>Total a Pagar:</h3>
+                            <h3> <b><p class="text-white" id="idtotalApagar">0 $</p></b></h3>  
+                        </div>  
+                         
+                    </div>
+                    <div class="input-group mb-2">
+                        <input type="number" class="form-control" min="1" placeholder="Abona" aria-label="Abono">
+                        <span class="input-group-text">$</span>
+                    </div>
                 </div>
                 <br>
 
                 <div id="idbotones-pantalla-venta">
                     <div>
-                    <button class="btn btn-danger py-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Aceptar</button>
+                    <button class="btn btn-danger py-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Confirmar</button>
                    <!-- <button class="btn btn-danger py-1">Borrar</button>- fin -->
                     <button class="btn btn-danger py-1">Cliente</button>                    
                     </div>
@@ -170,16 +175,24 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Venta</h5>
+                                <h3 class="modal-title" id="exampleModalLabel">Venta</h3>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                ...
-                                <p id="idestadoDeVenta"></p>
+                                <h3> Cantidad de Productos: </h3>
+                                <h3> Total a Pagar: </h3>
+                                <h3 id="idvuelto">Vuelto:  0 $  </h3>
+                                
+                                
+                                
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" id="idvenderboton" class="btn btn-primary">Realizar Venta</button>
+                                <p id="idestadoDeVenta"></p>
+                                <form id="idformularioProductos" >
+                                    <input class="d-none" type="text"name="datostxt" id="idinputdatosTxt" >
+                                    <button type="submit"  id="idvenderboton" class="btn btn-primary">Acertar</button>
+                                </form>
                             </div>
                         </div>
                     </div>
