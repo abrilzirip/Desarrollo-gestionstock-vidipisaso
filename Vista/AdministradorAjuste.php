@@ -25,12 +25,8 @@
       crossorigin="anonymous"
       defer
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-
-    <script src="JS/scriptAdministrador.js" defer></script>
-    <title>StVent-Administrador</title>
+    
+    <title>StVent-Crear Ajuste</title>
   </head>
 
   <body>
@@ -77,7 +73,7 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link text-warning mt-1 fs-6" href="AdministradorAjuste.php"
+                <a class="nav-link text-warning mt-1 fs-6" href="#"
                   >Crear Ajuste</a
                 >
               </li>
@@ -119,165 +115,123 @@
       </nav>
     </div>
     <div>
-      <h1 class="text-center mt-3">Bienvenido - Reportes</h1>
-      <div class="container estadisticas text-center mt-5">
-        <div class="row">
-          <h2>Productos más Vendidos en el mes</h2>
-          <div class="row">
-            <div class="col-md-6 mx-auto">
-            
-            <div class="chartCard">
-              <div class="chartBox">
-                <input type="date" onchange='startDateFilter(this)' value='2023-09-01'>
-                <input type="date" onchange='endDateFilter(this)' value='2023-09-30'>
-                <canvas id="myChart"></canvas>
-              </div>
-            </div>
+      <h1 class="text-center mt-3">Crear ajuste</h1>
+    
 
-            </div>
-          </div>
-        </div>
+
+
+    <table class="table table-dark">
+    <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Marca</th>
+                                <th>Categoria</th>
+                                <th>SubCategoria</th>
+                                <th>Precio</th>
+                                <th>Ajuste(%)</th>
+                                <th>Precio ajustado</th>
+                                <th>Opciones</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tbody>
+
+    </table>
+
+    <!-- <button type="button" class="btn btn-danger">Buscar Ajuste</button> -->
+    
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Buscar Ajuste
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Busqueda de ajuste</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambio</button>
       </div>
     </div>
+  </div>
+</div>
 
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Crear Ajuste (Nombre)
+</button>
 
-      <div class="container estadisticas text-center mt-5">
-        <div class="row">
-          <h2>Productos más Vendidos en el mes</h2>
-          <div class="row">
-            <div class="col-md-6 mx-auto">
-              <canvas id="graficoProductosMasVendidos"></canvas>
-            </div>
-          </div>
-        </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Busqueda de ajuste</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambio</button>
       </div>
     </div>
+  </div>
+</div>
 
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Crear Ajuste (Subcatgoria)
+</button>
 
-    <div>
-      <div class="container estadisticas text-center mt-5">
-        <div class="row mt-3">
-          <h2>Vendedores Destacados</h2>
-          <div class="row">
-            <div class="col-md-6  mx-auto">
-              <canvas id="graficoVendedoresMasVendieron"></canvas>
-            </div>
-          </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Busqueda de ajuste</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        aaa
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambio</button>
       </div>
     </div>
-
-    <?php
-      try {
-        $sql = "SELECT * FROM dbtest2.telsa";
-        $result = $conn->query($sql);
-
-        if($result->rowCount() > 0) {
-          while($row = $result->fetch()) {
-            $dateArray[] = $row["date"];
-            $priceArray[] = $row["price"];
-          }
-
-          unset($result);
-        } else {
-            echo 'No hay resultado en DB';
-        }
-      } catch(PDOException $e) {
-        die('Error');
-      }
-
-      unset($conn);
-      // print_r($dateArray)
-    ?>
+  </div>
+</div>
 
 
 
+   <!-- Pie de Indicadores -->
 
-<script>
-    const dateArrayJS = <?php echo json_encode($dateArray); ?>;
-    //console.log(dateArrayJS);
-
-    const dateChartJs = dateArrayJS.map((dia, index) => {
-      let diaJS = new Date(dia);
-      // console.log(diaJS);
-      return diaJS.setHours(0, 0, 0, 0);
-    });
-
-    // setup 
-    const data = {
-      labels: dateChartJs,
-      datasets: [{
-        label: 'Ventas Diarias',
-        data: <?php echo json_encode($priceArray); ?>,
-        backgroundColor: [
-          'rgba(75, 192, 192)'
-        ],
-        borderColor: [
-          'rgba(75, 192, 192)'
-        ],
-        borderWidth: 1
-      }]
-    };
-
-    // config 
-    const config = {
-      type: 'bar',
-      data,
-      options: {
-        autoSkip: false,
-        scales: {
-          x: {
-            // min:'2023-09-01',
-            // max:'2023-09-30',
-            type: 'time',
-            time: {
-              unit: 'day'
-            }
-          },
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    };
-
-    // render init block
-    const myChart = new Chart(
-      document.getElementById('myChart'),
-      config
-    );
-
-    // // Instantly assign Chart.js version
-    // const chartVersion = document.getElementById('chartVersion');
-    // chartVersion.innerText = Chart.version;
-
-
-
-    function startDateFilter(date) {
-      const startDate = new Date(date.value);
-      console.log(startDate.setHours(0, 0, 0, 0));
-      // console.log('hgola');
-      myChart.config.options.scales.x.min = startDate.setHours(0, 0, 0, 0);
-      myChart.update();
-    }
-
-    function endDateFilter(date) {
-      const endDate = new Date(date.value);
-      console.log(endDate.setHours(0, 0, 0, 0));
-      // console.log('hgola');
-      myChart.config.options.scales.x.max = endDate.setHours(0, 0, 0, 0);
-      myChart.update();
-    }
-    </script>
-
-
-
-
-
-
-
-
-
-    <!-- Pie de Indicadores -->
     <br>
         <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
             <div class="btn-group btn-group-toggle" >

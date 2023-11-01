@@ -2,3 +2,10 @@ body{
     background: linear-gradient(to right, #f2994a, #f2c94c);
 }
 
+/* .table-black {
+    background-color: black;
+} */
+
+.table-dark {
+    --bs-table-bg: black;
+}
