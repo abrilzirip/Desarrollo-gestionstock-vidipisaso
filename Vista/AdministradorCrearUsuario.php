@@ -188,7 +188,8 @@ $consultaSelect = $conn->query
                                 echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['F_ALTA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['MAIL'] . "</td>";
-                                echo "<td class='text-center'><div class='table__item__link' role='group' aria-label='Grupo botones'>
+                                echo "<td class='text-center'>
+                                <div class='table__item__link' role='group' aria-label='Grupo botones'>
                                 </button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'>
                                 <i class='bi bi-pencil'></i></button><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'><i class='bi bi-trash'></i></button></div></td>";
                                 echo "</tr>";
