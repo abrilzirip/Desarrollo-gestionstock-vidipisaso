@@ -50,11 +50,11 @@
           <div class="cista/Administrador.htmlollapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a
+              <a
                   class="nav-link active text-warning mt-1 fs-6"
                   aria-current="page"
-                  href="#"
-                  >Inicioo</a
+                  href="administrador.php"
+                  >Inicio</a
                 >
               </li>
               <li class="nav-item">
