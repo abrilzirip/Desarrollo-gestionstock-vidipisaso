@@ -110,24 +110,31 @@
                                         <th class="text-center d-none" scope="col">Apodo</th>
                                         <th class="text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">Fecha de Alta</th>
                                         <th class="text-center d-none" scope="col">Fecha de Baja</th>
+                                        <th class="text-center" scope="col">Estado</th>
                                         <th class="text-center" scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $nroFila = 1;
-                                    $consultaSelect = $conn->query("SELECT `ID_CLIENTE`, `ID_USUARIO_REGISTRADO`, `NOMBRE`, `APELLIDO`, `APODO`, `FECHA_ALTA`, `FECHA_BAJA` FROM `cliente`");
+                                    $consultaSelect = $conn->query("SELECT `ID_cliente`, `ID_usuario_registrado`, `Nombre`, `Apellido`, `Apodo`, `Fecha_alta`, `Fecha_baja`, `Estado` FROM `cliente`");
                                     while ($row = $consultaSelect->fetch()) {
+                                        if ($row['Estado'] == 1) {
+                                            $estado = 'Habilitado';
+                                        } elseif ($row['Estado'] == 0) {
+                                            $estado = 'Inhabilitado';
+                                        }
                                         echo "<tr>";
                                         echo "<td class='text-center'>" . $nroFila . "</td>";
-                                        echo "<td class='text-center'>" . $row['ID_CLIENTE'] . "</td>";
-                                        echo "<td class='text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center'>" . $row['ID_USUARIO_REGISTRADO'] . "</td>";
-                                        echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
-                                        echo "<td class='text-center ocultar-en-pantalla-xs'>" . $row['APELLIDO'] . "</td>";
-                                        echo "<td class='text-center d-none'>" . $row['APODO'] . "</td>";
-                                        echo "<td class='text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md'>" . $row['FECHA_ALTA'] . "</td>";
-                                        echo "<td class='text-center d-none>" . $row['FECHA_BAJA'] . "</td>";
-                                        echo "<td class='text-center'><div class='btn-group' role='group' aria-label='Grupo botones'><button type='button' id='botonDetalleCliente' class='btn btn-success btn-sm' data-btn-grupo='mostrar-detalles-cliente'><i class='bi bi-eye'></i></button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'><i class='bi bi-pencil'></i></button><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'><i class='bi bi-trash'></i></button></div></td>";
+                                        echo "<td class='text-center'>" . $row['ID_cliente'] . "</td>";
+                                        echo "<td class='text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center'>" . $row['ID_usuario_registrado'] . "</td>";
+                                        echo "<td class='text-center'>" . $row['Nombre'] . "</td>";
+                                        echo "<td class='text-center ocultar-en-pantalla-xs'>" . $row['Apellido'] . "</td>";
+                                        echo "<td class='text-center d-none'>" . $row['Apodo'] . "</td>";
+                                        echo "<td class='text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md'>" . $row['Fecha_alta'] . "</td>";
+                                        echo "<td class='text-center d-none'>" . $row['Fecha_baja'] . "</td>";
+                                        echo "<td class='text-center'>" . $estado . "</td>";
+                                        echo "<td class='text-center'><div class='btn-group' role='group' aria-label='Grupo botones'><button type='button' id='botonDetalleCliente' class='btn btn-success btn-sm' data-btn-grupo='mostrar-detalles-cliente'><i class='bi bi-eye'></i></button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'><i class='bi bi-pencil'></i></div></td>";
                                         echo "</tr>";
                                         $nroFila++;
                                     }
@@ -244,24 +251,36 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteID">
-                                        <label for="frmEditarClienteID" class="form-label">ID Cliente</label>
+                                        <label for="frmEditarClienteID" class="form-label">ID Cliente:</label>
                                         <input type="number" class="form-control" id="frmEditarClienteID" name="frmEditarClienteID" readonly />
                                         <div class="invalid-feedback" id="errorEditarClienteID"></div>
                                     </div>
                                     <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteNombre">
-                                        <label for="frmEditarClienteNombre" class="form-label">Nombre</label>
+                                        <label for="frmEditarClienteNombre" class="form-label">Nombre:</label>
                                         <input type="text" class="form-control" id="frmEditarClienteNombre" name="frmEditarClienteNombre" />
                                         <div class="invalid-feedback" id="errorEditarClienteNombre"></div>
                                     </div>
                                     <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApellido">
-                                        <label for="frmEditarClienteApellido" class="form-label">Apellido</label>
+                                        <label for="frmEditarClienteApellido" class="form-label">Apellido:</label>
                                         <input type="text" class="form-control" id="frmEditarClienteApellido" name="frmEditarClienteApellido" />
                                         <div class="invalid-feedback" id="errorEditarClienteApellido"></div>
                                     </div>
                                     <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApodo">
-                                        <label for="frmEditarClienteApodo" class="form-label">Apodo</label>
+                                        <label for="frmEditarClienteApodo" class="form-label">Apodo:</label>
                                         <input type="text" class="form-control" id="frmEditarClienteApodo" name="frmEditarClienteApodo" />
                                         <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
+                                    </div>
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteEstado">
+                                        <label for="frmEditarClienteEstado" class="form-label">Estado Actual:</label>
+                                        <input type="text" class="form-control" id="frmEditarClienteEstado" readonly />
+                                        <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
+                                    </div>
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteEstadoSelect">
+                                        <label for="frmEditarClienteEstadoSelect" class="form-label">Cambiar estado:</label>
+                                        <select class="form-select" name="frmEditarClienteEstadoSelect" id="frmEditarClienteEstadoSelect" aria-label="Default select example">
+                                            <option value="1">Habilitar</option>
+                                            <option value="0">Inhabilitar</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

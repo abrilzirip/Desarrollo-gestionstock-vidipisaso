@@ -76,6 +76,7 @@ function EditarCliente(evento) {
     let clienteNombre = filaCliente.querySelector("td:nth-child(4)").textContent;
     let clienteApellido = filaCliente.querySelector("td:nth-child(5)").textContent;
     let clienteApodo = filaCliente.querySelector("td:nth-child(6)").textContent;
+    let clienteEstado = filaCliente.querySelector("td:nth-child(9)").textContent;
 
     console.log(clienteNombre);
 
@@ -85,12 +86,14 @@ function EditarCliente(evento) {
     let fomularioClientNombre = document.getElementById("frmEditarClienteNombre");
     let formularioClienteApellido = document.getElementById("frmEditarClienteApellido");
     let formularioClienteApodo = document.getElementById("frmEditarClienteApodo");
+    let formularioClienteEstado = document.getElementById("frmEditarClienteEstado");
 
     tituloDetalleCliente.innerHTML = "Informacion del cliente:" + clienteNombre;
     formularioClienteID.value = clienteID;
     fomularioClientNombre.value = clienteNombre;
     formularioClienteApellido.value = clienteApellido;
     formularioClienteApodo.value = clienteApodo;
+    formularioClienteEstado.value = clienteEstado;
 }
 
 function ValidarEditarFormulario() {
