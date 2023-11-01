@@ -1,3 +1,4 @@
+<?php require_once 'conetDataBase.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -24,9 +25,8 @@
       crossorigin="anonymous"
       defer
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-    <script src="JS/scriptAdministrador.js" defer></script>
-    <title>StVent-Iniciar Sesion</title>
+    
+    <title>StVent-Crear Ajuste</title>
   </head>
 
   <body>
@@ -54,7 +54,7 @@
                   class="nav-link active text-warning mt-1 fs-6"
                   aria-current="page"
                   href="#"
-                  >Inicio</a
+                  >Inicioo</a
                 >
               </li>
               <li class="nav-item">
@@ -115,30 +115,122 @@
       </nav>
     </div>
     <div>
-      <h1 class="text-center mt-3">Bienvenido - Reportes</h1>
-      <div class="container estadisticas text-center mt-5">
-        <div class="row">
-          <h2>Productos más Vendidos en el mes</h2>
-          <div class="row">
-            <div class="col-md-6 mx-auto">
-              <canvas id="graficoProductosMasVendidos"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <h1 class="text-center mt-3">Crear ajuste</h1>
+    
 
-    <div>
-      <div class="container estadisticas text-center mt-5">
-        <div class="row mt-3">
-          <h2>Vendedores Destacados</h2>
-          <div class="row">
-            <div class="col-md-6  mx-auto">
-              <canvas id="graficoVendedoresMasVendieron"></canvas>
-            </div>
-          </div>
+
+
+    <table class="table table-dark">
+    <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Marca</th>
+                                <th>Categoria</th>
+                                <th>SubCategoria</th>
+                                <th>Precio</th>
+                                <th>Ajuste(%)</th>
+                                <th>Precio ajustado</th>
+                                <th>Opciones</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tbody>
+
+    </table>
+
+    <!-- <button type="button" class="btn btn-danger">Buscar Ajuste</button> -->
+    
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Buscar Ajuste
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Busqueda de ajuste</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambio</button>
       </div>
     </div>
+  </div>
+</div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Crear Ajuste (Nombre)
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Busqueda de ajuste</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambio</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Crear Ajuste (Subcatgoria)
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Busqueda de ajuste</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        aaa
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambio</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+   <!-- Pie de Indicadores -->
 
     <br>
         <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
