@@ -191,37 +191,37 @@
                                 <div class="row">
                                     <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmClienteID">
                                         <label for="frmClienteID" class="form-label">ID Cliente</label>
-                                        <input type="number" class="form-control" id="frmClienteID" name="frmClienteID" disabled />
+                                        <input type="number" class="form-control" id="frmClienteID" disabled />
                                     </div>
                                     <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmClienteIDUsuarioRegistrado">
                                         <label for="frmClienteIDUsuarioRegistrado" class="form-label">ID Vendedor</label>
-                                        <input type="number" class="form-control" id="frmClienteIDUsuarioRegistrado" name="frmClienteIDUsuarioRegistrado" disabled />
+                                        <input type="number" class="form-control" id="frmClienteIDUsuarioRegistrado" disabled />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmClienteNombre">
                                         <label for="frmClienteNombre" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="frmClienteNombre" name="frmClienteNombre" disabled />
+                                        <input type="text" class="form-control" id="frmClienteNombre" disabled />
                                     </div>
                                     <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmClienteApellido">
                                         <label for="frmClienteApellido" class="form-label">Apellido</label>
-                                        <input type="text" class="form-control" id="frmClienteApellido" name="frmClienteApellido" disabled />
+                                        <input type="text" class="form-control" id="frmClienteApellido" disabled />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmClienteApodo">
                                         <label for="frmClienteApodo" class="form-label">Apodo</label>
-                                        <input type="text" class="form-control" id="frmClienteApodo" name="frmClienteApodo" disabled />
+                                        <input type="text" class="form-control" id="frmClienteApodo" disabled />
                                     </div>
                                     <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmClienteFechaAlta">
                                         <label for="frmClienteFechaAlta" class="form-label">Fecha de Alta</label>
-                                        <input type="datetime" class="form-control" id="frmClienteFechaAlta" name="frmClienteFechaAlta" disabled />
+                                        <input type="datetime" class="form-control" id="frmClienteFechaAlta" disabled />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-12 col-lg-12" id="divFrmClienteFechaBaja">
                                         <label for="frmClienteFechaBaja" class="form-label">Fecha de Baja</label>
-                                        <input type="datetime" class="form-control" id="frmClienteFechaBaja" name="frmClienteFechaBaja" disabled />
+                                        <input type="datetime" class="form-control" id="frmClienteFechaBaja" disabled />
                                     </div>
                                 </div>
                             </div>
