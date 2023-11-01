@@ -1,4 +1,4 @@
-<?php include 'conetDataBase.php'; ?>
+<?php include '../Controlador/db.php'; ?>
 
 <?php
 session_start();

@@ -1,4 +1,4 @@
-<?php include 'conetDataBase.php'; ?>
+<?php include 'db.php'; ?>
 
 <?php
 $keywordsCliente = [];

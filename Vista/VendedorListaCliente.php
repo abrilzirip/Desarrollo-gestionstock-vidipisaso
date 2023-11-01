@@ -1,5 +1,5 @@
-<?php include 'conetDataBase.php'; ?>
-<?php include 'UpdateListaClienteEditar.php'; ?>
+<?php include '../Controlador/db.php'; ?>
+<?php include '../Controlador/UpdateListaClienteEditar.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 

@@ -3,7 +3,8 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "";$db="stvent";
+$password = "";
+$db="stvent";
 
 try {
 	$conn = new PDO("mysql:host=$servername;dbname=".$db, $username, $password);
@@ -16,10 +17,6 @@ catch(PDOException $e)
 {
     echo "Connection failed: " . $e->getMessage();
 }
-
-
-
-
 
 function Escribir($query,$conn=null){
     if(!$conn )global $conn;
@@ -45,7 +42,5 @@ function getConnection()
     global $conn;
     return $conn;
 }
-
-
 
 ?>

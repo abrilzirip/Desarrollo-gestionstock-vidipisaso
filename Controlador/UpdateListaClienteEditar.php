@@ -1,4 +1,4 @@
-<?php include 'conetDataBase.php' ?>
+<?php include 'db.php' ?>
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") { // Verifica si la solicitud es de tipo POST
