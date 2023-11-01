@@ -1,5 +1,4 @@
-<?php include '../Controlador/db.php'; ?>
-
+<?php require_once 'conetDataBase.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
