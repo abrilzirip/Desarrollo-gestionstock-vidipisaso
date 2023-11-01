@@ -49,8 +49,8 @@
 
         <h2 class="text-center mt-3"></h2>
 
-        <div class="row col-md-11">
-            <div class="col-md-8 m-b-4">
+        <div class="d-inline-flex p-3">
+            <div class="w-75 ">
                     <div class="card bg-black text-light">
                         <div class="card-header text-light">
                             <h5>Vender a cliente n/a</h5>
@@ -63,7 +63,7 @@
                                     <button class="input-group-text btn btn-outline-danger" type="button"><i class="bi bi-search"></i></button>
                                 
 
-                                        <ul id="listaCliente" class="card position-absolute top-100 start-10">
+                                        <ul id="listaProductos" class="card position-absolute top-100 start-10">
                                         </ul>
                                          <div id="smsResultado" class="card position-absolute d-none text-danger">No se encontraron resultados</div> 
 
@@ -87,27 +87,34 @@
                                                     scope="col">Cantidad</th>
                                                 <th class="text-center" scope="col">Acciones</th>
                                             </tr>
-                                            <tr>
+                                            <tr id="idfilaProductoprincipal" class="d-none">
                                                 <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md" scope="row"></td>
-                                                <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"></td>
-                                                <td class="text-center"></td>
-                                                <td class="ocultar-en-pantalla-xs text-center"></td>
-                                                <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"></td>
+                                                <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col"></td>
+                                                <td class="text-center" scope="col"></td>
+                                                <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" 
+                                                id="idfilaPrecio" scope="col">
+                                                    <!-- si saco el td solucion el problema de reajuste
+                                                         de pagina pero no accedo a idfilaCantidadinput-->
+                                               
+                                                </td>
+                                                <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"
+                                                id="idfilaCantidad" scope="col">
+                                                    <input type="number" id="idfilaCantidadinput" class="form-control text-center" value="1"  min="1">
+                                                </td>
 
-                                                <td class="text-center">
+                                                <td  class="col-1 ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"scope="col">
                                                     <div class="btn-group" role="group" aria-label="Grupo botones">
-                                                       
-                                                        <button class="btn btn-primary btn-sm"
-                                                            data-btn-grupo="modificar-cliente"><i
-                                                               id="id_Agregar_producto_Tabla" class="bi bi-check-lg"></i></button>
-                                                        <button type="button" class="btn btn-danger btn-sm"
-                                                            data-btn-grupo="eliminar-cliente"><i
-                                                                class="bi bi-trash"></i></button>
+                                                        <button class="btn btn-primary btn-sm" data-btn-grupo="modificar-cliente">
+                                                            <i id="id_Agregar_producto_Tabla" class="bi bi-check-lg"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger btn-sm" data-btn-grupo="eliminar-cliente">
+                                                            <i id="id_Eliminar_producto_Tabla" class="bi bi-trash"></i>
+                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>
                                         </thead>
-                                        <tbody id="tablaCliente">
+                                        <tbody id="tablaProductos">
 
 
 
@@ -118,10 +125,7 @@
                                                 <td class="ocultar-en-pantalla-xs text-center"></td>
                                                 <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"></td>
                                                 <td class="col-3 text-center">
-                                                    <div class="input-group mb-2">
-                                                        <input type="number" class="form-control" min="1" placeholder="Abona" aria-label="Abono">
-                                                        <span class="input-group-text">$</span>
-                                                    </div>
+                                                  
                                                 </td>
                                             </tfoot>
                                         </tbody>
@@ -129,50 +133,69 @@
                                 </div>
                                 <!-- tabla: tabla usuarios - fin -->
                                 <!-- paginador - inicio -->
-                                <nav aria-label="Ejemplo paginador">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item">
-                                            <a class="page-link bg-dark text-light" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link bg-dark text-light" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link bg-dark text-light" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link bg-dark text-light" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link bg-dark text-light" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                
                             </div>   
                         </div>
                     </div>
             </div>
-            <div class="col-md-1 w-25 -p10" id="iddisplay-Calculadora">
+            <div class="w-25" id="iddisplay-Calculadora">
 
-                <div class="card bg-black text-light">
+                <div class="card bg-black text-light p-3">
                     <div class="card-header text-light">
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <h3  class="text-white"><b>Total:<p id="idtotal"></p></b></h3>
-                            <p> </p>
-                            <h3 class="text-white" id="idvuelto"><b>Vuelto:</b></h3>
-                        </div>   
-                    </div>
 
+                            <h3 class="text-white" id="idvuelto"><b>Sub Total:</b></h3>
+                            <h3> <b><p class="text-white" id="idtotal">0 $</p></b></h3>
+                            <h3 class="text-white" ><b>Redondeo:</b></h3>
+                            <h3> <b><p class="text-white" id="idRedondeo">0 $</p></b></h3>
+                            <h3  class="text-white"><b>Total a Pagar:</h3>
+                            <h3> <b><p class="text-white" id="idtotalApagar">0 $</p></b></h3>  
+                        </div>  
+                         
+                    </div>
+                    <div class="input-group mb-2">
+                        <input type="number" class="form-control" min="1" placeholder="Abona" aria-label="Abono">
+                        <span class="input-group-text">$</span>
+                    </div>
                 </div>
                 <br>
 
                 <div id="idbotones-pantalla-venta">
                     <div>
-                    <button class="btn btn-danger py-1">Vender</button>
-                    <button class="btn btn-danger py-1">Borrar</button>
+                    <button class="btn btn-danger py-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Confirmar</button>
+                   <!-- <button class="btn btn-danger py-1">Borrar</button>- fin -->
                     <button class="btn btn-danger py-1">Cliente</button>                    
                     </div>
         
+                </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="exampleModalLabel">Venta</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h3> Cantidad de Productos: </h3>
+                                <h3> Total a Pagar: </h3>
+                                <h3 id="idvuelto">Vuelto:  0 $  </h3>
+                                
+                                
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <p id="idestadoDeVenta"></p>
+                                <form id="idformularioProductos" >
+                                    <input class="d-none" type="text"name="datostxt" id="idinputdatosTxt" >
+                                    <button type="submit"  id="idvenderboton" class="btn btn-primary">Acertar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
