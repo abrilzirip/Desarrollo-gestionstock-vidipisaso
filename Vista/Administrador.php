@@ -1,4 +1,3 @@
-<?php require_once 'conetDataBase.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -26,11 +25,8 @@
       defer
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-
     <script src="JS/scriptAdministrador.js" defer></script>
-    <title>StVent-Administrador</title>
+    <title>StVent-Iniciar Sesion</title>
   </head>
 
   <body>
@@ -57,7 +53,7 @@
                 <a
                   class="nav-link active text-warning mt-1 fs-6"
                   aria-current="page"
-                  href="administrador.php"
+                  href="#"
                   >Inicio</a
                 >
               </li>
@@ -77,7 +73,7 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link text-warning mt-1 fs-6" href="AdministradorAjuste.php"
+                <a class="nav-link text-warning mt-1 fs-6" href="#"
                   >Crear Ajuste</a
                 >
               </li>
@@ -125,34 +121,12 @@
           <h2>Productos más Vendidos en el mes</h2>
           <div class="row">
             <div class="col-md-6 mx-auto">
-            
-            <div class="chartCard">
-              <div class="chartBox">
-                <input type="date" onchange='startDateFilter(this)' value='2023-09-01'>
-                <input type="date" onchange='endDateFilter(this)' value='2023-09-30'>
-                <canvas id="myChart"></canvas>
-              </div>
-            </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-      <div class="container estadisticas text-center mt-5">
-        <div class="row">
-          <h2>Productos más Vendidos en el mes</h2>
-          <div class="row">
-            <div class="col-md-6 mx-auto">
               <canvas id="graficoProductosMasVendidos"></canvas>
             </div>
           </div>
         </div>
       </div>
     </div>
-
 
     <div>
       <div class="container estadisticas text-center mt-5">
@@ -166,118 +140,6 @@
       </div>
     </div>
 
-    <?php
-      try {
-        $sql = "SELECT * FROM dbtest2.telsa";
-        $result = $conn->query($sql);
-
-        if($result->rowCount() > 0) {
-          while($row = $result->fetch()) {
-            $dateArray[] = $row["date"];
-            $priceArray[] = $row["price"];
-          }
-
-          unset($result);
-        } else {
-            echo 'No hay resultado en DB';
-        }
-      } catch(PDOException $e) {
-        die('Error');
-      }
-
-      unset($conn);
-      // print_r($dateArray)
-    ?>
-
-
-
-
-<script>
-    const dateArrayJS = <?php echo json_encode($dateArray); ?>;
-    //console.log(dateArrayJS);
-
-    const dateChartJs = dateArrayJS.map((dia, index) => {
-      let diaJS = new Date(dia);
-      // console.log(diaJS);
-      return diaJS.setHours(0, 0, 0, 0);
-    });
-
-    // setup 
-    const data = {
-      labels: dateChartJs,
-      datasets: [{
-        label: 'Ventas Diarias',
-        data: <?php echo json_encode($priceArray); ?>,
-        backgroundColor: [
-          'rgba(75, 192, 192)'
-        ],
-        borderColor: [
-          'rgba(75, 192, 192)'
-        ],
-        borderWidth: 1
-      }]
-    };
-
-    // config 
-    const config = {
-      type: 'bar',
-      data,
-      options: {
-        autoSkip: false,
-        scales: {
-          x: {
-            // min:'2023-09-01',
-            // max:'2023-09-30',
-            type: 'time',
-            time: {
-              unit: 'day'
-            }
-          },
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    };
-
-    // render init block
-    const myChart = new Chart(
-      document.getElementById('myChart'),
-      config
-    );
-
-    // // Instantly assign Chart.js version
-    // const chartVersion = document.getElementById('chartVersion');
-    // chartVersion.innerText = Chart.version;
-
-
-
-    function startDateFilter(date) {
-      const startDate = new Date(date.value);
-      console.log(startDate.setHours(0, 0, 0, 0));
-      // console.log('hgola');
-      myChart.config.options.scales.x.min = startDate.setHours(0, 0, 0, 0);
-      myChart.update();
-    }
-
-    function endDateFilter(date) {
-      const endDate = new Date(date.value);
-      console.log(endDate.setHours(0, 0, 0, 0));
-      // console.log('hgola');
-      myChart.config.options.scales.x.max = endDate.setHours(0, 0, 0, 0);
-      myChart.update();
-    }
-    </script>
-
-
-
-
-
-
-
-
-
-    <!-- Pie de Indicadores -->
     <br>
         <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
             <div class="btn-group btn-group-toggle" >

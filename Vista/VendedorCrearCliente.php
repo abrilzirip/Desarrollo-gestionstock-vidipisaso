@@ -1,4 +1,13 @@
 <?php include 'conetDataBase.php'; ?>
+
+<?php
+session_start();
+
+if (isset($_SESSION['usuario']) && $_SESSION['contraseña']) {
+    header('location:Login.php');
+    die();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -48,40 +57,35 @@
     <section class="container mt-4 w-75" id="s">
         <!-- formulario nuevo usuario - inicio -->
         <div class="row">
-            <div id="divMostrarOcultarFormularioNuevoUsuario" class="mx-auto my-1 col-12">
+            <div id="divMostrarOcultarFormularioNuevoUsuario" class="mx-auto my-1 col-12 bg-black py-3 px-2 rounded-1">
                 <form id="frmNuevoCliente" action="VendedorCrearCliente.php" method="POST">
-                    <div class="card bg-black text-light">
+                    <div class="card  bg-dark text-light">
                         <div class="card-header text-light">
                             <h5>Nuevo Cliente</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-4 col-lg-12">
                                     <label for="frmNuevoClienteNombre" class="form-label">Nombre</label>
                                     <input type="text" name="frmNuevoClienteNombre" class="form-control" id="frmNuevoClienteNombre" />
                                     <div class="invalid-feedback" id="errorNuevoClienteNombre"></div>
                                 </div>
-                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-4 col-lg-12">
                                     <label for="frmNuevoClienteApellido" class="form-label">Apellido</label>
                                     <input type="text" name="frmNuevoClienteApellido" class="form-control" id="frmNuevoClienteApellido" />
                                     <div class="invalid-feedback" id="errorNuevoClienteApellido"></div>
                                 </div>
-                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-4 col-lg-12">
                                     <label for="frmNuevoClienteApodo" class="form-label">Apodo</label>
                                     <input type="text" name="frmNuevoClienteApodo" class="form-control" id="frmNuevoClienteApodo" />
                                     <div class="invalid-feedback" id="errorNuevoClienteApodo"></div>
                                 </div>
-             
                             </div>
                         </div>
                         <div class="card-footer">
                             <div class="d-grid gap-2">
-                                <button id="btnCrearNuevoCliente" type="submit" class="btn btn-primary">
-                                    <i class="bi bi-plus-circle"></i>&nbsp;Crear cliente
-                                </button>
-                                <button type="button" id="btnCancelarNuevoCliente" class="btn btn-secondary">
-                                    <i class="bi bi-x-circle"></i>&nbsp;Cancelar
-                                </button>
+                                <button id="btnCrearNuevoCliente" type="submit" class="btn btn-primary"> <i class="bi bi-plus-circle"></i>&nbsp;Crear cliente</button>
+                                <button type="button" id="btnCancelarNuevoCliente" class="btn btn-secondary"><i class="bi bi-x-circle"></i>&nbsp;Cancelar</button>
                             </div>
                         </div>
                     </div>
@@ -89,19 +93,14 @@
             </div>
         </div>
     </section>
-    <!-- formulario: nuevo usuario - fin -->
-    <br>
-        <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
-            <div class="btn-group btn-group-toggle" >
-                <label class="btn btn-light" id="idlabelventaverde">
-                    
-                </label>
-                <label class="btn btn-dark" id="idlabelventarojo">
-                    
-                </label>
-            </div>
+
+    <footer class="bg-black text-center text-lg-start mt-4 d-flex">
+        <div class="text-center p-3 text-warning">
+            © 2020 Copyright:
+            <a class="text-warning" href="https://mdbootstrap.com/">MDBootstrap.com</a>
         </div>
-    <!-- modal mensajes - inicio -->
+    </footer>
+
     <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content bg-dark text-light">
@@ -126,7 +125,8 @@
 </html>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $usuario_registrado =2;
+    $usuario_registrado = 2;
+    $estado = 1;
     $nombre = $_POST['frmNuevoClienteNombre'];
     $apellido = $_POST['frmNuevoClienteApellido'];
     $apodo = $_POST['frmNuevoClienteApodo'];
@@ -134,30 +134,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha_alta = date('Y-m-d H:i:s');
     $fecha_baja = null;
 
-    if (!empty($nombre) && !empty($apellido) && !empty($apodo)) {
-        $consultaInsert = "INSERT INTO `cliente`(`ID_USUARIO_REGISTRADO`, `nombre`, `apellido`, `apodo`,
-         `FECHA_ALTA`, `FECHA_BAJA`) 
-        VALUES (:ID_USUARIO_REGISTRADO,:nombre, :apellido, :apodo,:FECHA_ALTA,:FECHA_BAJA)";
+    if (!empty($nombre) && !empty($apellido)) {
+        $consultaInsert = "INSERT INTO `cliente`(`ID_usuario_registrado`, `Nombre`, `Apellido`, `Apodo`, `Fecha_alta`, `Fecha_baja`, `Estado`) 
+        VALUES (:ID_usuario_registrado,:Nombre, :Apellido, :Apodo,:Fecha_alta,:Fecha_baja,:Estado)";
 
         try {
             $consulta = $conn->prepare($consultaInsert);
-            $consulta->bindParam(':ID_USUARIO_REGISTRADO', $usuario_registrado);
-            $consulta->bindParam(':nombre', $nombre);
-            $consulta->bindParam(':apellido', $apellido);
+            $consulta->bindParam(':ID_usuario_registrado', $usuario_registrado);
+            $consulta->bindParam(':Nombre', $nombre);
+            $consulta->bindParam(':Apellido', $apellido);
             // if (!empty($apodo)) {
-            $consulta->bindParam(':apodo', $apodo);
-            $consulta->bindParam(':FECHA_ALTA', $fecha_alta);
-            $consulta->bindParam(':FECHA_BAJA', $fecha_baja);
+            $consulta->bindParam(':Apodo', $apodo);
+            $consulta->bindParam(':Fecha_alta', $fecha_alta);
+            $consulta->bindParam(':Fecha_baja', $fecha_baja);
+            $consulta->bindParam(':Estado', $estado);
             // };
 
 
             $consulta->execute();
             $conn->beginTransaction();
             $conn->commit();
-            echo "<h6>Insercion exitosa</h6>";
-            //header("Location: VendedorCrearCliente.php?exito=true");
-            exit; 
-
+            // echo "<h6>Insercion exitosa</h6>";
+            // header("Location: VendedorCrearCliente.php?exito=true");
+            exit;
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
