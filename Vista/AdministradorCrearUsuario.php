@@ -188,7 +188,9 @@ $consultaSelect = $conn->query
                                 echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['F_ALTA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['MAIL'] . "</td>";
-                                echo "<td class='text-center'><div class='btn-group' role='group' aria-label='Grupo botones'></button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'><i class='bi bi-pencil'></i></button><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'><i class='bi bi-trash'></i></button></div></td>";
+                                echo "<td class='text-center'><div class='table__item__link' role='group' aria-label='Grupo botones'>
+                                </button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'>
+                                <i class='bi bi-pencil'></i></button><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'><i class='bi bi-trash'></i></button></div></td>";
                                 echo "</tr>";
                                 $nroFila++;
                             }
@@ -256,18 +258,18 @@ $consultaSelect = $conn->query
             <form action="/Desarrollo-gestionstock-vidipisaso2/Vista/AdministradorCrearUsuario.php" id="formProducto" method="post">
 
                 <label for="nombre">Nombre</label><br>
-                <input class="form-control" type="text" id="nombre" name="nombre" required><br>
+                <input class="form-control" type="text" id="nombre" name="nombre" ><br>
 
                 <label for="password">Password</label><br>
-                <input class="form-control" type="password"  id="password" name="password" required><br>
+                <input class="form-control" type="password"  id="password" name="password" ><br>
 
                 <label for="email">email</label><br>
-                <input class="form-control" type="email"  id="email" name="email" required><br>
+                <input class="form-control" type="email"  id="email" name="email" ><br>
 
                 
 
                 <!-- Submit btn -->
-                <input type="submit" class="btn btn-success" value="Agregar" id="btnAgregarProducto">
+                <input type="submit" class="btn btn-success" value="Agregar" id="btnAgregarUsuario">
               </form>
         </div>
   
