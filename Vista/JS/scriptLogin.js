@@ -1,6 +1,8 @@
 function inicio() {
     document.getElementById("formLogin").addEventListener("submit", formulario, false);
     document.getElementById("MostrarOcultarContraseña").addEventListener("click", MostrarOcultarContraseña, false);
+
+    document.getElementById("formEmail").addEventListener("submit", formularioEmail, false);
 }
 
 function formulario(evento) {
@@ -101,6 +103,62 @@ function MostrarOcultarContraseña() {
         boton.innerHTML = "";
         boton.innerHTML = "<i class='bi bi-eye'></i>";
     }
+}
+
+function formularioEmail(evento) {
+    evento.preventDefault();
+
+    if (validarFormEmail()) {
+        document.getElementById("formEmail").submit();
+    }
+}
+
+function validarFormEmail() {
+    //Validacion Email
+
+    let emailInput = document.getElementById("idUsuarioEmail");
+    let emailArray = emailInput.value.split(/ +/);
+    let email = emailInput.value;
+
+    emailInput.classList.remove("is-invalid");
+    emailInput.classList.remove("is-valid");
+
+    let smsErrorEmail = document.getElementById("errorUsuarioEmail");
+    let expresionRegularEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (email.trim() === "") {
+        emailInput.classList.add("is-invalid");
+        smsErrorEmail.innerHTML = "El campo Email se encuentra vacio";
+        return false;
+    }
+    if (!expresionRegularEmail.test(email)) {
+        emailInput.classList.add("is-invalid");
+        smsErrorEmail.innerHTML = "El campo Email es invalido"
+        return false;
+    } else {
+        emailInput.classList.add("is-valid");
+    }
+
+    if (emailArray.length > 1) {
+        emailInput.classList.add("is-invalid");
+        smsErrorEmail.innerHTML = "El campo Email solo acepta una palabra";
+        return false;
+    } else {
+        emailInput.classList.add("is-valid");
+    }
+
+    for (palabra of emailArray) {
+        if (palabra.length > 30) {
+            emailInput.classList.add("is-invalid");
+            smsErrorEmail.innerHTML = "El campo Apodo solo acepta como maximo 30 caracteres";
+            return false;
+        } else {
+            emailInput.classList.add("is-valid");
+        }
+    }
+    return true;
+
+    //Validacion Email Fin
 }
 
 window.addEventListener("load", inicio, false);

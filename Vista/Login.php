@@ -3,7 +3,6 @@
 <?php
 session_start();
 
-//si ya estoy login
 if (isset($_SESSION['usuario']) && isset($_SESSION['contraseña'])) {
     header('location:VendedorListaCliente.php');
     die();
@@ -85,31 +84,30 @@ if (isset($_POST["usuario"]) && isset($_POST["contraseña"])) {
                                 <button type="button" class="btn btn-secondary mt-2 w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-exclamation-square pe-1"></i>Olvide mi contraseña</button>
                             </div>
                         </div>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form id="formRecuperarContraseña">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Recupera tu cuenta</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" ria-label="Close"></button>
-                                        </div>
-
-                                        <div class="modal-body">
-                                            <div class="mb-3">
-                                                <label for="exampleInputEmail1" class="form-label">Introduce tu correo electrónico:</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo Electronico" autocomplete="off">
-                                                <div id="emailHelp" class="form-text mt-2">Nunca compartiremos su correo electrónico con nadie más</div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                            <button type="submit" class="btn btn-primary">Enviar</button>
-                                        </div>
-                                    </form>
+                    </form>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Recupera tu cuenta</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" ria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <form id="formEmail" method="post">
+                                            <label for="idUsuarioEmail" class="form-label">Introduce tu correo electrónico:</label>
+                                            <input type="email" class="form-control" id="idUsuarioEmail" aria-describedby="emailHelp" placeholder="Correo Electronico" autocomplete="off">
+                                            <div class="invalid-feedback" id="errorUsuarioEmail"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary" form="formEmail">Enviar</button>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
             <div id="idalerta"></div>
