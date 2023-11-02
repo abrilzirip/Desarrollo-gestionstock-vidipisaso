@@ -1,5 +1,6 @@
 function inicio() {
     document.getElementById("formLogin").addEventListener("submit", formulario, false);
+    document.getElementById("MostrarOcultarContraseña").addEventListener("click", MostrarOcultarContraseña, false);
 }
 
 function formulario(evento) {
@@ -81,6 +82,25 @@ function validacionForm() {
     // Validacion Contraseña Fin
 
     return true;
+}
+
+function MostrarOcultarContraseña() {
+
+    let inputContraseña = document.getElementById("idUsuarioPassword");
+
+    let boton = document.getElementById("MostrarOcultarContraseña");
+
+    if (boton.hasAttribute("boton")) {
+        inputContraseña.type = "text";
+        boton.removeAttribute("boton");
+        boton.innerHTML = "";
+        boton.innerHTML = "<i class='bi bi-eye-slash'></i>";
+    } else {
+        inputContraseña.type = "password";
+        boton.setAttribute("boton", "MostrarOcultar")
+        boton.innerHTML = "";
+        boton.innerHTML = "<i class='bi bi-eye'></i>";
+    }
 }
 
 window.addEventListener("load", inicio, false);

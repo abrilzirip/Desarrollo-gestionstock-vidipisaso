@@ -14,19 +14,23 @@ if (isset($_POST["usuario"]) && isset($_POST["contraseña"])) {
     $nombre = $_POST['usuario'];
     $contraseña = $_POST['contraseña'];
 
+    echo '' . $nombre . '' . $contraseña . '';
+
     $consultaSelect = "SELECT `NOMBRE`, `PASSWORD` FROM `usuario` WHERE `NOMBRE` = :nombre";
     $consulta = $conn->prepare($consultaSelect);
     $consulta->bindParam(':nombre', $nombre);
     $consulta->execute();
     $usuarioDb = $consulta->fetch(\PDO::FETCH_ASSOC);
 
-    if ($usuarioDb && password_verify($contraseña, $usuarioDb['PASSWORD'])) {
-        // LOGIN OK
-        $_SESSION['usuario'] = $usuarioDb['NOMBRE'];
-        $_SESSION['contraseña'] = $usuarioDb['PASSWORD'];
-        $_SESSION['flash_success'] = 'Logueado correctamente';
-        header('Location: VendedorListaCliente.php');
-        exit;
+    if ($usuarioDb) {
+        if (password_verify($contraseña, $usuarioDb['PASSWORD'])) {
+            // LOGIN OK
+            $_SESSION['usuario'] = $usuarioDb['NOMBRE'];
+            $_SESSION['contraseña'] = $usuarioDb['PASSWORD'];
+            $_SESSION['flash_success'] = 'Logueado correctamente';
+            header('Location: VendedorListaCliente.php');
+            exit;
+        }
     }
 }
 ?>
@@ -72,7 +76,7 @@ if (isset($_POST["usuario"]) && isset($_POST["contraseña"])) {
                                 </div>
                                 <label for="idUsuarioPassword" class="mt-2 form-label">Contraseña</label>
                                 <div class="input-group">
-                                    <input type="password" name="contraseña" id="idUsuarioPassword" class="form-control" placeholder="***********"><span class="input-group-text"><i class="bi bi-eye-slash"></i></span>
+                                    <input type="password" name="contraseña" id="idUsuarioPassword" class="form-control" placeholder="***********"><button type="button" id="MostrarOcultarContraseña" class="input-group-text" boton="MostrarOcultar"><i class="bi bi-eye-slash"></i></button>
                                     <div class="invalid-feedback" id="errorUsuarioPassword"></div>
                                 </div>
                             </div>
