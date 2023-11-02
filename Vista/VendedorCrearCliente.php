@@ -7,6 +7,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['contraseña']) {
     header('location:Login.php');
     die();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
