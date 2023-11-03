@@ -1,38 +1,5 @@
-<?php include '../Controlador/dbTwp.php'; ?>
-
-<?php
-session_start();
-
-if (isset($_SESSION['usuario']) && isset($_SESSION['contraseña'])) {
-    header('location:VendedorListaCliente.php');
-    die();
-}
-
-if (isset($_POST["usuario"]) && isset($_POST["contraseña"])) {
-
-    $nombre = $_POST['usuario'];
-    $contraseña = $_POST['contraseña'];
-
-    echo '' . $nombre . '' . $contraseña . '';
-
-    $consultaSelect = "SELECT `NOMBRE`, `PASSWORD` FROM `usuario` WHERE `NOMBRE` = :nombre";
-    $consulta = $conn->prepare($consultaSelect);
-    $consulta->bindParam(':nombre', $nombre);
-    $consulta->execute();
-    $usuarioDb = $consulta->fetch(\PDO::FETCH_ASSOC);
-
-    if ($usuarioDb) {
-        if (password_verify($contraseña, $usuarioDb['PASSWORD'])) {
-            // LOGIN OK
-            $_SESSION['usuario'] = $usuarioDb['NOMBRE'];
-            $_SESSION['contraseña'] = $usuarioDb['PASSWORD'];
-            $_SESSION['flash_success'] = 'Logueado correctamente';
-            header('Location: VendedorListaCliente.php');
-            exit;
-        }
-    }
-}
-?>
+<?php include '../Controlador/dbTwo.php'; ?>
+<?php include '../Controlador/Login.php'; ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -61,7 +28,7 @@ if (isset($_POST["usuario"]) && isset($_POST["contraseña"])) {
                     </div>
                 </div>
                 <div class="col-5 mt-3">
-                    <form action="Login.php" id="formLogin" class="border rounded shadow-lg" method="post">
+                    <form action="../Controlador/Login.php" id="formLogin" class="border rounded shadow-lg" method="post">
                         <div class="card">
                             <div class="card-header bg-warning">
                                 <h5 class="text-center fs-4">Iniciar Sesion</h5>
@@ -116,3 +83,5 @@ if (isset($_POST["usuario"]) && isset($_POST["contraseña"])) {
 </body>
 
 </html>
+
+<?php $conn = null; ?>
