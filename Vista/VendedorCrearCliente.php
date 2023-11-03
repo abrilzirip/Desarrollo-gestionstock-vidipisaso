@@ -4,10 +4,10 @@
 session_start();
 include '../Controlador/dbTwo.php';
 
-// if (isset($_SESSION['usuario'])) {
-//     header('location:index.php');
-//     die();
-// }
+if (!isset($_SESSION['usuario'])) {
+    header('Location:index.php');
+    die();
+}
 
 ?>
 <!DOCTYPE html>
@@ -51,7 +51,7 @@ include '../Controlador/dbTwo.php';
             </div>
             <ul class="navbar-nav">
                 <li class="nav-item text-end">
-                    <a class="nav-link" href="index.html"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+                    <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
                 </li>
             </ul>
         </div>

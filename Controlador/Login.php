@@ -4,10 +4,10 @@ session_start();
 
 include '../Controlador/dbTwo.php';
 
-// if (isset($_SESSION['usuario'])) {
-//     header('location:VendedorListaCliente.php');
-//     die();
-// }
+if (isset($_SESSION['usuario'])) {
+    header('location:../Vista/VendedorListaCliente.php');
+    die();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

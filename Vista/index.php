@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="col-5 mt-3">
-                    <form action="../Controlador/Login.php" id="formLogin" class="border rounded shadow-lg" method="post">
+                    <form action="index.php" id="formLogin" class="border rounded shadow-lg" method="post">
                         <div class="card">
                             <div class="card-header bg-warning">
                                 <h5 class="text-center fs-4">Iniciar Sesion</h5>

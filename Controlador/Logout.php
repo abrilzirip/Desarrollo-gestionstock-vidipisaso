@@ -6,5 +6,5 @@ session_unset();
 session_destroy();
 
 // redirigir
-header("location:Login.php");
+header("Location:../Vista/index.php");
 ?>
