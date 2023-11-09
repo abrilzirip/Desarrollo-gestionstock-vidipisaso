@@ -1,5 +1,6 @@
 <?php include '../Controlador/db.php';
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = 2;
     $subcategoria = $_POST['subcategoria'];
@@ -65,7 +66,7 @@ $consultaSelect = $conn->query
     
     <link rel="stylesheet" href="css/mystyle.css">
     <link rel="icon" href="/Icon.ico">
-    <script src="js/AdministradorCrearProducto.js"></script>
+    <script src="./js/scriptAdministradorCrearProducto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"
         defer></script>
@@ -149,33 +150,26 @@ $consultaSelect = $conn->query
                             <th>Accion</th>
                         </thead>
                         <tbody>
-                            <?php
+                            
 
-                            $nroFila = 1;
+<?php while ($row = $consultaSelect->fetch()): ?>
 
-                            while ($row = $consultaSelect->fetch()) {
-                                echo "<tr>";
-                                echo "<td class='text-center'>" . $row['ID_PRODUCTO'] . "</td>";
-                                echo "<td class='text-center'>" . $row['ID_SUBCATEGORIA'] . "</td>";
-                                echo "<td class='text-center'>" . $row['FECHA'] . "</td>";
-                                echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
-                                echo "<td class='text-center'>" . $row['MARCA'] . "</td>";
-                                echo "<td class='text-center'>" . $row['CANTIDAD'] . "</td>";
-                                echo "<td class='text-center'>" . $row['PROD_PRECIO_COMPRA'] . "</td>";
-                                echo "<td class='text-center'>" . $row['PROD_PRECIO_VENTA'] . "</td>";
-                                echo "<td class='text-center'>" . $row['PESO_GRAMOS'] . "</td>";
-                                echo "<td class='text-center'>" . $nroFila . "</td>";
+    <tr>
+        <th><?= $row['ID_PRODUCTO'] ?></th>
+        <th><?= $row['ID_SUBCATEGORIA'] ?></th>
+        <th><?= $row['FECHA'] ?></th>
+        <th><?= $row['NOMBRE'] ?></th>
+        <th><?= $row['MARCA'] ?></th>
+        <th><?= $row['CANTIDAD'] ?></th>
+        <th><?= $row['PROD_PRECIO_COMPRA'] ?></th>
+        <th><?= $row['PROD_PRECIO_VENTA'] ?></th>
+        <th><?= $row['PESO_GRAMOS'] ?></th>
+        <th><a href="AdministradorUpdateProductos.php?id=<?= $row['ID_PRODUCTO'] ?>" class="users-table--edit" data-bs-toggle="modal"
+                            data-bs-target="#modalEditarProducto">Editar</a></th>
+        <th><a href="deleteProductos.php?id=<?= $row['ID_PRODUCTO'] ?>" class="users-table--delete" >Eliminar</a></th>
+    </tr>
 
-                                echo "<td class='text-center'>
-                                <div class='table__item__link' role='group' aria-label='Grupo botones'></button>
-                                <button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'>
-                                <i class='bi bi-pencil'></i></button>
-                                <button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'>
-                                <i class='bi bi-trash'></i></button></div></td>";
-                                echo "</tr>";
-                                $nroFila++;
-                            }
-                            ?>
+<?php endwhile; ?>
                         </tbody>
                     </table>
                 </div>
@@ -191,7 +185,7 @@ $consultaSelect = $conn->query
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Carga-->
     <div class="modal" id="modalCarga">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -244,6 +238,69 @@ $consultaSelect = $conn->query
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Volver</button>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+
+        <!-- Modal Edicion-->
+
+    <div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary-subtle">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Cliente</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-black">
+                    <form id="frmModificarCliente" action="VendedorListaCliente.php" method="POST">
+                        <div class="card bg-dark text-light">
+                            <div class="card-header text-light">
+                                <h5 id="infoEditarCliente"></h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteID">
+                                        <label for="frmEditarClienteID" class="form-label">ID Cliente:</label>
+                                        <input type="number" class="form-control" id="frmEditarClienteID" name="frmEditarClienteID" readonly />
+                                        <div class="invalid-feedback" id="errorEditarClienteID"></div>
+                                    </div>
+                                    <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteNombre">
+                                        <label for="frmEditarClienteNombre" class="form-label">Nombre:</label>
+                                        <input type="text" class="form-control" id="frmEditarClienteNombre" name="frmEditarClienteNombre" />
+                                        <div class="invalid-feedback" id="errorEditarClienteNombre"></div>
+                                    </div>
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApellido">
+                                        <label for="frmEditarClienteApellido" class="form-label">Apellido:</label>
+                                        <input type="text" class="form-control" id="frmEditarClienteApellido" name="frmEditarClienteApellido" />
+                                        <div class="invalid-feedback" id="errorEditarClienteApellido"></div>
+                                    </div>
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApodo">
+                                        <label for="frmEditarClienteApodo" class="form-label">Apodo:</label>
+                                        <input type="text" class="form-control" id="frmEditarClienteApodo" name="frmEditarClienteApodo" />
+                                        <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
+                                    </div>
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteEstado">
+                                        <label for="frmEditarClienteEstado" class="form-label">Estado Actual:</label>
+                                        <input type="text" class="form-control" id="frmEditarClienteEstado" readonly />
+                                        <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
+                                    </div>
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteEstadoSelect">
+                                        <label for="frmEditarClienteEstadoSelect" class="form-label">Cambiar estado:</label>
+                                        <select class="form-select" name="frmEditarClienteEstadoSelect" id="frmEditarClienteEstadoSelect" aria-label="Default select example">
+                                            <option value="1">Habilitar</option>
+                                            <option value="0">Inhabilitar</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-black">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" id="botonGuardarCambios" form="frmModificarCliente">Guardar Cambios</button>
+                </div>
             </div>
         </div>
     </div>
