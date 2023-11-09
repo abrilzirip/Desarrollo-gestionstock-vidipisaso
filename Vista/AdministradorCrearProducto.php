@@ -1,6 +1,7 @@
 <?php include '../Controlador/db.php';
 
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = 2;
     $subcategoria = $_POST['subcategoria'];
@@ -63,7 +64,7 @@ $consultaSelect = $conn->query
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+
     <link rel="stylesheet" href="css/mystyle.css">
     <link rel="icon" href="/Icon.ico">
     <script src="./js/scriptAdministradorCrearProducto.js"></script>
@@ -129,47 +130,44 @@ $consultaSelect = $conn->query
     <!-- Fin navbar -->
 
     <!-- Menu Productos -->
-    <div  id="cardProductos">
+    <div id="cardProductos">
         <div class="card-header py-2">
             <h1 class="text-center mt-3">Productos</h1>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped table-dark" id="productosTabla">
                         <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Subcategoria</th>
-                            <th>Fecha</th>
-                            <th>Descripcion</th>
-                            <th>Marca</th>
-                            <th>Cantidad</th>
-                            <th>Precio de compra</th>
-                            <th>Precio de venta</th>
-                            <th>Peso</th>
-                            <th>#</th>
-                            <th>Accion</th>
+                            <tr>
+                                <th>ID</th>
+                                <th>Subcategoria</th>
+                                <th>Fecha</th>
+                                <th>Descripcion</th>
+                                <th>Marca</th>
+                                <th>Cantidad</th>
+                                <th>Precio de compra</th>
+                                <th>Precio de venta</th>
+                                <th>Peso</th>
+                                <th>#</th>
+                                <th>Accion</th>
                         </thead>
                         <tbody>
-                            
+                            <?php while ($row = $consultaSelect->fetch()): ?>
 
-<?php while ($row = $consultaSelect->fetch()): ?>
+                                <tr>
+                                    <th><?= $row['ID_PRODUCTO'] ?></th>
+                                    <th><?= $row['ID_SUBCATEGORIA'] ?></th>
+                                    <th><?= $row['FECHA'] ?></th>
+                                    <th><?= $row['NOMBRE'] ?></th>
+                                    <th><?= $row['MARCA'] ?></th>
+                                    <th><?= $row['CANTIDAD'] ?></th>
+                                    <th><?= $row['PROD_PRECIO_COMPRA'] ?></th>
+                                    <th><?= $row['PROD_PRECIO_VENTA'] ?></th>
+                                    <th><?= $row['PESO_GRAMOS'] ?></th>
+                                    <th><button class='btn btn-primary btn-sm bi-pencil' data-bs-toggle="modal" data-bs-target="#modalEditarProducto"></th>
+                                    <th><button class='btn btn-danger btn-sm bi-trash'></button></th>
+                                </tr>
 
-    <tr>
-        <th><?= $row['ID_PRODUCTO'] ?></th>
-        <th><?= $row['ID_SUBCATEGORIA'] ?></th>
-        <th><?= $row['FECHA'] ?></th>
-        <th><?= $row['NOMBRE'] ?></th>
-        <th><?= $row['MARCA'] ?></th>
-        <th><?= $row['CANTIDAD'] ?></th>
-        <th><?= $row['PROD_PRECIO_COMPRA'] ?></th>
-        <th><?= $row['PROD_PRECIO_VENTA'] ?></th>
-        <th><?= $row['PESO_GRAMOS'] ?></th>
-        <th><a href="AdministradorUpdateProductos.php?id=<?= $row['ID_PRODUCTO'] ?>" class="users-table--edit" data-bs-toggle="modal"
-                            data-bs-target="#modalEditarProducto">Editar</a></th>
-        <th><a href="deleteProductos.php?id=<?= $row['ID_PRODUCTO'] ?>" class="users-table--delete" >Eliminar</a></th>
-    </tr>
-
-<?php endwhile; ?>
+                            <?php endwhile; ?>
                         </tbody>
                     </table>
                 </div>
@@ -223,7 +221,7 @@ $consultaSelect = $conn->query
                         <input class="form-control" type="text" id="precioVenta" name="precioVenta" required><br>
 
 
-                        
+
                         <label for="peso">Peso gr</label><br>
                         <input class="form-control" type="text" id="peso" name="peso">
 
@@ -243,63 +241,42 @@ $consultaSelect = $conn->query
     </div>
 
 
-        <!-- Modal Edicion-->
-
-    <div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal Edicion-->
+    <div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary-subtle">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Cliente</h1>
+                    <h1 class="modal-title fs-5" id="">Editar Producto</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body bg-black">
-                    <form id="frmModificarCliente" action="VendedorListaCliente.php" method="POST">
-                        <div class="card bg-dark text-light">
-                            <div class="card-header text-light">
-                                <h5 id="infoEditarCliente"></h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteID">
-                                        <label for="frmEditarClienteID" class="form-label">ID Cliente:</label>
-                                        <input type="number" class="form-control" id="frmEditarClienteID" name="frmEditarClienteID" readonly />
-                                        <div class="invalid-feedback" id="errorEditarClienteID"></div>
-                                    </div>
-                                    <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteNombre">
-                                        <label for="frmEditarClienteNombre" class="form-label">Nombre:</label>
-                                        <input type="text" class="form-control" id="frmEditarClienteNombre" name="frmEditarClienteNombre" />
-                                        <div class="invalid-feedback" id="errorEditarClienteNombre"></div>
-                                    </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApellido">
-                                        <label for="frmEditarClienteApellido" class="form-label">Apellido:</label>
-                                        <input type="text" class="form-control" id="frmEditarClienteApellido" name="frmEditarClienteApellido" />
-                                        <div class="invalid-feedback" id="errorEditarClienteApellido"></div>
-                                    </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApodo">
-                                        <label for="frmEditarClienteApodo" class="form-label">Apodo:</label>
-                                        <input type="text" class="form-control" id="frmEditarClienteApodo" name="frmEditarClienteApodo" />
-                                        <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
-                                    </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteEstado">
-                                        <label for="frmEditarClienteEstado" class="form-label">Estado Actual:</label>
-                                        <input type="text" class="form-control" id="frmEditarClienteEstado" readonly />
-                                        <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
-                                    </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteEstadoSelect">
-                                        <label for="frmEditarClienteEstadoSelect" class="form-label">Cambiar estado:</label>
-                                        <select class="form-select" name="frmEditarClienteEstadoSelect" id="frmEditarClienteEstadoSelect" aria-label="Default select example">
-                                            <option value="1">Habilitar</option>
-                                            <option value="0">Inhabilitar</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="card bg-dark text-light">
+                        <div class="card-header text-light">
+                            <h5 id="infoEditarCliente"></h5>
                         </div>
-                    </form>
+                        <div class="card-body">
+                            <!-- Form -->
+                            <form method="post" action="./AdministradorEditarProductos.php" id="formEditarProducto" required>
+
+
+                <input type="hidden" name="id" value="<?= $row['ID_PRODUCTO']?>">
+                <input type="text" name="pNombre" placeholder="Nombre" value="<?= $row['NOMBRE']?>">
+                <input type="text" name="lastname" placeholder="Apellidos" value="<?= $row['lastname']?>">
+                <input type="text" name="username" placeholder="Username" value="<?= $row['username']?>">
+                <input type="text" name="password" placeholder="Password" value="<?= $row['password']?>">
+                <input type="text" name="email" placeholder="Email" value="<?= $row['email']?>">
+
+                <input type="submit" value="Actualizar">
+
+                            </form>
+                        </div>
+                    </div>  
                 </div>
                 <div class="modal-footer bg-black">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" id="botonGuardarCambios" form="frmModificarCliente">Guardar Cambios</button>
+                    <button type="submit" class="btn btn-primary" id="botonGuardarCambios"
+                        form="frmModificarCliente">Guardar Cambios</button>
                 </div>
             </div>
         </div>

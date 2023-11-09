@@ -19,9 +19,6 @@ catch(PDOException $e)
 }
 
 
-
-
-
 function Escribir($query,$conn=null){
     if(!$conn )global $conn;
 
