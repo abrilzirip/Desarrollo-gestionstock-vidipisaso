@@ -1,4 +1,4 @@
-<?php include 'Controlador/db.php';
+<?php include '../Controlador/db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = 2;
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($Nombre) && !empty($Pmarca) && !empty($Pcantidad) && !empty($pFecha) && !empty($precioDeCompra) && !empty($precioDeVenta)) {
         $consultaInsert =
             "INSERT INTO `producto` 
-            (`ID_USUARIO_REGISTRADO`, `ID_SUBCATEGORIA`, `FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO`) 
+            (`ID_USUARIO_REGISTRADO`, `ID_SUBCATEGORIA`, `FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO_GRAMOS`) 
             VALUES 
             (:user, :subcategoria, :fecha, :Nombre, :marca, :cantidad, :precioCompra,:precioVenta, :peso)";
 
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $consultaSelect = $conn->query
 ("SELECT 
-        `ID_PRODUCTO`,`ID_SUBCATEGORIA`,`FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO` 
+        `ID_PRODUCTO`,`ID_SUBCATEGORIA`,`FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO_GRAMOS` 
         FROM 
         `producto`");
 
@@ -62,7 +62,8 @@ $consultaSelect = $conn->query
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="stylesheet" href="css/mystyle.css">
     <link rel="icon" href="/Icon.ico">
     <script src="js/AdministradorCrearProducto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -127,7 +128,7 @@ $consultaSelect = $conn->query
     <!-- Fin navbar -->
 
     <!-- Menu Productos -->
-    <div class="card" id="cardProductos">
+    <div  id="cardProductos">
         <div class="card-header py-2">
             <h1 class="text-center mt-3">Productos</h1>
             <div class="card-body">
@@ -144,6 +145,7 @@ $consultaSelect = $conn->query
                             <th>Precio de venta</th>
                             <th>Peso</th>
                             <th>#</th>
+                            <th>Accion</th>
                         </thead>
                         <tbody>
                             <?php
@@ -159,7 +161,7 @@ $consultaSelect = $conn->query
                                 echo "<td class='text-center'>" . $row['CANTIDAD'] . "</td>";
                                 echo "<td class='text-center'>" . $row['PROD_PRECIO_COMPRA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['PROD_PRECIO_VENTA'] . "</td>";
-                                echo "<td class='text-center'>" . $row['PESO'] . "</td>";
+                                echo "<td class='text-center'>" . $row['PESO_GRAMOS'] . "</td>";
                                 echo "<td class='text-center'>" . $nroFila . "</td>";
 
                                 echo "<td class='text-center'>
