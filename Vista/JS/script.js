@@ -19,7 +19,7 @@ tocar_boton.addEventListener("click", e => {
     
     }else if (usuario === HardAdminUser && password === HardAdminPass) {
 
-        location.href = "Administrador.php";
+        location.href = "Administrador.html";
         //document.getElementById("idContenedor").innerHTML = pantalla_principal_administrador;
         
     } else {

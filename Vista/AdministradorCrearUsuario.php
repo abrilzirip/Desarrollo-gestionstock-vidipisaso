@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $idperfil = 1;
   $Nombre = $_POST['nombre'];
   $pass = $_POST['password'];
+  
   $mail = $_POST['email'];
   date_default_timezone_set('America/Argentina/Buenos_Aires');
   $pFechaalta = date('Y-m-d H:i:s');
@@ -34,7 +35,7 @@ try {
  exit;
 
   
-  
+   
 } catch (PDOException $e) {
   echo "Error: " . $e->getMessage();
 }
@@ -46,7 +47,16 @@ $consultaSelect = $conn->query
 ("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_PERFIL`, `NOMBRE`, `PASSWORD`, `F_BAJA`, `F_ALTA`, `MAIL` FROM `usuario` order by ID_USUARIO_REGISTRADO desc");
 ?>
 
-
+<?php
+/**
+ * Queremos crear un hash de nuestra contraseña uando el algoritmo DEFAULT actual.
+ * Actualmente es BCRYPT, y producirá un resultado de 60 caracteres.
+ *
+ * Hay que tener en cuenta que DEFAULT puede cambiar con el tiempo, por lo que debería prepararse
+ * para permitir que el almacenamento se amplíe a más de 60 caracteres (255 estaría bien)
+ */
+echo password_hash("rasmuslerdorf", PASSWORD_DEFAULT)."\n";
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -103,12 +113,12 @@ $consultaSelect = $conn->query
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-warning mt-1 fs-6" href="#"
+                  <a class="nav-link text-warning mt-1 fs-6" href="AdministradorIndicador.php"
                     >Crear Inidicador</a
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-warning mt-1 fs-6" href="#"
+                  <a class="nav-link text-warning mt-1 fs-6" href="AdministradorAjuste.php"
                     >Crear Ajuste</a
                   >
                 </li>
@@ -139,7 +149,7 @@ $consultaSelect = $conn->query
             </div>
             <ul class="navbar-nav">
               <li class="nav-item text-end">
-                <a class="nav-link" href="index.html"
+                <a class="nav-link" href="../Controlador/Logout.php"
                   ><button class="btn btn-danger py-1" id="salir">
                     Cerrar sesion
                   </button></a
@@ -185,6 +195,7 @@ $consultaSelect = $conn->query
                                 echo "<td class='text-center'>" . $row['ID_PERFIL'] . "</td>";
                                 echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
                                 echo "<td class='text-center'>" . $row['PASSWORD'] . "</td>";
+
                                 echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['F_ALTA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['MAIL'] . "</td>";
@@ -256,7 +267,7 @@ $consultaSelect = $conn->query
   
         <!-- Modal body -->
         <div class="modal-body bg-dark text-white">
-            <form action="/Desarrollo-gestionstock-vidipisaso2/Vista/AdministradorCrearUsuario.php" id="formProducto" method="post">
+            <form action="./AdministradorCrearUsuario.php" id="formProducto" method="post">
 
                 <label for="nombre">Nombre</label><br>
                 <input class="form-control" type="text" id="nombre" name="nombre" ><br>

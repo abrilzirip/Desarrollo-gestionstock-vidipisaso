@@ -1,19 +1,57 @@
-<?php include 'controlador/db.php';
+<?php include 'Controlador/db.php';
 
-/*$sql = "SELECT producto.*, subcategoria.nombre AS nombre_subcategoria
-        FROM producto
-        INNER JOIN subcategoria ON producto.subcategoria_id = subcategoria.id";
-        
-        SELECT NOMBRE FROM producto
-        UNION ALL
-        SELECT NOMBRE FROM subcategoria
-        
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user = 2;
+    $subcategoria = 1;
+    date_default_timezone_set('America/Argentina/Buenos_Aires');
+    $pFecha = date('Y-m-d H:i:s');
+    $Nombre = $_POST['pNombre'];
+    $Pmarca = $_POST['marca'];
+    $Pcantidad = $_POST['cantidad'];
+    $precioDeCompra = $_POST['precioCompra'];
+    $precioDeVenta = $_POST['precioVenta'];
+    $pPeso = $_POST['peso'];
 
-$sql = "select * from producto";
-$results = $conn->query($sql);
-*/
+    if (!empty($Nombre) && !empty($Pmarca) && !empty($Pcantidad) && !empty($pFecha) && !empty($precioDeCompra) && !empty($precioDeVenta)) {
+        $consultaInsert =
+            "INSERT INTO `producto` 
+            (`ID_USUARIO_REGISTRADO`, `ID_SUBCATEGORIA`, `FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO`) 
+            VALUES 
+            (:user, :subcategoria, :fecha, :Nombre, :marca, :cantidad, :precioCompra,:precioVenta, :peso)";
+
+        try {
+            $consulta = $conn->prepare($consultaInsert);
+            $consulta->bindParam(':user', $user);
+            $consulta->bindParam(':subcategoria', $subcategoria);
+            $consulta->bindParam(':fecha', $pFecha);
+            $consulta->bindParam(':Nombre', $Nombre);
+            $consulta->bindParam(':marca', $Pmarca);
+            $consulta->bindParam(':cantidad', $Pcantidad);
+            $consulta->bindParam(':precioCompra', $precioDeCompra);
+            $consulta->bindParam(':precioVenta', $precioDeVenta);
+            $consulta->bindParam(':peso', $peso);
+            $consulta->execute();
+            $conn->beginTransaction();
+            $conn->commit();
+            echo "Inserccion exitosa";
+            header('Location: ' . htmlspecialchars($_SERVER["PHP_SELF"]) . "?succes_ok=1", true, 303);
+            exit;
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    } else {
+        echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
+    }
+}
+
+$consultaSelect = $conn->query
+("SELECT 
+        `ID_PRODUCTO`,`ID_SUBCATEGORIA`,`FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO` 
+        FROM 
+        `producto`");
+
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -21,17 +59,15 @@ $results = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="/Icon.ico">
-
+    <script src="js/AdministradorCrearProducto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"
         defer></script>
-    <script src="" defer></script>
     <title>StVent-Productos</title>
 </head>
 
@@ -98,28 +134,24 @@ $results = $conn->query($sql);
                 <div class="table-responsive">
                     <table class="table table-striped table-dark" id="productosTabla">
                         <thead>
-                            <th>#</th>
+                        <tr>
                             <th>ID</th>
                             <th>Fecha</th>
-                            <th>Nombre</th>
+                            <th>Descripcion</th>
                             <th>Marca</th>
                             <th>Cantidad</th>
                             <th>Precio de compra</th>
                             <th>Precio de venta</th>
                             <th>Peso</th>
-                            <th></th>
+                            <th>#</th>
                         </thead>
                         <tbody>
                             <?php
+
                             $nroFila = 1;
-                            $consultaSelect = $conn->query
-                            ("SELECT 
-                                    `ID_PRODUCTO`,`FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `DESCRIPCION` 
-                                    FROM 
-                                    `producto`");
+
                             while ($row = $consultaSelect->fetch()) {
                                 echo "<tr>";
-                                echo "<td class='text-center'>" . $nroFila . "</td>";
                                 echo "<td class='text-center'>" . $row['ID_PRODUCTO'] . "</td>";
                                 echo "<td class='text-center'>" . $row['FECHA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
@@ -127,8 +159,15 @@ $results = $conn->query($sql);
                                 echo "<td class='text-center'>" . $row['CANTIDAD'] . "</td>";
                                 echo "<td class='text-center'>" . $row['PROD_PRECIO_COMPRA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['PROD_PRECIO_VENTA'] . "</td>";
-                                echo "<td class='text-center'>" . $row['DESCRIPCION'] . "</td>";
-                                echo "<td class='text-center'><div class='btn-group' role='group' aria-label='Grupo botones'></button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'><i class='bi bi-pencil'></i></button><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'><i class='bi bi-trash'></i></button></div></td>";
+                                echo "<td class='text-center'>" . $row['PESO'] . "</td>";
+                                echo "<td class='text-center'>" . $nroFila . "</td>";
+
+                                echo "<td class='text-center'>
+                                <div class='table__item__link' role='group' aria-label='Grupo botones'></button>
+                                <button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'>
+                                <i class='bi bi-pencil'></i></button>
+                                <button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'>
+                                <i class='bi bi-trash'></i></button></div></td>";
                                 echo "</tr>";
                                 $nroFila++;
                             }
@@ -162,10 +201,10 @@ $results = $conn->query($sql);
                 <!-- Modal body -->
                 <div class="modal-body bg-dark text-white">
                     <!-- Form -->
-                    <form method="post" action="/STvent/AdministradorCrearProducto.php" id="formProducto" required>
+                    <form method="post" action="./AdministradorCrearProducto.php" id="formProducto" required>
 
-                        <label for="fecha">Fecha</label><br>
-                        <input class="form-control" type="text" id="fecha" name="fecha"><br>
+                        <!-- <label for="fecha">Fecha</label><br>
+                        <input class="form-control" type="text" id="fecha" name="fecha"><br> -->
 
                         <label for="pNombre">Nombre</label><br>
                         <input class="form-control" type="text" id="pNombre" name="pNombre" required><br>
@@ -182,16 +221,14 @@ $results = $conn->query($sql);
                         <label for="precioVenta">Precio de venta</label><br>
                         <input class="form-control" type="text" id="precioVenta" name="precioVenta" required><br>
 
-                        <!-- <label for="peso">Peso</label><br>
+                        <label for="peso">Peso</label><br>
                         <input class="form-control" type="text" id="peso" name="peso" required>
-                        <select id="unidadPeso">
-                            <option value="kilo">Kg.</option>
-                            <option value="gramo">gr.</option>
-                            <option value="litro">lt.</option>
-                        </select><br> -->
-
-                        <label for="descripcion">Descripción</label><br>
-                        <input class="form-control" type="text" id="descripcion" name="descripcion" required><br>
+                         <select id="unidadPeso" name="unidad"> <!-- guardar la unidad? -->
+                            <option value="kg">Kg.</option>
+                            <option value="gr">Gr.</option>
+                            <option value="CC">CC.</option>
+                            <option value="lt">Lt.</option>
+                        </select><br>
 
                         <!-- Submit btn -->
                         <input type="submit" class="btn btn-success" value="Agregar" id="btnAgregarProducto">
@@ -219,57 +256,7 @@ $results = $conn->query($sql);
         </div>
     </div>
 </body>
+
 </html>
 
-
-<?php
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $user = 2;
-        $subcategoria = 1;
-        date_default_timezone_set('America/Argentina/Buenos_Aires');
-        $pFecha = date('Y-m-d H:i:s');
-        $Nombre = $_POST['pNombre'];
-        $Pmarca = $_POST['marca'];
-        $Pcantidad = $_POST['cantidad'];
-        $precioDeCompra = $_POST['precioCompra'];
-        $precioDeVenta = $_POST['precioVenta'];
-        /*$pPeso = $_POST[''];*/
-        $pDescripcion = $_POST['descripcion'];
-
-        if (!empty($Nombre) && !empty($Pmarca) && !empty($Pcantidad) && !empty($pFecha) && !empty($precioDeCompra) && !empty($precioDeVenta)) 
-        {
-            $consultaInsert =
-                "INSERT INTO `producto` 
-                (`ID_USUARIO_REGISTRADO`, `ID_SUBCATEGORIA`, `FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `DESCRIPCION`) 
-                VALUES 
-                (:user, :subcategoria, :fecha, :Nombre, :marca, :cantidad, :precioCompra,:precioVenta, :descripcion)";
-
-            try {
-                $consulta = $conn->prepare($consultaInsert);
-                $consulta->bindParam(':user', $user);
-                $consulta->bindParam(':subcategoria', $subcategoria);
-                $consulta->bindParam(':fecha', $pFecha);
-                $consulta->bindParam(':Nombre', $Nombre);
-                $consulta->bindParam(':marca', $Pmarca);
-                $consulta->bindParam(':cantidad', $Pcantidad);
-                $consulta->bindParam(':precioCompra', $precioDeCompra);
-                $consulta->bindParam(':precioVenta', $precioDeVenta);
-                //$consulta->bindParam(':peso', $peso);
-                $consulta->bindParam(':descripcion', $pDescripcion);
-
-                $consulta->execute();
-                $conn->beginTransaction();
-                $conn->commit();
-                echo "Inserccion exitosa";
-
-                exit;
-            } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage();
-            }
-        } else {
-            echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
-        }
-    }
-?>
 <?php $conn = null; ?>

@@ -1,12 +1,12 @@
 function inicio() {
     document.getElementById("autocompletadoBuscarCliente").addEventListener("input", buscarCliente, false);
     document.getElementById("id_Agregar_producto_Tabla").addEventListener("click", agregarProductoTabla, false);
-    document.getElementById("id_Eliminar_producto_Tabla").addEventListener("click", eliminarProductosTabla, false);
+    document.getElementById("id_Eliminar_producto_Tabla_cancelar").addEventListener("click", eliminarProductosTabla, false);
     document.getElementById("listaProductos").addEventListener("click", seleccionarListaProducto, false);
     document.getElementById("idvenderboton").addEventListener("click", e=>{venderProductos(e)},false);
 
 }
-
+//json de para generar el resumen de toda la venta para enviar ala base
 let jsonEnvio=[
         //{id:0,marca:"Milka",nombre:"Alfajor Triple Milka Oreo 61g",precio:300,cantidad:200},
 
@@ -77,11 +77,11 @@ function mostrarListadoCliente(palabraFiltrada,objetoProductoSeleccionado) {
 }
 
 function seleccionarListaProducto(){
-    console.log("selcciono producto lista");
+    //console.log("selcciono producto lista");
     const filaProductoPrecio=document.getElementById("idfilaPrecio");
    // const filaProductoCantidad=document.getElementById("idfilaCantidad");
 
-   filaProductoPrecio.innerHTML=ProductoSeleccionado.PROD_PRECIO_VENTA;
+   filaProductoPrecio.innerHTML=ProductoSeleccionado.PROD_PRECIO_VENTA+" $";
     let cantidamax=ProductoSeleccionado.CANTIDAD;
     
     const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
@@ -95,11 +95,24 @@ function seleccionarListaProducto(){
 
 function eliminarProductosTabla(){
     console.log("eliminos productos");
+    document.getElementById("tablaProductos").innerHTML="";
+    let filaProductoPrincipal=document.getElementById("idfilaProductoprincipal");
+    filaProductoPrincipal.classList.add("d-none");
+    document.getElementById("autocompletadoBuscarCliente").value="";
+    document.getElementById("idtotal").innerHTML="0 $"
+    jsonEnvio=[];
+    localStorage.setItem("subTotal",0);
+    subTotal=0;
+    cantidadDeFilas=1
+    localStorage.setItem("cantidadDeFilas",1);
 }
 
 function venderProductos(e) {
     e.preventDefault();
     console.log("vendio productos");
+
+    document.getElementById("idinputdatosTxt").value=JSON.stringify(jsonEnvio);
+    console.log("mando esto+"+document.getElementById("idinputdatosTxt").value);
     GuardarVenta();
 }
 
@@ -139,11 +152,8 @@ function agregarProductoTabla(){
                  class="bi bi-trash"></i></button>
             </td>
         </tr>`;    
-        
-        jsonEnvio.push({id:cantidadDeFilas,marca:marca,nombre:nombre,precio:precio,cantidad:filaCantidadInput});
-        cantidadDeFilas++;      
-        
-        console.log(jsonEnvio);
+        cantidadDeFilas++;
+     
 
         let cantidaDeProductosInput=document.getElementById("idfilaCantidadinput").value;
         subTotal=subTotal+(precio*cantidaDeProductosInput);
@@ -152,7 +162,13 @@ function agregarProductoTabla(){
                   
         localStorage.getItem("cantidadDeFilas", cantidadDeFilas);
   
+        let AUXcantidaDeProductosInput=document.getElementById("idfilaCantidadinput").value;
+        jsonEnvio.push({id:cantidadDeFilas,idproducto:ProductoSeleccionado.ID_PRODUCTO,
+            marca:ProductoSeleccionado.MARCA,nombre:ProductoSeleccionado.NOMBRE,
+            precio:ProductoSeleccionado.PROD_PRECIO_VENTA,cantidad:AUXcantidaDeProductosInput});
+        //cantidadDeFilas++; conflicto      
         
+        console.log(jsonEnvio);
         
     }
     document.getElementById("autocompletadoBuscarCliente").value="";
@@ -162,6 +178,14 @@ function agregarProductoTabla(){
     filaProductoPrincipal.classList.add("d-none")
 
     document.getElementById("idtotal").innerHTML=subTotal+" $";
+
+    //idRedondeo
+    let aaaa=444.88;
+    Math.round(aaaa,2)
+    console.log(Math.round(aaaa,2));
+    //idtotalApagar
+
+
    
 }
 
@@ -174,8 +198,10 @@ function GuardarVenta() {
   
 
     .then((data)=>{
-         console.log(data);
-         document.getElementById("idestadoDeVenta").innerHTML="Venta Exitosa";
+
+        console.log(data);
+
+         document.getElementById("idestadoDeVenta").innerHTML="Venta Exitosa"+data;
 
     });
 }
@@ -189,7 +215,7 @@ function TraerProductosdeDDBB(inputTexto){
     .then((res)=>res.json())
 
     .then((data)=>{
-        console.log(data);
+        //console.log(data);
         datasalida=JSON.parse(JSON.stringify(data));
        
         let templista=[];
@@ -197,7 +223,7 @@ function TraerProductosdeDDBB(inputTexto){
                                                      , resultado=datasalida                             );
         const palabraFiltrada = templista.filter(templista => templista.toLowerCase().includes(inputTexto));
         
-        console.log("---"+resultado[0].PROD_PRECIO_VENTA);
+        //console.log("---"+resultado[0].PROD_PRECIO_VENTA);
         //ProductoSeleccionado=resultado[0];
 
         datasalida.forEach(element => {
@@ -205,6 +231,7 @@ function TraerProductosdeDDBB(inputTexto){
             if (element.NOMBRE==palabraFiltrada) {
                 ProductoSeleccionado=element;
                 console.log("++"+element.NOMBRE)
+            
             }
                 
             
