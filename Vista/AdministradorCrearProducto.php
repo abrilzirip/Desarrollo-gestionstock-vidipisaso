@@ -2,7 +2,7 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = 2;
-    $subcategoria = 1;
+    $subcategoria = $_POST['subcategoria'];
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $pFecha = date('Y-m-d H:i:s');
     $Nombre = $_POST['pNombre'];
@@ -137,6 +137,7 @@ $consultaSelect = $conn->query
                         <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Subcategoria</th>
                             <th>Fecha</th>
                             <th>Descripcion</th>
                             <th>Marca</th>
@@ -155,6 +156,7 @@ $consultaSelect = $conn->query
                             while ($row = $consultaSelect->fetch()) {
                                 echo "<tr>";
                                 echo "<td class='text-center'>" . $row['ID_PRODUCTO'] . "</td>";
+                                echo "<td class='text-center'>" . $row['ID_SUBCATEGORIA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['FECHA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
                                 echo "<td class='text-center'>" . $row['MARCA'] . "</td>";
@@ -205,6 +207,9 @@ $consultaSelect = $conn->query
                     <!-- Form -->
                     <form method="post" action="./AdministradorCrearProducto.php" id="formProducto" required>
 
+                        <label for="subcategoria">Subcategoria</label><br>
+                        <input class="form-control" type="text" id="subcategoria" name="subcategoria" required><br>
+
                         <!-- <label for="fecha">Fecha</label><br>
                         <input class="form-control" type="text" id="fecha" name="fecha"><br> -->
 
@@ -223,14 +228,10 @@ $consultaSelect = $conn->query
                         <label for="precioVenta">Precio de venta</label><br>
                         <input class="form-control" type="text" id="precioVenta" name="precioVenta" required><br>
 
-                        <label for="peso">Peso</label><br>
-                        <input class="form-control" type="text" id="peso" name="peso" required>
-                         <select id="unidadPeso" name="unidad"> <!-- guardar la unidad? -->
-                            <option value="kg">Kg.</option>
-                            <option value="gr">Gr.</option>
-                            <option value="CC">CC.</option>
-                            <option value="lt">Lt.</option>
-                        </select><br>
+
+                        
+                        <label for="peso">Peso gr</label><br>
+                        <input class="form-control" type="text" id="peso" name="peso">
 
                         <!-- Submit btn -->
                         <input type="submit" class="btn btn-success" value="Agregar" id="btnAgregarProducto">
