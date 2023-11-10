@@ -62,7 +62,7 @@ $db = new Database();
             </div>
             <ul class="navbar-nav">
                 <li class="nav-item text-end">
-                    <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+                <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
                 </li>
             </ul>
         </div>

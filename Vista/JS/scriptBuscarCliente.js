@@ -6,15 +6,19 @@ function inicio() {
 let keywordsCliente;
 
 //Solicitud AJAX para obtener los datos de la cosulta hecha en ArrayClientes
-var xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        keywordsCliente = JSON.parse(xhr.responseText);
-    }
-};
-
-xhr.open("GET", "VendedorArrayCliente.php", true);
-xhr.send();
+fetch("../Controlador/VendedorArrayCliente.php")
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Error en la solicitud. Código de estado: " + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        keywordsCliente = data;
+    })
+    .catch(error => {
+        console.error(error);
+    });
 
 function buscarCliente() {
 

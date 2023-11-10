@@ -1,4 +1,12 @@
-<?php include '../Controlador/dbTwo.php' ?>
+<?php
+
+include '../Controlador/dbTwo.php';
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location:index.php');
+    die();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -26,19 +34,19 @@
                 <div class="cista/Administrador.htmlollapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="administrador.php">Inicio</a>
+                            <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="Administrador.php">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning mt-1 fs-6" href="crudusuario.html">Crear Usuario</a>
+                            <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearUsuario.php">Crear Usuario</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-warning mt-1 fs-6" href="AdminsitradorCrearProducto.html">Crear Producto</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning mt-1 fs-6" href="#">Crear Inidicador</a>
+                            <a class="nav-link text-warning mt-1 fs-6" href="AdministradorIndicador.php">Crear Inidicador</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning mt-1 fs-6" href="#">Crear Ajuste</a>
+                            <a class="nav-link text-warning mt-1 fs-6" href="AdministradorAjuste.php">Crear Ajuste</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link text-warning dropdown-toggle mt-1 fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Generar Reporte</a>
@@ -56,7 +64,7 @@
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item text-end">
-                        <a class="nav-link" href="index.html"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+                        <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
                     </li>
                 </ul>
             </div>
@@ -87,10 +95,10 @@
             </div>
         </div>
         <div class="alert alert-success d-none mt-2" role="alert" id="errorIndicadorValid">
-            
+
         </div>
         <div class="alert alert-danger d-none mt-2" role="alert" id="errorIndicadorInvalid">
-            
+
         </div>
     </section>
 </body>
