@@ -37,7 +37,7 @@ function buscarCliente() {
     }
     else {
         //comienza a buscar luego de las 2 coincidencias
-        if (inputTexto.length>2) {
+        if (inputTexto.length>3) {
 
             listaCliente.classList.remove("d-none");
 
@@ -63,15 +63,23 @@ function mostrarListadoCliente(palabraFiltrada,objetoProductoSeleccionado) {
     } else {
         smsErrorResultado.classList.add("d-none")
 
-        palabraFiltrada.forEach(listado => {
-            const li = document.createElement('li');
-            li.textContent = listado+" "+objetoProductoSeleccionado.MARCA+" "+
-            objetoProductoSeleccionado.PROD_PRECIO_VENTA+"$";
-            li.addEventListener('click', () => {
-                autocompletadoInput.value = listado;
-                listaCliente.innerHTML = '';
-            });
-            listaCliente.appendChild(li);
+        console.log("cantidad de obtejtos  "+objetoProductoSeleccionado.length);
+            objetoProductoSeleccionado.forEach(obj=>{
+                const li = document.createElement('li'); 
+                console.log("+-"+obj.NOMBRE);
+                li.textContent = obj.NOMBRE+" "+obj.MARCA+" "+
+                obj.PROD_PRECIO_VENTA+"$";
+                
+
+                li.addEventListener('click', () => {
+                    autocompletadoInput.value = obj.NOMBRE;
+                    listaCliente.innerHTML = '';
+                    ProductoSeleccionado=obj;
+                });
+                listaCliente.appendChild(li);
+            
+            
+
         });
     }
 }
@@ -220,24 +228,29 @@ function TraerProductosdeDDBB(inputTexto){
        
         let templista=[];
         const AuxPalabraFiltrada = datasalida.filter( datasalida => templista.push(datasalida.NOMBRE)
-                                                     , resultado=datasalida                             );
+                                                     , resultado=datasalida);
+        console.log(datasalida);
         const palabraFiltrada = templista.filter(templista => templista.toLowerCase().includes(inputTexto));
         
         //console.log("---"+resultado[0].PROD_PRECIO_VENTA);
         //ProductoSeleccionado=resultado[0];
 
+
+        console.log(datasalida);
+        let pos=1,objetoArray=[];
         datasalida.forEach(element => {
-         
-            if (element.NOMBRE==palabraFiltrada) {
-                ProductoSeleccionado=element;
+           // console.log(element.NOMBRE);    
+            if (palabraFiltrada.includes(element.NOMBRE)) {
+                //ProductoSeleccionado=element;
+                objetoArray.push(element);
                 console.log("++"+element.NOMBRE)
             
             }
-                
+            pos++;    
             
         });
         
-        mostrarListadoCliente(palabraFiltrada,ProductoSeleccionado); 
+        mostrarListadoCliente(palabraFiltrada,objetoArray); 
 
         
     });

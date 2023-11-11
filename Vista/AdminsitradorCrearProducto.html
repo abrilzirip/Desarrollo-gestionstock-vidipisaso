@@ -1,4 +1,3 @@
-<?php include 'conetDataBase.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,7 +12,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
     <script src="js/scriptAdminsitradorCrearProducto.js" defer></script>
-    <title>AdministradorCrearUsuario</title>
+    <title>StVent-Productos</title>
 </head>
 
 <body>
@@ -44,7 +43,7 @@
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearUsuario.php"
+                  <a class="nav-link text-warning mt-1 fs-6" href="crudusuario.html"
                     >Crear Usuario</a
                   >
                 </li>
@@ -102,50 +101,31 @@
       </div>
     <div class="card" id="cardProductos">
     <div class="card-header py-2">
-    <h1 class="text-center mt-3">Crear Usuario</h1>
+    <h1 class="text-center mt-3">Productos</h1>
     <div class="card-body">
-
-
-
-
-    <table class="table table-striped table-dark table_id " id="table_id">
-
-                   
-                    <thead>    
-                    <tr>
-                    <th></th>
-                    <th>Id_Usuario</th>
-                    <th>Nombre</th>
-                    <th>Password</th>
-                    <th>Email</th>
-                    <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-
-
-</body>
-</table>   
-            <!-- <div class="table-responsive">
+            <div class="table-responsive">
                 <table class="table table-striped table-dark" id="productosTabla">
                     <thead>
-                    <th>Id_Usuario</th>
+                    <th>Id</th>
                     <th>Nombre</th>
-                    <th>Password</th>
-                    <th>Email</th>
+                    <th>Marca</th>
+                    <th>Descripción</th>
+                    <th>Precio de compra</th>
+                    <th>Precio de venta</th>
+                    <th>Peso</th>
+                    <th>Fecha</th>
                     <th></th>
                     </thead>
                     <tbody>
                         <tr>
                             <td scope="row">1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>Cereal Trix</td>
+                            <td>Nestle</td>
+                            <td>Cereal</td>
+                            <td>$ 680</td>
+                            <td>$ 980</td>
+                            <td>230 gr</td>
+                            <td>10/10/2023</td>
                             <td>
                                 <button class="btn btn-primary" id="btnLapiz">
                                     <i class="bi bi-pencil"></i>
@@ -157,12 +137,12 @@
                         </tr>
                     </tbody>
                 </table>
-            </div> -->
+            </div>
 
     <div id="idbotones-pantalla-venta">
         <div>
-        <button class="btn btn-danger py-1">Ver Lista Usuarios</button>
-        <button class="btn btn-danger py-1" id="btnInsertar" data-bs-toggle="modal" data-bs-target="#modalCarga">Agregar Usuario</button>                 
+        <button class="btn btn-danger py-1">Buscar</button>
+        <button class="btn btn-danger py-1" id="btnInsertar" data-bs-toggle="modal" data-bs-target="#modalCarga">Agregar Producto</button>                 
         </div>
     </div>
 </div>
@@ -176,7 +156,7 @@
   
         <!-- Header -->
         <div class="modal-header bg-dark text-white">
-          <h4 class="modal-title">Nuevo Usuario</h4>
+          <h4 class="modal-title">Nuevo producto</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
   
@@ -186,16 +166,32 @@
                 <label for="id">ID</label><br>
                 <input class="form-control" type="text" id="id" name="id" required><br>
 
-                <label for="nombre">Nombre</label><br>
-                <input class="form-control" type="text" id="nombre" name="nombre" required><br>
+                <label for="pNombre">Nombre</label><br>
+                <input class="form-control" type="text" id="pNombre" name="pNombre" required><br>
 
-                <label for="password">Password</label><br>
-                <input class="form-control" type="password"  id="password" name="password" required><br>
+                <label for="marca">Marca</label><br>
+                <input class="form-control" type="text"  id="marca" name="marca" required><br>
 
-                <label for="email">email</label><br>
-                <input class="form-control" type="email"  id="email" name="email" required><br>
+                <label for="descripcion">Descripción</label><br>
+                <input class="form-control" type="text"  id="descripcion" name="descripcion" required><br>
 
-                
+                <label for="precioCompra">Precio de compra</label><br>
+                <input class="form-control" type="text"  id="precioCompra" name="precioCompra" required><br>
+
+                <label for="precioVenta">Precio de venta</label><br>
+                <input class="form-control" type="text"  id="precioVenta" name="precioVenta" required><br>
+
+                <label for="peso">Peso</label><br>
+                <input class="form-control" type="text" id="peso" name="peso" required>
+                <select id="unidadPeso">
+                    <option value="kilo">Kg.</option>
+                    <option value="gramo">gr.</option>
+                    <option value="litro">lt.</option>
+                    <option value="cubicos">cm3</option>
+                </select><br>
+
+                <label for="fecha">Fecha</label><br>
+                <input class="form-control" type="text" id="fecha" name="fecha"><br><br>
 
                 <!-- Submit btn -->
                 <input type="submit" class="btn btn-success" value="Agregar" id="btnAgregarProducto">
