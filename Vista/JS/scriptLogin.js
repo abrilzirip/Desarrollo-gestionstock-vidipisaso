@@ -1,4 +1,6 @@
 function inicio() {
+
+
     document.getElementById("formLogin").addEventListener("submit", formulario, false);
     document.getElementById("MostrarOcultarContraseña").addEventListener("click", MostrarOcultarContraseña, false);
 

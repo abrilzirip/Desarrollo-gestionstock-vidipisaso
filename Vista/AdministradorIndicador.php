@@ -1,4 +1,12 @@
-<?php include '../Controlador/dbTwo.php' ?>
+<?php
+
+include '../Controlador/db.php';
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location:index.php');
+    die();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -26,7 +34,7 @@
                 <div class="cista/Administrador.htmlollapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="administrador.php">Inicio</a>
+                            <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="Administrador.php">Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearUsuario.php">Crear Usuario</a>
@@ -87,10 +95,10 @@
             </div>
         </div>
         <div class="alert alert-success d-none mt-2" role="alert" id="errorIndicadorValid">
-            
+
         </div>
         <div class="alert alert-danger d-none mt-2" role="alert" id="errorIndicadorInvalid">
-            
+
         </div>
     </section>
 </body>

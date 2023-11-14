@@ -98,7 +98,7 @@ if (!isset($_SESSION['usuario'])) {
 
     <footer class="bg-black text-center text-lg-start mt-4 d-flex">
         <div class="text-center p-3 text-warning">
-            © 2023 Copyright:StVent
+            © 2020 Copyright:
             <a class="text-warning" href="https://mdbootstrap.com/">MDBootstrap.com</a>
         </div>
     </footer>
