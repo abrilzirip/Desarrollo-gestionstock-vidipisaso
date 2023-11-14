@@ -4,6 +4,7 @@ function inicio() {
     document.getElementById("id_Eliminar_producto_Tabla_cancelar").addEventListener("click", eliminarProductosTabla, false);
     document.getElementById("listaProductos").addEventListener("click", seleccionarListaProducto, false);
     document.getElementById("idvenderboton").addEventListener("click", e=>{venderProductos(e)},false);
+    document.getElementById("idabona").addEventListener("click",InporteAbonado,false);
 
 }
 //json de para generar el resumen de toda la venta para enviar ala base
@@ -24,6 +25,18 @@ let ProductoSeleccionado;
 localStorage.setItem("cantidadDeFilas", cantidadDeFilas);
 localStorage.setItem("subTotal", subTotal);
 
+
+function InporteAbonado(){
+ 
+    let valorAbonado= document.getElementById("idabona").value;
+
+    if (valorAbonado>=subTotal) {
+        console.log("abona con");
+        document.getElementById("idbotonconfirmar").disabled = false;
+    }else{
+        document.getElementById("idbotonconfirmar").disabled = true;
+    }
+}
 
 function buscarCliente() {
 
