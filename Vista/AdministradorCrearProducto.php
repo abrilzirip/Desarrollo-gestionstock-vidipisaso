@@ -85,7 +85,7 @@ $consultaSelect = $conn->query
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link active text-warning mt-1 fs-6" aria-current="page"
-                            href="Administrador.html">Inicio</a>
+                            href="Administrador.php">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearUsuario.php">Crear

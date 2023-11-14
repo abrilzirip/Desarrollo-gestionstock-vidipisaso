@@ -1,4 +1,4 @@
-<?php include '../Controlador/dbTwo.php'; ?>
+<?php include '../Controlador/db.php'; ?>
 <?php include '../Controlador/Login.php'; ?>
 
 <!DOCTYPE html>
