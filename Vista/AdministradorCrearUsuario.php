@@ -201,8 +201,8 @@ echo password_hash("rasmuslerdorf", PASSWORD_DEFAULT)."\n";
                                 echo "<td class='text-center'>" . $row['MAIL'] . "</td>";
                                 echo "<td class='text-center'>
                                 <div class='table__item__link' role='group' aria-label='Grupo botones'>
-                                </button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'>
-                                <i class='bi bi-pencil'></i></button><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'><i class='bi bi-trash'></i></button></div></td>";
+                                </button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-usuario'>
+                                <i class='bi bi-pencil'></i></button><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-usuario'><i class='bi bi-trash'></i></button></div></td>";
                                 echo "</tr>";
                                 $nroFila++;
                             }
@@ -212,37 +212,57 @@ echo password_hash("rasmuslerdorf", PASSWORD_DEFAULT)."\n";
 
 </body>
 </table>   
-            <!-- <div class="table-responsive">
-                <table class="table table-striped table-dark" id="productosTabla">
-                    <thead>
-                    <th>Id_Usuario</th>
-                    <th>Nombre</th>
-                    <th>Password</th>
-                    <th>Email</th>
-                    <th></th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row">1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button class="btn btn-primary" id="btnLapiz">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                <button class="btn btn-danger" id="btnTacho">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
+        <!-- Modal Editar -->
+    <div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary-subtle">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Cliente</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-black">
+                    <form id="frmModificarCliente" action="VendedorListaCliente.php" method="POST">
+                        <div class="card bg-dark text-light">
+                            <div class="card-header text-light">
+                                <h5 id="infoEditarCliente"></h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteID">
+                                        <label for="frmEditarClienteID" class="form-label">ID Cliente:</label>
+                                        <input type="number" class="form-control" id="frmEditarClienteID" name="frmEditarClienteID" readonly />
+                                        <div class="invalid-feedback" id="errorEditarClienteID"></div>
+                                    </div>
+                                    <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteNombre">
+                                        <label for="frmEditarClienteNombre" class="form-label">Nombre:</label>
+                                        <input type="text" class="form-control" id="frmEditarClienteNombre" name="frmEditarClienteNombre" />
+                                        <div class="invalid-feedback" id="errorEditarClienteNombre"></div>
+                                    </div>
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApellido">
+                                        <label for="frmEditarClienteApellido" class="form-label">Apellido:</label>
+                                        <input type="text" class="form-control" id="frmEditarClienteApellido" name="frmEditarClienteApellido" />
+                                        <div class="invalid-feedback" id="errorEditarClienteApellido"></div>
+                                    </div>
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApodo">
+                                        <label for="frmEditarClienteApodo" class="form-label">Apodo:</label>
+                                        <input type="text" class="form-control" id="frmEditarClienteApodo" name="frmEditarClienteApodo" />
+                                        <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
+                                    </div>
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteEstado">
+                                        <label for="frmEditarClienteEstado" class="form-label">Estado Actual:</label>
+                                        <input type="text" class="form-control" id="frmEditarClienteEstado" readonly />
+                                        <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-black">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" id="botonGuardarCambios" form="frmModificarCliente">Guardar Cambios</button>
+                </div>
 
     <div id="idbotones-pantalla-venta">
         <div>
