@@ -1,4 +1,15 @@
-<?php include 'conetDataBase.php'; ?>
+<?php include '../Controlador/InsertCrearCliente.php'; ?>
+
+<?php
+session_start();
+include '../Controlador/dbTwo.php';
+
+if (!isset($_SESSION['usuario'])) {
+    header('Location:index.php');
+    die();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -40,7 +51,7 @@
             </div>
             <ul class="navbar-nav">
                 <li class="nav-item text-end">
-                    <a class="nav-link" href="index.html"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+                    <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
                 </li>
             </ul>
         </div>
@@ -48,40 +59,35 @@
     <section class="container mt-4 w-75" id="s">
         <!-- formulario nuevo usuario - inicio -->
         <div class="row">
-            <div id="divMostrarOcultarFormularioNuevoUsuario" class="mx-auto my-1 col-12">
+            <div id="divMostrarOcultarFormularioNuevoUsuario" class="mx-auto my-1 col-12 bg-black py-3 px-2 rounded-1">
                 <form id="frmNuevoCliente" action="VendedorCrearCliente.php" method="POST">
-                    <div class="card bg-black text-light">
+                    <div class="card  bg-dark text-light">
                         <div class="card-header text-light">
                             <h5>Nuevo Cliente</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-4 col-lg-12">
                                     <label for="frmNuevoClienteNombre" class="form-label">Nombre</label>
                                     <input type="text" name="frmNuevoClienteNombre" class="form-control" id="frmNuevoClienteNombre" />
                                     <div class="invalid-feedback" id="errorNuevoClienteNombre"></div>
                                 </div>
-                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-4 col-lg-12">
                                     <label for="frmNuevoClienteApellido" class="form-label">Apellido</label>
                                     <input type="text" name="frmNuevoClienteApellido" class="form-control" id="frmNuevoClienteApellido" />
                                     <div class="invalid-feedback" id="errorNuevoClienteApellido"></div>
                                 </div>
-                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-4 col-lg-12">
                                     <label for="frmNuevoClienteApodo" class="form-label">Apodo</label>
                                     <input type="text" name="frmNuevoClienteApodo" class="form-control" id="frmNuevoClienteApodo" />
                                     <div class="invalid-feedback" id="errorNuevoClienteApodo"></div>
                                 </div>
-             
                             </div>
                         </div>
                         <div class="card-footer">
                             <div class="d-grid gap-2">
-                                <button id="btnCrearNuevoCliente" type="submit" class="btn btn-primary">
-                                    <i class="bi bi-plus-circle"></i>&nbsp;Crear cliente
-                                </button>
-                                <button type="button" id="btnCancelarNuevoCliente" class="btn btn-secondary">
-                                    <i class="bi bi-x-circle"></i>&nbsp;Cancelar
-                                </button>
+                                <button id="btnCrearNuevoCliente" type="submit" class="btn btn-primary"> <i class="bi bi-plus-circle"></i>&nbsp;Crear cliente</button>
+                                <button type="button" id="btnCancelarNuevoCliente" class="btn btn-secondary"><i class="bi bi-x-circle"></i>&nbsp;Cancelar</button>
                             </div>
                         </div>
                     </div>
@@ -89,19 +95,14 @@
             </div>
         </div>
     </section>
-    <!-- formulario: nuevo usuario - fin -->
-    <br>
-        <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
-            <div class="btn-group btn-group-toggle" >
-                <label class="btn btn-light" id="idlabelventaverde">
-                    
-                </label>
-                <label class="btn btn-dark" id="idlabelventarojo">
-                    
-                </label>
-            </div>
+
+    <footer class="bg-black text-center text-lg-start mt-4 d-flex">
+        <div class="text-center p-3 text-warning">
+            © 2020 Copyright:
+            <a class="text-warning" href="https://mdbootstrap.com/">MDBootstrap.com</a>
         </div>
-    <!-- modal mensajes - inicio -->
+    </footer>
+
     <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content bg-dark text-light">
@@ -124,46 +125,4 @@
 </body>
 
 </html>
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $usuario_registrado =2;
-    $nombre = $_POST['frmNuevoClienteNombre'];
-    $apellido = $_POST['frmNuevoClienteApellido'];
-    $apodo = $_POST['frmNuevoClienteApodo'];
-    date_default_timezone_set('America/Argentina/Buenos_Aires');
-    $fecha_alta = date('Y-m-d H:i:s');
-    $fecha_baja = null;
-
-    if (!empty($nombre) && !empty($apellido) && !empty($apodo)) {
-        $consultaInsert = "INSERT INTO `cliente`(`ID_USUARIO_REGISTRADO`, `nombre`, `apellido`, `apodo`,
-         `FECHA_ALTA`, `FECHA_BAJA`) 
-        VALUES (:ID_USUARIO_REGISTRADO,:nombre, :apellido, :apodo,:FECHA_ALTA,:FECHA_BAJA)";
-
-        try {
-            $consulta = $conn->prepare($consultaInsert);
-            $consulta->bindParam(':ID_USUARIO_REGISTRADO', $usuario_registrado);
-            $consulta->bindParam(':nombre', $nombre);
-            $consulta->bindParam(':apellido', $apellido);
-            // if (!empty($apodo)) {
-            $consulta->bindParam(':apodo', $apodo);
-            $consulta->bindParam(':FECHA_ALTA', $fecha_alta);
-            $consulta->bindParam(':FECHA_BAJA', $fecha_baja);
-            // };
-
-
-            $consulta->execute();
-            $conn->beginTransaction();
-            $conn->commit();
-            echo "<h6>Insercion exitosa</h6>";
-            //header("Location: VendedorCrearCliente.php?exito=true");
-            exit; 
-
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    } else {
-        echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
-    }
-}
-?>
 <?php $conn = null; ?>
