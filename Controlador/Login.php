@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header('Location:../Vista/Administrador.php', true, 302);
                 die();
             } elseif ($_SESSION['perfil'] == 2) {
-                header('Location:../Vista/VendedorListaCliente.php', true, 302);
+                header('Location:../Vista/VendedorVender.html', true, 302);
                 die();
             }
             header('Location:../Vista/PaginaNoEncontrada.php', true, 302);
