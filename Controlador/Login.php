@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST["usuario"]) && isset($_POST['contraseña'])) {
 
-        $consultaSelect = "SELECT `NOMBRE`, `PASSWORD`, `PERFIL` FROM `usuario`  WHERE `NOMBRE`=:nombre";
+        $consultaSelect = "SELECT `NOMBRE`, `PASSWORD`, `ID_PERFIL` FROM `usuario`  WHERE `NOMBRE`=:nombre";
         $consulta = $conn->prepare($consultaSelect);
         $consulta->bindParam(':nombre', $nombre);
         $consulta->execute();
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($usuarioDb && $contraseña === $usuarioDb["PASSWORD"]) {
             // LOGIN OK
             $_SESSION['usuario'] = $nombre;
-            $_SESSION['perfil'] = $usuarioDb["PERFIL"];
+            $_SESSION['perfil'] = $usuarioDb["ID_PERFIL"];
 
             if ($_SESSION['perfil'] == 1) {
                 header('Location:../Vista/Administrador.php', true, 302);

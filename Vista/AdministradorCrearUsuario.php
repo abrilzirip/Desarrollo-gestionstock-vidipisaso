@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
   if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
-    $consultaInsert = "INSERT INTO `usuario`(`ID_TURNO`, `NOMBRE`, `PASSWORD`, `PERFIL`, `F_BAJA`, `F_ALTA`, `MAIL`) 
+    $consultaInsert = "INSERT INTO `usuario`(`ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`, `F_BAJA`, `F_ALTA`, `MAIL`) 
     VALUES ( :idturno, :Nombre, :pass,:perfil ,:fecha_baja, :pFechaalta, :mail)";
 
     try {
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
   }
 }
-$consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOMBRE`, `PASSWORD`, `PERFIL`, `F_BAJA`, `F_ALTA`, `MAIL` FROM `usuario`ORDER BY ID_USUARIO_REGISTRADO DESC");
+$consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`, `F_BAJA`, `F_ALTA`, `MAIL` FROM `usuario`ORDER BY ID_USUARIO_REGISTRADO DESC");
 ?>
 
 
@@ -64,7 +64,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
   <link rel="icon" href="/Icon.ico">
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
-  <script src="js/scriptAdminsitradorCrearProducto.js" defer></script>
+  <script src="js/scriptAdminsitradorCrearUsuario.js" defer></script>
   <title>AdministradorCrearUsuario</title>
 </head>
 
@@ -149,7 +149,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
               echo "<td class='text-center'>" . $nroFila . "</td>";
               echo "<td class='text-center'>" . $row['ID_USUARIO_REGISTRADO'] . "</td>";
               echo "<td class='text-center'>" . $row['ID_TURNO'] . "</td>";
-              echo "<td class='text-center'>" . $row['PERFIL'] . "</td>";
+              echo "<td class='text-center'>" . $row['ID_PERFIL'] . "</td>";
               echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
               echo "<td class='text-center'>" . $row['PASSWORD'] . "</td>";
               echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
@@ -223,7 +223,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
 
       <!-- Modal body -->
       <div class="modal-body bg-dark text-white">
-        <form action="/Desarrollo-gestionstock-vidipisaso2/Vista/AdministradorCrearUsuario.php" id="formProducto" method="post">
+        <form action="AdministradorCrearUsuario.php" id="formProducto" method="post">
 
           <label for="nombre">Nombre</label><br>
           <input class="form-control" type="text" id="nombre" name="nombre"><br>
