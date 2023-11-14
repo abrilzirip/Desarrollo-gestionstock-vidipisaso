@@ -2,19 +2,14 @@ function inicio() {
     document.getElementById("autocompletadoBuscarCliente").addEventListener("input", buscarCliente, false);
     document.getElementById("autocompletadoBuscarCliente").addEventListener("input", filtrar_busqueda_cliente, false);
 }
-
-let keywordsCliente;
-
-//Solicitud AJAX para obtener los datos de la cosulta hecha en ArrayClientes
-var xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        keywordsCliente = JSON.parse(xhr.responseText);
-    }
-};
-
-xhr.open("GET", "VendedorArrayCliente.php", true);
-xhr.send();
+const keywords = [
+    "Nathan",
+    "Drake",
+    "joel",
+    "Miller",
+    "3",
+    "2"
+];
 
 function buscarCliente() {
 
@@ -25,9 +20,10 @@ function buscarCliente() {
 
     if (inputTexto.trim() === "") {
         listaCliente.classList.add("d-none");
-    } else {
+    }
+    else {
         listaCliente.classList.remove("d-none");
-        const palabraFiltrada = keywordsCliente.filter(keyword => keyword.toLowerCase().includes(inputTexto));
+        const palabraFiltrada = keywords.filter(keyword => keyword.toLowerCase().includes(inputTexto));
         mostrarListadoCliente(palabraFiltrada);
     }
 }
@@ -63,8 +59,8 @@ function filtrar_busqueda_cliente() {
     // nos traemos los radio button
     let flex_radio_nombre = document.getElementById("flexRadioFiltrarPorNombre");
     let flex_radio_apellido = document.getElementById("flexRadioFiltrarPorApellido");
-    let flex_radio_id = document.getElementById("flexRadioFiltrarPorIdCliente");
-    let flex_radio_fecha = document.getElementById("flexRadioFiltrarFecha");
+    let flex_radio_id = document.getElementById("flexRadioFiltrarPorId");
+    let flex_radio_email = document.getElementById("flexRadioFiltrarPorEmail");
     let input_busqueda = document.getElementById("autocompletadoBuscarCliente");
     let input_filtrar = input_busqueda.value.toLowerCase();
     let tabla_usuarios = document.getElementById("tablaCliente");
@@ -73,7 +69,7 @@ function filtrar_busqueda_cliente() {
         if (flex_radio_apellido.checked) {
             // por apellido
             // obtener todos los td correspondientes a apellido
-            let columna_cliente_apellido = columna.cells[4];
+            let columna_cliente_apellido = columna.cells[3];
             let columna_cliente_apellido_valor = columna_cliente_apellido.textContent;
             // mostrar en la tabla los datos que coincincidan con el apellido escrito
             if (columna_cliente_apellido_valor.toLowerCase().indexOf(input_filtrar) > -1) {
@@ -92,13 +88,13 @@ function filtrar_busqueda_cliente() {
             } else {
                 columna.classList.add("d-none");
             }
-        } else if (flex_radio_fecha.checked) {
-            // por fecha
-            // obtener todos los td correspondientes a fecha
-            let columna_cliente_fecha = columna.cells[5];
-            let columna_cliente_fecha_valor = columna_cliente_fecha.textContent;
-            // mostrar en la tabla los datos que coincincidan con el fecha escrito
-            if (columna_cliente_fecha_valor.toLowerCase().indexOf(input_filtrar) > -1) {
+        } else if (flex_radio_email.checked) {
+            // por email
+            // obtener todos los td correspondientes a email
+            let columna_cliente_email = columna.cells[5];
+            let columna_cliente_email_valor = columna_cliente_email.textContent;
+            // mostrar en la tabla los datos que coincincidan con el email escrito
+            if (columna_cliente_email_valor.toLowerCase().indexOf(input_filtrar) > -1) {
                 columna.classList.remove("d-none");
             } else {
                 columna.classList.add("d-none");
@@ -106,7 +102,7 @@ function filtrar_busqueda_cliente() {
         } else {
             // por nombre (por defecto)
             // obtener todos los td correspondientes a nombre
-            let columna_nombre = columna.cells[3];
+            let columna_nombre = columna.cells[2];
             let columna_nombre_valor = columna_nombre.textContent;
             // mostrar en la tabla los datos que coincincidan con el nombre escrito
             if (columna_nombre_valor.toLowerCase().indexOf(input_filtrar) > -1) {

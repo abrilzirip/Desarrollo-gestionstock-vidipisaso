@@ -46,14 +46,16 @@ if(!empty($search)){
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $FECHA_ALTA = date('Y-m-d H:i:s');
 
-    $consultaInsert = "INSERT INTO `venta`(`ID_USUARIO_REGISTRADO`, `FECHA`, `ID_CLIENTE`) 
-    VALUES (2,:FECHA_ALTA,1)";
+    $consultaInsert = "INSERT INTO `venta`(`ID_USUARIO_REGISTRADO`, `FECHA`, `ID_CLIENTE`, `TOTAL`) 
+    VALUES (2,:FECHA_ALTA,1,0)";
 
     $consultaInsertDos="INSERT INTO `detalle_venta`(`ID_VENTA`, `ID_PRODUCTO`, `precio`, `cantidad`, `TOTAL`) 
     VALUES (:idUltimaVenta,:producto,:precio,:cantidad,:total)";
 
     $consultaUpdataStock="UPDATE `producto` SET `CANTIDAD`=CANTIDAD-:cantidad
                           WHERE `ID_PRODUCTO`=:producto";
+
+
 
     try {
         $consulta = $conn->prepare($consultaInsert);
@@ -103,6 +105,15 @@ if(!empty($search)){
                             $conn->commit();
             
         }
+        $consultaUpdataventa="UPDATE `venta` SET `TOTAL`=:total
+        WHERE `ID_VENTA`=:idUltimaVenta";
+
+        $consulta =$conn->prepare($consultaUpdataventa);
+        $consulta->bindParam(':total', $total);
+        $consulta->bindParam(':idUltimaVenta', $idUltimaVenta);
+        $consulta->execute();
+        $conn->beginTransaction();
+        $conn->commit();
 
         echo "<h6>Insercion exitosa</h6>";
         //header("Location: VendedorCrearCliente.php?exito=true");

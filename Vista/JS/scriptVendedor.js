@@ -4,6 +4,7 @@ function inicio() {
     document.getElementById("id_Eliminar_producto_Tabla_cancelar").addEventListener("click", eliminarProductosTabla, false);
     document.getElementById("listaProductos").addEventListener("click", seleccionarListaProducto, false);
     document.getElementById("idvenderboton").addEventListener("click", e=>{venderProductos(e)},false);
+    document.getElementById("idabona").addEventListener("click",InporteAbonado,false);
 
 }
 //json de para generar el resumen de toda la venta para enviar ala base
@@ -19,11 +20,23 @@ let jsonEnvio=[
 
 
 const posicionJson=0;
-let cantidadDeFilas=1, subTotal=0;
+let cantidadDeFilas=1, subTotal=0,TotalApagar=0;
 let ProductoSeleccionado;
 localStorage.setItem("cantidadDeFilas", cantidadDeFilas);
 localStorage.setItem("subTotal", subTotal);
 
+
+function InporteAbonado(){
+ 
+    let valorAbonado= document.getElementById("idabona").value;
+
+    if (valorAbonado>=subTotal) {
+        console.log("abona con");
+        document.getElementById("idbotonconfirmar").disabled = false;
+    }else{
+        document.getElementById("idbotonconfirmar").disabled = true;
+    }
+}
 
 function buscarCliente() {
 
@@ -37,7 +50,7 @@ function buscarCliente() {
     }
     else {
         //comienza a buscar luego de las 2 coincidencias
-        if (inputTexto.length>2) {
+        if (inputTexto.length>3) {
 
             listaCliente.classList.remove("d-none");
 
@@ -63,15 +76,23 @@ function mostrarListadoCliente(palabraFiltrada,objetoProductoSeleccionado) {
     } else {
         smsErrorResultado.classList.add("d-none")
 
-        palabraFiltrada.forEach(listado => {
-            const li = document.createElement('li');
-            li.textContent = listado+" "+objetoProductoSeleccionado.MARCA+" "+
-            objetoProductoSeleccionado.PROD_PRECIO_VENTA+"$";
-            li.addEventListener('click', () => {
-                autocompletadoInput.value = listado;
-                listaCliente.innerHTML = '';
-            });
-            listaCliente.appendChild(li);
+        //console.log("cantidad de obtejtos  "+objetoProductoSeleccionado.length);
+            objetoProductoSeleccionado.forEach(obj=>{
+                const li = document.createElement('li'); 
+               // console.log("+-"+obj.NOMBRE);
+                li.textContent = obj.NOMBRE+" "+obj.MARCA+" "+
+                obj.PROD_PRECIO_VENTA+"$";
+                
+
+                li.addEventListener('click', () => {
+                    autocompletadoInput.value = obj.NOMBRE;
+                    listaCliente.innerHTML = '';
+                    ProductoSeleccionado=obj;
+                });
+                listaCliente.appendChild(li);
+            
+            
+
         });
     }
 }
@@ -99,10 +120,13 @@ function eliminarProductosTabla(){
     let filaProductoPrincipal=document.getElementById("idfilaProductoprincipal");
     filaProductoPrincipal.classList.add("d-none");
     document.getElementById("autocompletadoBuscarCliente").value="";
+    document.getElementById("idRedondeo").innerHTML="0 $"
     document.getElementById("idtotal").innerHTML="0 $"
+    document.getElementById("idtotalApagar").innerHTML="0 $"
     jsonEnvio=[];
     localStorage.setItem("subTotal",0);
     subTotal=0;
+    TotalApagar=0;
     cantidadDeFilas=1
     localStorage.setItem("cantidadDeFilas",1);
 }
@@ -168,7 +192,7 @@ function agregarProductoTabla(){
             precio:ProductoSeleccionado.PROD_PRECIO_VENTA,cantidad:AUXcantidaDeProductosInput});
         //cantidadDeFilas++; conflicto      
         
-        console.log(jsonEnvio);
+        //console.log(jsonEnvio);
         
     }
     document.getElementById("autocompletadoBuscarCliente").value="";
@@ -179,12 +203,19 @@ function agregarProductoTabla(){
 
     document.getElementById("idtotal").innerHTML=subTotal+" $";
 
-    //idRedondeo
-    let aaaa=444.88;
-    Math.round(aaaa,2)
-    console.log(Math.round(aaaa,2));
+    //idRedondeo idtotalApagar
+
+    let valorResiduo=subTotal-Math.trunc(subTotal);
+
+    RedondeValor=document.getElementById("idRedondeo").innerHTML=(valorResiduo).toFixed(2)+" $";
+    
+    console.log(Math.trunc(subTotal));
+    
+        
     //idtotalApagar
 
+    TotalApagar=Math.round(subTotal);
+    RedondeValor=document.getElementById("idtotalApagar").innerHTML=TotalApagar+" $";
 
    
 }
@@ -220,24 +251,29 @@ function TraerProductosdeDDBB(inputTexto){
        
         let templista=[];
         const AuxPalabraFiltrada = datasalida.filter( datasalida => templista.push(datasalida.NOMBRE)
-                                                     , resultado=datasalida                             );
+                                                     , resultado=datasalida);
+        //console.log(datasalida);
         const palabraFiltrada = templista.filter(templista => templista.toLowerCase().includes(inputTexto));
         
         //console.log("---"+resultado[0].PROD_PRECIO_VENTA);
         //ProductoSeleccionado=resultado[0];
 
+
+        //console.log(datasalida);
+        let pos=1,objetoArray=[];
         datasalida.forEach(element => {
-         
-            if (element.NOMBRE==palabraFiltrada) {
-                ProductoSeleccionado=element;
-                console.log("++"+element.NOMBRE)
+           // console.log(element.NOMBRE);    
+            if (palabraFiltrada.includes(element.NOMBRE)) {
+                //ProductoSeleccionado=element;
+                objetoArray.push(element);
+                //console.log("++"+element.NOMBRE)
             
             }
-                
+            pos++;    
             
         });
         
-        mostrarListadoCliente(palabraFiltrada,ProductoSeleccionado); 
+        mostrarListadoCliente(palabraFiltrada,objetoArray); 
 
         
     });
