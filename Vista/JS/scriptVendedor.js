@@ -107,7 +107,9 @@ function eliminarProductosTabla(){
     let filaProductoPrincipal=document.getElementById("idfilaProductoprincipal");
     filaProductoPrincipal.classList.add("d-none");
     document.getElementById("autocompletadoBuscarCliente").value="";
+    document.getElementById("idRedondeo").innerHTML="0 $"
     document.getElementById("idtotal").innerHTML="0 $"
+    document.getElementById("idtotalApagar").innerHTML="0 $"
     jsonEnvio=[];
     localStorage.setItem("subTotal",0);
     subTotal=0;
@@ -188,7 +190,7 @@ function agregarProductoTabla(){
 
     document.getElementById("idtotal").innerHTML=subTotal+" $";
 
-    //idRedondeo
+    //idRedondeo idtotalApagar
 
     let valorResiduo=subTotal-Math.trunc(subTotal);
 
