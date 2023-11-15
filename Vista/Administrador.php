@@ -2,7 +2,7 @@
 session_start();
 include '../Controlador/dbTwo.php';
 
-if (!isset($_SESSION['usuario']) && isset($_SESSION['perfil'])) {
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
   header('Location:index.php');
   die();
 }
@@ -37,7 +37,7 @@ if (!isset($_SESSION['usuario']) && isset($_SESSION['perfil'])) {
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="cista/Administrador.htmlollapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="Administrador.php">Inicio</a>

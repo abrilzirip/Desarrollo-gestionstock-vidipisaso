@@ -65,34 +65,6 @@ function validarForm() {
         limiteAvisoInput.classList.add("is-valid");
     }
 
-    //Validacion Limite de Dia
-    let limiteDiaInput = document.getElementById("limiteDeDia");
-    let limiteDeDia = limiteDiaInput.value;
-
-    limiteDiaInput.classList.remove("is-valid");
-    limiteDiaInput.classList.remove("is-invalid");
-
-    let smsIndicadorDia = document.getElementById("errorIndicadorDia");
-    let expresionRegularDia = /^\d+$/;
-
-    if (limiteDeDia.trim() === "") {
-        smsIndicadorDia.innerHTML = "El Campo Dia se encentra vacio";
-
-        limiteDiaInput.classList.add("is-invalid");
-        return false;
-    } else {
-        limiteDiaInput.classList.add("is-valid");
-    }
-
-    if (!expresionRegularDia.test(limiteDeDia)) {
-        smsIndicadorDia.innerHTML = "El Campo Limite solo acepta caracteres numericos"
-
-        limiteDiaInput.classList.add("is-invalid");
-        return false;
-    } else {
-        limiteDiaInput.classList.add("is-valid");
-    }
-
     return true;
 }
 

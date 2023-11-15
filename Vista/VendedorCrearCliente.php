@@ -4,7 +4,7 @@
 session_start();
 include '../Controlador/dbTwo.php';
 
-if (!isset($_SESSION['usuario'])) {
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     header('Location:index.php');
     die();
 }

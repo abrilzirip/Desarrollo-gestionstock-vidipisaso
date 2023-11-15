@@ -3,7 +3,7 @@ include '../Controlador/db.php';
 
 session_start();
 
-if (!isset($_SESSION['usuario']) && isset($_SESSION['perfil'])) {
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
   header('Location:index.php');
   die();
 }

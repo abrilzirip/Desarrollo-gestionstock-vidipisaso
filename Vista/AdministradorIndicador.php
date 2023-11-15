@@ -1,8 +1,10 @@
 <?php
 
+session_start();
+
 include '../Controlador/dbTwo.php';
 
-if (!isset($_SESSION['usuario'])) {
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     header('Location:index.php');
     die();
 }
@@ -20,6 +22,9 @@ if (!isset($_SESSION['usuario'])) {
     <!--Script-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="../Vista/JS/scriptAdministradorIndicador.js"></script>
+    <script src="../Vista/JS/JsonProductoIndicador.js"></script>
+    <script src="../Vista/JS/JsonMarcaProducto.js"></script>
+    <script src="../Vista/JS/JsonCategoriaIndicador.js"></script>
     <title>Indicador</title>
 </head>
 
@@ -82,10 +87,15 @@ if (!isset($_SESSION['usuario'])) {
                             <label for="limiteDeAviso" class="form-label">Limite de bajo stock:</label>
                             <input type="number" class="form-control" name="limiteDeAviso" id="limiteDeAviso">
                             <div class="invalid-feedback" id="errorIndicadorAviso"></div>
-
-                            <label for="limiteDeDia" class="form-label mt-2">Limite de dia</label>
-                            <input type="number" class="form-control" name="limiteDeDia" id="limiteDeDia">
-                            <div class="invalid-feedback" id="errorIndicadorDia"></div>
+                            <select class="form-select mt-2" aria-label="Default select example" id="selectProducto" name="selectProducto">
+                                <option selected disabled>Productos</option>
+                            </select>
+                            <select class="form-select mt-2" aria-label="Default select example" id="selectMarca" name="selectMarca">
+                                <option selected disabled>Marcas</option>
+                            </select>
+                            <select class="form-select mt-2" aria-label="Default select example" id="selectCategoria" name="selectCategoria">
+                                <option selected disabled>Categorias</option>
+                            </select>
                         </div>
                         <div class="card-footer bg-black">
                             <button type="submit" class="btn btn-primary">Guardar Configuracion</button>
