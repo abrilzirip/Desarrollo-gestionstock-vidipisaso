@@ -4,7 +4,7 @@
 session_start();
 include '../Controlador/dbTwo.php';
 
-if (!isset($_SESSION['usuario'])) {
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     header('Location:index.php');
     die();
 }
@@ -98,7 +98,7 @@ if (!isset($_SESSION['usuario'])) {
 
     <footer class="bg-black text-center text-lg-start mt-4 d-flex">
         <div class="text-center p-3 text-warning">
-            © 2023 Copyright:StVent
+            © 2020 Copyright:
             <a class="text-warning" href="https://mdbootstrap.com/">MDBootstrap.com</a>
         </div>
     </footer>
