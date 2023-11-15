@@ -3,7 +3,6 @@
 
 <?php
 session_start();
-
 include '../Controlador/dbTwo.php';
 
 if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
@@ -12,10 +11,7 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
 }
 ?>
 
-<?php
-$db = new Database();
-?>
-
+<?php $db = new Database(); ?>
 
 <!DOCTYPE html>
 <html lang="es">

@@ -1,5 +1,12 @@
 <?php include '../Controlador/db.php';
 
+session_start();
+
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
+    header('Location:index.php');
+    die();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = 2;
     $subcategoria = $_POST['subcategoria'];
@@ -36,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Inserccion exitosa";
             header('Location: ' . htmlspecialchars($_SERVER["PHP_SELF"]) . "?succes_ok=1", true, 303);
             exit;
-
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -45,8 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$consultaSelect = $conn->query
-("SELECT 
+$consultaSelect = $conn->query("SELECT 
         `ID_PRODUCTO`,`ID_SUBCATEGORIA`,`FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO_GRAMOS` 
         FROM 
         `producto`");
@@ -59,16 +64,13 @@ $consultaSelect = $conn->query
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
+
     <link rel="stylesheet" href="css/mystyle.css">
     <link rel="icon" href="/Icon.ico">
     <script src="js/AdministradorCrearProducto.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"
-        defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
     <title>StVent-Productos</title>
 </head>
 
@@ -78,14 +80,11 @@ $consultaSelect = $conn->query
     <nav class="navbar navbar-expand-lg  bg-black">
         <div class="container-fluid">
             <a class="navbar-brand text-light fs-5" href="#">StVent</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span
-                    class="navbar-toggler-icon"></span></button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="cista/Administrador.htmlollapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active text-warning mt-1 fs-6" aria-current="page"
-                            href="Administrador.html">Inicio</a>
+                        <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="Administrador.html">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearUsuario.php">Crear
@@ -103,8 +102,7 @@ $consultaSelect = $conn->query
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link text-warning dropdown-toggle mt-1 fs-6" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link text-warning dropdown-toggle mt-1 fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Generar Reporte
                         </a>
                         <ul class="dropdown-menu bg-black">
@@ -128,25 +126,25 @@ $consultaSelect = $conn->query
     <!-- Fin navbar -->
 
     <!-- Menu Productos -->
-    <div  id="cardProductos">
+    <div id="cardProductos">
         <div class="card-header py-2">
             <h1 class="text-center mt-3">Productos</h1>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped table-dark" id="productosTabla">
                         <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Subcategoria</th>
-                            <th>Fecha</th>
-                            <th>Descripcion</th>
-                            <th>Marca</th>
-                            <th>Cantidad</th>
-                            <th>Precio de compra</th>
-                            <th>Precio de venta</th>
-                            <th>Peso</th>
-                            <th>#</th>
-                            <th>Accion</th>
+                            <tr>
+                                <th>ID</th>
+                                <th>Subcategoria</th>
+                                <th>Fecha</th>
+                                <th>Descripcion</th>
+                                <th>Marca</th>
+                                <th>Cantidad</th>
+                                <th>Precio de compra</th>
+                                <th>Precio de venta</th>
+                                <th>Peso</th>
+                                <th>#</th>
+                                <th>Accion</th>
                         </thead>
                         <tbody>
                             <?php
@@ -183,8 +181,7 @@ $consultaSelect = $conn->query
                 <div id="idbotones-pantalla-venta">
                     <div>
                         <button class="btn btn-danger py-1">Buscar</button>
-                        <button class="btn btn-danger py-1" id="btnInsertar" data-bs-toggle="modal"
-                            data-bs-target="#modalCarga">Agregar Producto</button>
+                        <button class="btn btn-danger py-1" id="btnInsertar" data-bs-toggle="modal" data-bs-target="#modalCarga">Agregar Producto</button>
                     </div>
                 </div>
             </div>
@@ -229,7 +226,7 @@ $consultaSelect = $conn->query
                         <input class="form-control" type="text" id="precioVenta" name="precioVenta" required><br>
 
 
-                        
+
                         <label for="peso">Peso gr</label><br>
                         <input class="form-control" type="text" id="peso" name="peso">
 
