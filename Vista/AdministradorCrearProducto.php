@@ -128,7 +128,7 @@ $consultaSelect = $conn->query
         <div class="card-header py-2">
             <h1 class="text-center mt-3">Productos</h1>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive mx-auto" style="height: 560px !important; width: 100%; overflow-y: scroll;">
                     <table class="table table-striped table-dark" id="productosTabla">
                         <thead>
                         <tr>
@@ -178,8 +178,8 @@ $consultaSelect = $conn->query
 
                 <div id="idbotones-pantalla-venta">
                     <div>
-                        <button class="btn btn-danger py-1">Buscar</button>
-                        <button class="btn btn-danger py-1" id="btnInsertar" data-bs-toggle="modal"
+                        <button class="btn btn-danger py-1 mt-3">Buscar</button>
+                        <button class="btn btn-danger py-1 mt-3" id="btnInsertar" data-bs-toggle="modal"
                             data-bs-target="#modalCarga">Agregar Producto</button>
                     </div>
                 </div>
