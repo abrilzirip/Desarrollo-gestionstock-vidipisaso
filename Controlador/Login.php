@@ -11,7 +11,7 @@ if (isset($_SESSION['usuario']) && isset($_SESSION['perfil'])) {
         header('Location:../Vista/Administrador.php');
         die();
     } elseif ($_SESSION['perfil'] == 2) {
-        header('Location:../Vista/VendedorListaCliente.php');
+        header('Location:../Vista/VendedorVender.html');
         die();
     }
 }

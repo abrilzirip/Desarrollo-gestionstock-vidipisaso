@@ -1,6 +1,6 @@
 <?php
 
-include '../Controlador/db.php';
+include '../Controlador/dbTwo.php';
 
 if (!isset($_SESSION['usuario'])) {
     header('Location:index.php');
@@ -40,7 +40,7 @@ if (!isset($_SESSION['usuario'])) {
                             <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearUsuario.php">Crear Usuario</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning mt-1 fs-6" href="AdminsitradorCrearProducto.html">Crear Producto</a>
+                            <a class="nav-link text-warning mt-1 fs-6" href="AdminsitradorCrearProducto.php">Crear Producto</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-warning mt-1 fs-6" href="AdministradorIndicador.php">Crear Inidicador</a>

@@ -110,11 +110,6 @@ function validarForm() {
     let smsErrorApodo = document.getElementById("errorNuevoClienteApodo");
     let expresionRegularApodo = /^[a-zA-Z\s]*$/;
 
-    if (apodo.trim() === "") {
-        apodoInput.classList.add("is-valid");
-        // smsErrorApodo.innerHTML = "El campo Apodo se encuentra vacio";
-        // return false;
-    }
     if (!expresionRegularApodo.test(apodo)) {
         apodoInput.classList.add("is-invalid");
         smsErrorApodo.innerHTML = "El campo Apodo solo acepta caracteres alfabeticos"
@@ -123,9 +118,9 @@ function validarForm() {
         apodoInput.classList.add("is-valid");
     }
 
-    if (apodoArray.length > 1) {
+    if (apodoArray.length > 2) {
         apodoInput.classList.add("is-invalid");
-        smsErrorApodo.innerHTML = "El campo Apodo solo acepta una palabra";
+        smsErrorApodo.innerHTML = "El campo Apodo solo acepta una o dos palabra";
         return false;
     } else {
         apodoInput.classList.add("is-valid");
@@ -143,6 +138,7 @@ function validarForm() {
     //Validacion Apodo Fin
 
     //Validacion Email
+
     // let emailInput = document.getElementById("frmNuevoClienteEmail");
     // let emailArray = emailInput.value.split(/ +/);
     // let email = emailInput.value;
@@ -174,17 +170,17 @@ function validarForm() {
     //     emailInput.classList.add("is-valid");
     // }
 
-//     for (palabra of emailArray) {
-//         if (palabra.length > 30) {
-//             emailInput.classList.add("is-invalid");
-//             smsErrorEmail.innerHTML = "El campo Apodo solo acepta como maximo 30 caracteres";
-//             return false;
-//         } else {
-//             emailInput.classList.add("is-valid");
-//         }
-//     }
-//     //Validacion Email Fin
-//     return true;
+    //     for (palabra of emailArray) {
+    //         if (palabra.length > 30) {
+    //             emailInput.classList.add("is-invalid");
+    //             smsErrorEmail.innerHTML = "El campo Apodo solo acepta como maximo 30 caracteres";
+    //             return false;
+    //         } else {
+    //             emailInput.classList.add("is-valid");
+    //         }
+    //     }
+    //Validacion Email Fin
+    return true;
 }
 
 //Modal
@@ -227,9 +223,9 @@ function cancelarAlta() {
     let apodoInput = document.getElementById("frmNuevoClienteApodo");
     apodoInput.classList.remove("is-valid");
     apodoInput.classList.remove("is-invalid");
-    let emailInput = document.getElementById("frmNuevoClienteEmail");
-    emailInput.classList.remove("is-valid");
-    emailInput.classList.remove("is-invalid");
+    // let emailInput = document.getElementById("frmNuevoClienteEmail");
+    // emailInput.classList.remove("is-valid");
+    // emailInput.classList.remove("is-invalid");
     window.location.href = "VendedorListaCliente.php";
 }
 
