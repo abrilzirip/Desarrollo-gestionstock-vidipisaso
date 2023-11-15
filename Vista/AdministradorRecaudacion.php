@@ -89,7 +89,7 @@
       
       <div class="container estadisticas text-center mt-5">
         <div class="row">
-          <h2>Ventas del Mes</h2>
+        <h2>Ventas del Mes</h2>
           <div class="row">
             <div class="col-md-6 mx-auto">
             

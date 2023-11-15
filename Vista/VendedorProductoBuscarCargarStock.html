@@ -31,7 +31,7 @@
                             <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="VendedorVender.html">Vender</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-warning mt-1 fs-6" href="VendedorCrearCliente.html">Crear Cliente</a>
+                            <a class="nav-link text-warning mt-1 fs-6" href="VendedorCrearCliente.php">Crear Cliente</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-warning mt-1 fs-6" href="VendedorProductoBuscarCargarStock.html">Producto</a>
@@ -40,7 +40,7 @@
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item text-end">
-                        <a class="nav-link" href="index.html"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+                        <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
                     </li>
                 </ul>
             </div>
@@ -99,6 +99,7 @@
                                                     <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"
                                                     id="idfilaCantidad" name="cantidaStock" scope="col">
                                                         <input type="number" id="idfilaCantidadinput" class="form-control text-center" value="1"  min="1">
+                                                        <input class="d-none" type="text"name="datostxtstock" id="idinputdatosTxtstock" >
                                                     </td>
 
                                                     <td  class="col-1 ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"scope="col">

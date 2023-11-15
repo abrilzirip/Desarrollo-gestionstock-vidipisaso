@@ -97,9 +97,9 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
             <li class="nav-item dropdown">
               <a class="nav-link text-warning dropdown-toggle mt-1 fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Generar Reporte</a>
               <ul class="dropdown-menu bg-black">
-                <li><a class="dropdown-item text-warning" href="#">Ventas</a></li>
-                <li><a class="dropdown-item text-warning" href="#">Vendedor</a></li>
-                <li><a class="dropdown-item text-warning" href="#">Recaudación</a></li>
+              <li><a class="dropdown-item text-warning" href="AdministradorVentas.php">Ventas</a></li>
+                <li><a class="dropdown-item text-warning" href="AdministradorVendedor.php">Vendedor</a></li>
+                <li><a class="dropdown-item text-warning" href="AdministradorRecaudacion.php">Recaudación</a></li>
               </ul>
             </li>
             </li>

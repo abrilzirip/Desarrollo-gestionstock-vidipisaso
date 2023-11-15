@@ -4,8 +4,8 @@ require_once("./db.php");
 
 //$cantidadProducto=$_POST["cantidaStock"];
 
-if (isset($_POST["cantidaStock"])) {
-    $cantidadProducto=$_POST["cantidaStock"];
+if (isset($_POST["datostxtstock"])) {
+    $cantidadProducto=$_POST["datostxtstock"];
     $jsonDatos =json_decode($cantidadProducto,false);
     
     echo "recibido".$jsonDatos;  

@@ -1,30 +1,43 @@
-<?php
-
-include '../Controlador/dbTwo.php';
-
-if (!isset($_SESSION['usuario'])) {
-    header('Location:index.php');
-    die();
-}
-?>
-
+<?php include("../Controlador/db.php"); ?>
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Css-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../Vista/CSS/mystyle.css">
-    <!--Script-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="../Vista/JS/scriptAdministradorIndicador.js"></script>
-    <title>Indicador</title>
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="CSS/mystyle.css" />
+    <link rel="stylesheet" href="./CSS/AdministradorReporte.css">
+    <link rel="icon" href="/Icon.ico" />
 
-<body>
-<div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+    <script src="JS/scriptAdministrador.js" defer></script>
+    <title>StVent-Administrador</title>
+  </head>
+
+  <body>
+    <!-- implementar template administrador -->
+
+        <!-- Navbar Admin. -->
+        <div>
     <nav class="navbar navbar-expand-lg bg-black">
       <div class="container-fluid">
         <a class="navbar-brand text-light fs-5" href="#">StVent</a>
@@ -70,39 +83,41 @@ if (!isset($_SESSION['usuario'])) {
       </div>
     </nav>
   </div>
-    <section class="container mt-4 w-75">
-        <div class="row">
-            <div class="col">
-                <form action="" method="post" id="configForm">
-                    <div class="card">
-                        <div class="card-header bg-black text-light">
-                            <h6>Configurar Indicador</h6>
-                        </div>
-                        <div class="card-body bg-dark text-light">
-                            <label for="limiteDeAviso" class="form-label">Limite de bajo stock:</label>
-                            <input type="number" class="form-control" name="limiteDeAviso" id="limiteDeAviso">
-                            <div class="invalid-feedback" id="errorIndicadorAviso"></div>
+    <!-- Fin navbar -->
+    <h1 class="text-center mt-3">Bienvenido - Reportes</h1>
 
-                            <label for="limiteDeDia" class="form-label mt-2">Limite de dia</label>
-                            <input type="number" class="form-control" name="limiteDeDia" id="limiteDeDia">
-                            <div class="invalid-feedback" id="errorIndicadorDia"></div>
-                        </div>
-                        <div class="card-footer bg-black">
-                            <button type="submit" class="btn btn-primary">Guardar Configuracion</button>
-                        </div>
-                    </div>
-                </form>
+
+
+    
+
+    <div>
+      <div class="container estadisticas text-center mt-5">
+        <div class="row mt-3">
+          <h2>Vendedores Destacados</h2>
+          <div class="row">
+            <div class="col-md-6  mx-auto">
+              <canvas id="graficoVendedoresMasVendieron"></canvas>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    
+
+
+
+
+    <!-- Pie de Indicadores -->
+    <br>
+        <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
+            <div class="btn-group btn-group-toggle" >
+                <label class="btn btn-light" id="idlabelventaverde">
+                    
+                </label>
+                <label class="btn btn-dark" id="idlabelventarojo">
+                    
+                </label>
             </div>
         </div>
-        <div class="alert alert-success d-none mt-2" role="alert" id="errorIndicadorValid">
-
-        </div>
-        <div class="alert alert-danger d-none mt-2" role="alert" id="errorIndicadorInvalid">
-
-        </div>
-    </section>
-</body>
-
+  </body>
 </html>
-
-<?php $conn = null; ?>

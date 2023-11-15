@@ -8,7 +8,7 @@ function inicio() {
 
 
 let ProductoSeleccionado;
-
+let DatosEnviados=[];
 
  
 
@@ -59,6 +59,8 @@ function mostrarListadoProducto(palabraFiltrada,objetoProductoSeleccionado)  {
                 autocompletadoInput.value = obj.NOMBRE +" "+obj.MARCA+ " Cantidad "+obj.CANTIDAD;
                 listaCliente.innerHTML = '';
                 ProductoSeleccionado=obj;
+                DatosEnviados.push({nombre:obj.NOMBRE,marca:obj.MARCA,precio:obj.PROD_PRECIO_VENTA,
+                cantidad:1});
             });
             listaCliente.appendChild(li);
         });
@@ -89,6 +91,9 @@ function seleccionarListaProducto(){
 function ActualizarProductoStock(e){
     e.preventDefault();
     console.log("comenzo la actualizacion");
+    console.log("++"+DatosEnviados);
+    document.getElementById("idinputdatosTxtstock").value=JSON.stringify(DatosEnviados);
+    console.log("mando esto+"+document.getElementById("idinputdatosTxtstock").value);
     ActualizarProductoStockenBase();
 }
 
@@ -98,6 +103,8 @@ function ActualizarProductoStockenBase(){
 
 
     let formaulrioEnvio=document.getElementById("idformilarioUpdateSotck");
+    //datostxtstock
+
 
     fetch('../Controlador/ActualizarProductoStock.php', {
         method: 'POST',
@@ -107,9 +114,9 @@ function ActualizarProductoStockenBase(){
 
     .then((data)=>{
 
-        console.log(data);
+        console.log("seconecto ala base"+data);
 
-        alert("actiulizo"+data);
+       
 
     });
 }
