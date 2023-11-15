@@ -1,6 +1,8 @@
 function inicio() {
-    document.getElementById("autocompletadoBuscarCliente").addEventListener("input", buscarCliente, false); 
+    document.getElementById("autocompletadoBuscarProducto").addEventListener("input", buscarProducto, false); 
     document.getElementById("listaProductos").addEventListener("click", seleccionarListaProducto, false);
+    document.getElementById("id_modificar_cantidad_producto").addEventListener("click",e=>{ ActualizarProductoStock(e)},false);
+
 }
 
 
@@ -12,9 +14,9 @@ let ProductoSeleccionado;
 
 
 
-function buscarCliente() {
+function buscarProducto() {
 
-    const autocompletadoInput = document.getElementById("autocompletadoBuscarCliente");
+    const autocompletadoInput = document.getElementById("autocompletadoBuscarProducto");
     const inputTexto = autocompletadoInput.value.toLowerCase();
 
     const listaCliente = document.getElementById("listaProductos");
@@ -24,7 +26,7 @@ function buscarCliente() {
     }
     else {
         //comienza a buscar luego de las 2 coincidencias
-        if (inputTexto.length>1) {
+        if (inputTexto.length>3) {
            
             listaCliente.classList.remove("d-none");
           
@@ -35,9 +37,9 @@ function buscarCliente() {
     }
 }
 
-function mostrarListadoCliente(palabraFiltrada) {
+function mostrarListadoProducto(palabraFiltrada,objetoProductoSeleccionado)  {
 
-    const autocompletadoInput = document.getElementById("autocompletadoBuscarCliente");
+    const autocompletadoInput = document.getElementById("autocompletadoBuscarProducto");
 
     const listaCliente = document.getElementById("listaProductos");
 
@@ -49,13 +51,14 @@ function mostrarListadoCliente(palabraFiltrada) {
         smsErrorResultado.classList.remove("d-none")
     } else {
         smsErrorResultado.classList.add("d-none")
-
-        palabraFiltrada.forEach(listado => {
+        //console.log("cantidad de obtejtos  "+objetoProductoSeleccionado);
+        objetoProductoSeleccionado.forEach(obj => {
             const li = document.createElement('li');
-            li.textContent = listado;
+            li.textContent = obj.NOMBRE +" "+obj.MARCA+ " Cantidad "+obj.CANTIDAD;
             li.addEventListener('click', () => {
-                autocompletadoInput.value = listado;
+                autocompletadoInput.value = obj.NOMBRE +" "+obj.MARCA+ " Cantidad "+obj.CANTIDAD;
                 listaCliente.innerHTML = '';
+                ProductoSeleccionado=obj;
             });
             listaCliente.appendChild(li);
         });
@@ -64,79 +67,51 @@ function mostrarListadoCliente(palabraFiltrada) {
 
 function seleccionarListaProducto(){
     console.log("selcciono producto lista");
-    const filaProductoPrecio=document.getElementById("idfilaPrecio");
-   // const filaProductoCantidad=document.getElementById("idfilaCantidad");
+    let filaProductoPrecio=document.getElementById("idfilaPrecio");
+    let filaProductoMarca=document.getElementById("idfilamarca");
+    let filaProductoDescripcion=document.getElementById("idfiladecripcion");
+    //idfiladecripcion  idfilamarca
 
-   filaProductoPrecio.innerHTML=ProductoSeleccionado.PROD_PRECIO_VENTA;
-    let cantidamax=ProductoSeleccionado.CANTIDAD;
-    
+    filaProductoPrecio.innerHTML=ProductoSeleccionado.PROD_PRECIO_VENTA;
+    filaProductoMarca.innerHTML=ProductoSeleccionado.MARCA;
+    filaProductoDescripcion.innerHTML=ProductoSeleccionado.NOMBRE;
+
+
     const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
-    
+
     filaProductoPrincipal.classList.remove("d-none")
 
     const filaCantidadinput = document.getElementById('idfilaCantidadinput');
-    filaCantidadinput.setAttribute("max",cantidamax);
-    // filaProductoCantidad.innerHTML=`<td class="col-1 text-center">                                                
-    //                         <input type="number" class="form-control text-center" value="1" max="${cantidamax}" min="1">
-    //                    </td>`;
+
+
 }
 
-function eliminarProductosTabla(){
-    console.log("eliminos productos");
+function ActualizarProductoStock(e){
+    e.preventDefault();
+    console.log("comenzo la actualizacion");
+    ActualizarProductoStockenBase();
 }
 
 
-function agregarProductoTabla(){
-    //id_Agregar_producto_Tabla   tablaCliente
-    //console.log(document.getElementById("autocompletadoBuscarCliente").value.length );
+function ActualizarProductoStockenBase(){
     
-    
-    if (document.getElementById("autocompletadoBuscarCliente").value.length>=3) {
-       // console.log("y paso");
-       // console.log(document.getElementById("idcantidadinput").value);    
-            //esto va evaluar mejor cuando se conecte ala base ya que trae datos de cantidad
-        
 
-            let tablaVenta= document.getElementById("tablaProductos");
-            let marca=ProductoSeleccionado.MARCA;
-            let nombre=ProductoSeleccionado.NOMBRE;
-            let precio=ProductoSeleccionado.PROD_PRECIO_VENTA;
-           // let cantida=keyword[posicionJson].cantidad;
 
-            let filaCantidadInput=document.getElementById("idfilaCantidadinput").value;
-           
+    let formaulrioEnvio=document.getElementById("idformilarioUpdateSotck");
 
-            var row = tablaVenta.insertRow(-1).innerHTML =` <tr>
-            <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md" scope="row">${cantidadDeFilas}</td>
-            <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">${marca}</td>
-            <td class="text-center" scope="col">${nombre}</td>
-            <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">
-            ${precio} $
-            </td>
-            <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"
-             scope="col">                                                        
-            ${filaCantidadInput}
-             </td>
+    fetch('../Controlador/ActualizarProductoStock.php', {
+        method: 'POST',
+        body: new FormData(formaulrioEnvio)
+    })
+  
 
-            <td  class="col-1 ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"scope="col">
-            <button type="button" class="btn btn-danger btn-sm text-center"
-                                 data-btn-grupo="eliminar-cliente"><i
-                 class="bi bi-trash"></i></button>
-            </td>
-        </tr>`;      
-        
-        
-        
-    }
-    document.getElementById("autocompletadoBuscarCliente").value="";
+    .then((data)=>{
 
-    
-    document.getElementById("idfilaCantidadinput").value=1;
-    const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
-    filaProductoPrincipal.classList.add("d-none")
+        console.log(data);
 
- 
-   
+        alert("actiulizo"+data);
+
+    });
 }
 
 
@@ -145,52 +120,36 @@ function TraerProductosdeDDBB(inputTexto){
     fetch('../Controlador/MostrarProductos.php', {
         method: 'POST'
     })
-    // .then(function(data){
-
-      
-    // for (var n in data) {
-    //     console.log(n);
-    // }
-    //   console.log (data.json());
-    // })
+ 
     .then((res)=>res.json())
     //.then((data)=>console.log(data));
     .then((data)=>{
-        console.log(data);
+
         datasalida=JSON.parse(JSON.stringify(data));
-        // let objson=JSON.stringify(data[0].categoria);
-        // console.log(objson);
-      
-        // datasalida.forEach(element => {
-        //    document.getElementById("idvuelto").innerHTML+=element.NOMBRE; 
-        // });
+
         let templista=[];
         const AuxPalabraFiltrada = datasalida.filter( datasalida => templista.push(datasalida.NOMBRE)
                                                      , resultado=datasalida                             );
         const palabraFiltrada = templista.filter(templista => templista.toLowerCase().includes(inputTexto));
-        mostrarListadoCliente(palabraFiltrada); 
-        console.log("---"+resultado[0].PROD_PRECIO_VENTA);
-        //ProductoSeleccionado=resultado[0];
+        //mostrarListadoProducto(palabraFiltrada); 
 
-        datasalida.forEach(element => {
-         
-            if (element.NOMBRE==palabraFiltrada) {
-                ProductoSeleccionado=element;
-                console.log("++"+element.NOMBRE)
-            }
+
+            //console.log(datasalida);
+            let objetoArray=[];
+            datasalida.forEach(element => {
+               // console.log(element.NOMBRE);    
+                if (palabraFiltrada.includes(element.NOMBRE)) {
+                    //ProductoSeleccionado=element;
+                    objetoArray.push(element);
+                    //console.log("++"+element.NOMBRE)
                 
+                }
+                  
+                
+            });
             
-        });
-        // for(var valor in objson){
-        //   console.log(valor);  
-        // }
-        
-        // console.log(data);
-        // for (var valor in data[0].categoria) {
-        //     CrearElementosSelecOption(valor);
-        //     console.log(valor);
-            
-        // }
+            mostrarListadoProducto(palabraFiltrada,objetoArray); 
+ 
     });
     return resultado;
 }

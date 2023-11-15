@@ -4,7 +4,8 @@ function inicio() {
     document.getElementById("id_Eliminar_producto_Tabla_cancelar").addEventListener("click", eliminarProductosTabla, false);
     document.getElementById("listaProductos").addEventListener("click", seleccionarListaProducto, false);
     document.getElementById("idvenderboton").addEventListener("click", e=>{venderProductos(e)},false);
-    document.getElementById("idabona").addEventListener("click",InporteAbonado,false);
+    document.getElementById("idabonacheck").addEventListener("click",InporteAbonado,false);
+    document.getElementById("idbotonconfirmar").addEventListener("click",ModificarModalVender,false);
 
 }
 //json de para generar el resumen de toda la venta para enviar ala base
@@ -30,12 +31,23 @@ function InporteAbonado(){
  
     let valorAbonado= document.getElementById("idabona").value;
 
-    if (valorAbonado>=subTotal) {
+    if (valorAbonado>=TotalApagar && jsonEnvio.length!=0) {
         console.log("abona con");
         document.getElementById("idbotonconfirmar").disabled = false;
     }else{
         document.getElementById("idbotonconfirmar").disabled = true;
     }
+}
+
+function ModificarModalVender(){
+    document.getElementById("idcantidadprodmodal").innerHTML=jsonEnvio.length;
+    document.getElementById("idtotalapagarmodal").innerHTML=(TotalApagar).toFixed(2)+" $";
+    let valorAbonado= document.getElementById("idabona").value;
+
+    let vueltoAmostrar=valorAbonado-TotalApagar;
+    console.log(vueltoAmostrar);
+
+    document.getElementById("idvueltomodal").innerHTML=(vueltoAmostrar).toFixed(2)+" $";
 }
 
 function buscarCliente() {
@@ -123,6 +135,7 @@ function eliminarProductosTabla(){
     document.getElementById("idRedondeo").innerHTML="0 $"
     document.getElementById("idtotal").innerHTML="0 $"
     document.getElementById("idtotalApagar").innerHTML="0 $"
+    document.getElementById("idabona").value=null;
     jsonEnvio=[];
     localStorage.setItem("subTotal",0);
     subTotal=0;
@@ -201,7 +214,7 @@ function agregarProductoTabla(){
     const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
     filaProductoPrincipal.classList.add("d-none")
 
-    document.getElementById("idtotal").innerHTML=subTotal+" $";
+    document.getElementById("idtotal").innerHTML= (subTotal).toFixed(2)+" $";
 
     //idRedondeo idtotalApagar
 

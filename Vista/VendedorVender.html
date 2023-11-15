@@ -157,6 +157,9 @@
                     <div class="input-group mb-2">
                         <input type="number" class="form-control" min="1" id="idabona" placeholder="Abona" aria-label="Abono">
                         <span class="input-group-text">$</span>
+                        <button class="btn btn-primary btn-sm">
+                            <i id="idabonacheck" class="bi bi-check-lg p-2"></i>
+                        </button>
                     </div>
                 </div>
                 <br>
@@ -179,12 +182,10 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <h3> Cantidad de Productos: </h3>
-                                <h3> Total a Pagar: </h3>
-                                <h3 id="idvuelto">Vuelto:  0 $  </h3>
-                                
-                                
-                                
+                                <h3 class="row"> Cantidad de Productos: <b class="col"><p class="text-black" id="idcantidadprodmodal"></p></b> </h3>
+                                <h3 class="row"> Total a Pagar: <b class="col"><p class="text-black" id="idtotalapagarmodal"></p></b> </h3>
+                                <h3 class="row"> Vuelto: <b class="col"><p class="text-black" id="idvueltomodal"></p></b>  </h3>      
+                                <h3></h3>                         
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
