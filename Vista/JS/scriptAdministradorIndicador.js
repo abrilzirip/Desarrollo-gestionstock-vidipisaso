@@ -9,27 +9,30 @@ function enviarConfiguracionPorAjax(evento) {
         // Obtengo los datos del formulario
         let configForm = new FormData(document.getElementById("configForm"));
 
-        // Realizo la solicitud AJAX
-        let solicitud = new XMLHttpRequest();
-
-        solicitud.open("POST", "../Controlador/InsertIndicador.php", true);
-
-        solicitud.onload = function() {
-            if (solicitud.status === 200) {
-                setTimeout(valid, 3000);
-                let formValid = document.getElementById("errorIndicadorValid");
-                formValid.innerHTML = "Solicitud enviada";
-                formValid.classList.remove("d-none");
-            } else {
+        // Realizo la solicitud Fetch
+        fetch("../Controlador/InsertIndicador.php", {
+                method: "POST",
+                body: configForm,
+            })
+            .then(response => {
+                if (response.ok) {
+                    setTimeout(valid, 3000);
+                    let formValid = document.getElementById("errorIndicadorValid");
+                    formValid.innerHTML = "Solicitud enviada";
+                    formValid.classList.remove("d-none");
+                } else {
+                    setTimeout(invalid, 3000);
+                    let formInvalid = document.getElementById("errorIndicadorInvalid");
+                    formInvalid.innerHTML = "Error en la solicitud Fetch";
+                    formInvalid.classList.remove("d-none");
+                }
+            })
+            .catch(error => {
                 setTimeout(invalid, 3000);
                 let formInvalid = document.getElementById("errorIndicadorInvalid");
-                formInvalid.innerHTML = "Error en la solicitud Ajax";
+                formInvalid.innerHTML = "Error en la solicitud Fetch: " + error.message;
                 formInvalid.classList.remove("d-none");
-            }
-        }
-
-        // Envio los datos del formulario
-        solicitud.send(configForm);
+            });
     }
 }
 
