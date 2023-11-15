@@ -21,9 +21,8 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     <link rel="stylesheet" href="../Vista/CSS/mystyle.css">
     <!--Script-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="../Vista/JS/scriptAdministradorIndicador.js"></script>
+    <script src="../Vista/JS/JsonIndicador.js"></script>
     <script src="../Vista/JS/JsonProductoIndicador.js"></script>
-    <script src="../Vista/JS/JsonMarcaProducto.js"></script>
     <script src="../Vista/JS/JsonCategoriaIndicador.js"></script>
     <title>Indicador</title>
 </head>
@@ -36,7 +35,7 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="cista/Administrador.htmlollapse navbar-collapse" id="navbarNav">
+                <div class="navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="Administrador.php">Inicio</a>
@@ -87,11 +86,9 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
                             <label for="limiteDeAviso" class="form-label">Limite de bajo stock:</label>
                             <input type="number" class="form-control" name="limiteDeAviso" id="limiteDeAviso">
                             <div class="invalid-feedback" id="errorIndicadorAviso"></div>
+                            
                             <select class="form-select mt-2" aria-label="Default select example" id="selectProducto" name="selectProducto">
                                 <option selected disabled>Productos</option>
-                            </select>
-                            <select class="form-select mt-2" aria-label="Default select example" id="selectMarca" name="selectMarca">
-                                <option selected disabled>Marcas</option>
                             </select>
                             <select class="form-select mt-2" aria-label="Default select example" id="selectCategoria" name="selectCategoria">
                                 <option selected disabled>Categorias</option>

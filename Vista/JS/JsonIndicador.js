@@ -16,12 +16,12 @@ function enviarConfiguracionPorAjax(evento) {
             })
             .then(response => {
                 if (response.ok) {
-                    setTimeout(valid, 3000);
+                    setTimeout(valid, 2000);
                     let formValid = document.getElementById("errorIndicadorValid");
                     formValid.innerHTML = "Solicitud enviada";
                     formValid.classList.remove("d-none");
                 } else {
-                    setTimeout(invalid, 3000);
+                    setTimeout(invalid, 2000);
                     let formInvalid = document.getElementById("errorIndicadorInvalid");
                     formInvalid.innerHTML = "Error en la solicitud Fetch";
                     formInvalid.classList.remove("d-none");

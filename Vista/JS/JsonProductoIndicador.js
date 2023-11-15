@@ -15,7 +15,7 @@ function inicio() {
                 let select = document.getElementById("selectProducto");
 
                 op.innerHTML = productos.NOMBRE
-                op.setAttribute("value", productos.NOMBRE)
+                op.setAttribute("value", productos.ID_PRODUCTO);
                 select.appendChild(op);
             }
         })

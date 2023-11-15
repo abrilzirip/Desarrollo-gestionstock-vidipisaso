@@ -1,19 +1,26 @@
 <?php include '../Controlador/dbTwo.php' ?>
 
 <?php
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    $nivel = $_POST['limiteDeAviso'];
+    $producto = $_POST['selectProducto'];
+    $categoria = $_POST['selectCategoria'];
+    $idUsuario = $_SESSION['ID'];
 
-    $limiteDeAviso = $_POST['limiteDeAviso'];
-    $limiteDeDia = $_POST['limiteDeDia'];
+    if (!empty($limiteDeAviso) && !empty($producto) && !empty($categoria) && !empty($idUsuario)) {
 
-    if (!empty($limiteDeAviso) && !empty($limiteDeDia)) {
-        $insertConsulta = "INSERT INTO `notificaciones` (`limiteDeAviso`, `limiteDeDia`) VALUES (:limiteDeAviso, :limiteDeDia)";
+        $insertConsulta = "INSERT INTO `indicador`(`ID_USUARIO_REGISTRADO`, `ID_CATEGORIA`, `ID_PRODUCTO`, `NIVEL`) 
+        VALUES (:IDUsuario,:IDCategoria,:IDProducto,:Nivel)";
 
         try {
             $consulta = $conn->prepare($insertConsulta);
-            $consulta->bindParam(':limiteDeAviso', $limiteDeAviso);
-            $consulta->bindParam(':limiteDeDia', $limiteDeDia);
+            $consulta->bindParam(':IDUsuario', $idUsuario);
+            $consulta->bindParam(':IDCategoria', $categoria);
+            $consulta->bindParam(':IDProducto', $producto);
+            $consulta->bindParam(':Nivel', $nivel);
             $consulta->execute();
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();

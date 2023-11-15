@@ -15,7 +15,7 @@ function inicio() {
                 let select = document.getElementById("selectCategoria");
 
                 op.innerHTML = categorias.NOMBRE
-                op.setAttribute("value", categorias.NOMBRE)
+                op.setAttribute("value", categorias.ID_CATEGORIA);
                 select.appendChild(op);
             }
         })
