@@ -168,41 +168,9 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
 
 </body>
 </table>
-<!-- <div class="table-responsive">
-                <table class="table table-striped table-dark" id="productosTabla">
-                    <thead>
-                    <th>Id_Usuario</th>
-                    <th>Nombre</th>
-                    <th>Password</th>
-                    <th>Email</th>
-                    <th></th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row">1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button class="btn btn-primary" id="btnLapiz">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                <button class="btn btn-danger" id="btnTacho">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
 
 <div id="idbotones-pantalla-venta">
   <div>
-    <button class="btn btn-danger py-1">Ver Lista Usuarios</button>
     <button class="btn btn-danger py-1" id="btnInsertar" data-bs-toggle="modal" data-bs-target="#modalCarga">Agregar Usuario</button>
   </div>
 </div>
