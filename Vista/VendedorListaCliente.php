@@ -40,34 +40,48 @@ $db = new Database();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./JS/scriptBuscarCliente.js"></script>
     <script src="./JS/scriptFuncionalidadBoton.js"></script>
+    <script src="./JS/JsonSelectIndicador.js"></script>
     <title>StVent-Iniciar Sesion</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg  bg-black">
-        <div class="container-fluid">
-            <a class="navbar-brand text-light fs-5" href="#">StVent</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="VendedorVender.html">Vender</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-warning mt-1 fs-6" href="VendedorCrearCliente.php">Crear Cliente</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link text-warning mt-1 fs-6" href="VendedorProductoBuscarCargarStock.html">Producto</a>
-                    </li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+        <a class="navbar-brand text-light fs-5" href="#">StVent</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item text-end">
-                    <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+                <li class="nav-item">
+                    <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="VendedorVender.html">Vender</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-warning mt-1 fs-6" href="VendedorCrearCliente.php">Crear Cliente</a>
+                </li>
+                <li class="nav-item"><a class="nav-link text-warning mt-1 fs-6" href="VendedorProductoBuscarCargarStock.html">Producto</a>
                 </li>
             </ul>
         </div>
+        <ul class="navbar-nav pe-2">
+            <li class="nav-item text-end">
+                <button type="button" class="btn btn-primary position-relative btn-sm" id="botonIndicador">
+                    <span><i class="bi bi-bell-fill"></i></span>
+                    <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle" id="indicadorColor">
+                        <span class="visually-hidden"></span>
+                    </span>
+                </button>
+            </li>
+            <div id="notificacion">
+                <ul class="navbar-nav">
+
+                </ul>
+            </div>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item text-end">
+                <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger btn-sm py-1" id="salir">Cerrar sesion</button></a>
+            </li>
+        </ul>
     </nav>
-    <section class="container mt-4 w-75">
+    <section class="container mt-6 w-75">
         <!-- formulario nuevo usuario - inicio -->
         <div class="bg-black pt-3 pb-3 px-3 rounded-1" id="divOcultarMostrarBusqueda">
             <form class="d-block" role="search" id="divOcultarMostrarBusqueda">
@@ -162,13 +176,46 @@ $db = new Database();
                 </div>
             </div>
         </div>
-    </section>
-    <footer class="bg-black text-center text-lg-start mt-4 d-flex">
-        <div class="text-center p-3 text-warning">
-            © 2020 Copyright:
-            <a class="text-warning" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        <!--Notificacion -->
+        <div class="toast position-absolute bottom-0 end-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger">
+                <strong class="me-auto" id="tituloToast"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="mensajeToats">
+            </div>
         </div>
+    </section>
+
+    <footer class="bg-black text-center text-white mt-4">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-facebook"></i></a>
+
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-twitter-x"></i></a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-linkedin"></i></a>
+
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-github"></i></a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-white">StVent</a>
+        </div>
+        <!-- Copyright -->
     </footer>
+
     <!-- Modal Detalle -->
     <div class="modal fade w-100" id="modalDetalleCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
