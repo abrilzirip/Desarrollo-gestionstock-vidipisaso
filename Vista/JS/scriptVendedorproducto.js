@@ -59,7 +59,7 @@ function mostrarListadoProducto(palabraFiltrada,objetoProductoSeleccionado)  {
                 autocompletadoInput.value = obj.NOMBRE +" "+obj.MARCA+ " Cantidad "+obj.CANTIDAD;
                 listaCliente.innerHTML = '';
                 ProductoSeleccionado=obj;
-                DatosEnviados.push({nombre:obj.NOMBRE,marca:obj.MARCA,precio:obj.PROD_PRECIO_VENTA,
+                DatosEnviados.push({id:obj.ID_PRODUCTO,nombre:obj.NOMBRE,marca:obj.MARCA,precio:obj.PROD_PRECIO_VENTA,
                 cantidad:1});
             });
             listaCliente.appendChild(li);
