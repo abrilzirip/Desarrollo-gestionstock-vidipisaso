@@ -1,12 +1,15 @@
 <?php
 include '../Controlador/db.php';
 
-session_start();
 
-if (!isset($_SESSION['usuario']) && isset($_SESSION['perfil'])) {
-  header('Location:index.php');
-  die();
+
+ 
+session_start();
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
+    header('Location:index.php');
+    die();
 }
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $idturno = 1;

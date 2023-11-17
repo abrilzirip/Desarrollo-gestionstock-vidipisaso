@@ -1,5 +1,12 @@
 <?php include '../Controlador/db.php';
 
+session_start();
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
+    header('Location:index.php');
+    die();
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = 2;
     $subcategoria = $_POST['subcategoria'];

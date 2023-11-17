@@ -1,4 +1,11 @@
 <?php include("../Controlador/db.php"); ?>
+<?php 
+session_start();
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
+    header('Location:index.php');
+    die();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>

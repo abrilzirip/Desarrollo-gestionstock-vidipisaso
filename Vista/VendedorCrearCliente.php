@@ -1,14 +1,13 @@
 <?php include '../Controlador/InsertCrearCliente.php'; ?>
 
-<?php
-session_start();
-include '../Controlador/dbTwo.php';
 
-if (!isset($_SESSION['usuario'])) {
+
+<?php 
+session_start();
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     header('Location:index.php');
     die();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
