@@ -69,7 +69,6 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
 </head>
 
 <body>
-
   <div>
     <nav class="navbar navbar-expand-lg bg-black">
       <div class="container-fluid">
@@ -120,13 +119,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
     <div class="card-header py-2">
       <h1 class="text-center mt-3">Crear Usuario</h1>
       <div>
-
-
-
-
         <table class="table table-striped table-dark table_id " id="table_id">
-
-
           <thead>
             <tr>
               <th>Fila</th>
@@ -163,42 +156,9 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
               $nroFila++;
             }
             ?>
-
-
-
+          </tbody>
+        </table>
 </body>
-</table>
-<!-- <div class="table-responsive">
-                <table class="table table-striped table-dark" id="productosTabla">
-                    <thead>
-                    <th>Id_Usuario</th>
-                    <th>Nombre</th>
-                    <th>Password</th>
-                    <th>Email</th>
-                    <th></th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row">1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button class="btn btn-primary" id="btnLapiz">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                <button class="btn btn-danger" id="btnTacho">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
 
 <div id="idbotones-pantalla-venta">
   <div>

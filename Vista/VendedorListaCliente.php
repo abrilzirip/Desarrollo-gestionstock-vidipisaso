@@ -27,6 +27,7 @@ $db = new Database();
     <!--Css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="./CSS/mystyle.css">
+    <link rel="stylesheet" href="./CSS/Indicador.css">
     <link rel="stylesheet" href="CSS/VendedorBuscador.css">
     <link rel="stylesheet" href="CSS/redimensionar-tabla.css">
     <link rel="icon" href="Icon.ico">
@@ -39,6 +40,7 @@ $db = new Database();
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./JS/scriptBuscarCliente.js"></script>
+    <script src="./JS/botonIndicador.js"></script>
     <script src="./JS/scriptFuncionalidadBoton.js"></script>
     <script src="./JS/JsonSelectIndicador.js"></script>
     <title>StVent-Iniciar Sesion</title>
@@ -69,11 +71,9 @@ $db = new Database();
                     </span>
                 </button>
             </li>
-            <div id="notificacion">
-                <ul class="navbar-nav">
+        </ul>
+        <ul id="listaNotificaciones" class="list-group bg-white list-unstyled d-none">
 
-                </ul>
-            </div>
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item text-end">
@@ -81,7 +81,7 @@ $db = new Database();
             </li>
         </ul>
     </nav>
-    <section class="container mt-6 w-75">
+    <section class="container mt-6 w-75" id=tuSectionID>
         <!-- formulario nuevo usuario - inicio -->
         <div class="bg-black pt-3 pb-3 px-3 rounded-1" id="divOcultarMostrarBusqueda">
             <form class="d-block" role="search" id="divOcultarMostrarBusqueda">
@@ -174,15 +174,6 @@ $db = new Database();
                         <!-- paginador - fin -->
                     </div>
                 </div>
-            </div>
-        </div>
-        <!--Notificacion -->
-        <div class="toast position-absolute bottom-0 end-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header bg-danger">
-                <strong class="me-auto" id="tituloToast"></strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body" id="mensajeToats">
             </div>
         </div>
     </section>

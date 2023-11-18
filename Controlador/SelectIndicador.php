@@ -11,6 +11,9 @@ try {
     header('Content-Type: application/json');
     echo json_encode($registro);
 } catch (Exception $e) {
-    echo "Error al realizar la consulta" . $e->getMessage();
+
+    error_log("Error al realizar la consulta: " . $e->getMessage());
+    echo "Error al realizar la consulta. Por favor, inténtelo de nuevo más tarde.";
 }
 ?>
+

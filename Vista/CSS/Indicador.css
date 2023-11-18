@@ -1,0 +1,25 @@
+#listaNotificaciones {
+    position: fixed;
+    top: 20px;
+    right: 155px;
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+}
+
+#listaNotificaciones {
+    padding: 0;
+}
+
+#listaNotificaciones li {
+    padding: 5px;
+    cursor: pointer;
+    background-color: white;
+}
+
+#listaNotificaciones>li:hover {
+    border: 1px solid #0d6efd;
+}

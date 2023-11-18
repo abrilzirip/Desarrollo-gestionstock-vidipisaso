@@ -1,29 +1,37 @@
 function inicio() {
+    setTimeout(() => {
+        verificarstock();
+    }, 1000);
+}
 
-    URL = "../Controlador/SelectInidicador.php";
+function verificarstock() {
+    const URL = "../Controlador/SelectIndicador.php";
 
     fetch(URL)
-        .then(Response => {
-            if (!Response.ok) {
-                throw new Error("Error en la solicitud. Código de estado: " + Response.status);
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Error en la solicitud. Código de estado: " + response.status);
             }
-            return Response.json();
+            return response.json();
         })
         .then(data => {
+            const productosBajoStock = data.filter(indicador => indicador.CANTIDAD < indicador.NIVEL);
 
+            if (productosBajoStock.length) {
+                productosBajoStock.forEach(producto => mostrarToast(producto));
+                console.log(productosBajoStock);
+            }
         })
         .catch(error => {
-            console.error(error);
-        })
+            console.log(error);
+        });
 }
 
 function mostrarToast(indicador) {
-    // Asegúrate de que el indicador se pase como parámetro
-    var myToast = new bootstrap.Toast(document.querySelector('.toast'));
-    myToast.show();
-
-    document.getElementById('tituloToast').innerText = "Bajo Stock";
-    document.getElementById('mensajeToats').innerText = "El producto:" + " " + indicador.NOMBRE + " " + "tiene la cantidad en:" + " " + indicador.CANTIDAD;
+    let notificaciones = document.getElementById("listaNotificaciones");
+    let li = document.createElement("li");
+    li.innerHTML = "<h6><span class='text-danger'>Bajo stock</h6></span><span class='text-success'>El producto: </span>" + " " + indicador.NOMBRE + " " + "tiene" + " " + indicador.CANTIDAD + " de cantidad";
+    notificaciones.appendChild(li);
 
     let indicadorColor = document.getElementById('indicadorColor');
     if (indicadorColor.classList.contains("bg-success")) {
@@ -32,4 +40,4 @@ function mostrarToast(indicador) {
     }
 }
 
-window.addEventListener("load", inicio, false);
+window.addEventListener("load", inicio, false)
