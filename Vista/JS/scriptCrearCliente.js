@@ -3,13 +3,16 @@ function inicio() {
     document.getElementById("btnCancelarNuevoCliente").addEventListener("click", cancelarAlta, false);
 }
 
-function altaCliente(e) {
-    e.preventDefault();
+function altaCliente(evento) {
+    evento.preventDefault();
     if (validarForm()) {
-        let form = document.getElementById("frmNuevoCliente");
-        form.submit();
-        comprobarExito();
+        mostrarModal();
+        setTimeout(enviarFormulario, 1000);
     }
+}
+
+function enviarFormulario() {
+    document.getElementById("frmNuevoCliente").submit();
 }
 
 function validarForm() {
@@ -135,79 +138,16 @@ function validarForm() {
             apodoInput.classList.add("is-valid");
         }
     }
-    //Validacion Apodo Fin
-
-    //Validacion Email
-
-    // let emailInput = document.getElementById("frmNuevoClienteEmail");
-    // let emailArray = emailInput.value.split(/ +/);
-    // let email = emailInput.value;
-
-    // emailInput.classList.remove("is-invalid");
-    // emailInput.classList.remove("is-valid");
-
-    // let smsErrorEmail = document.getElementById("errorNuevoClienteEmail");
-    // let expresionRegularEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-    // if (email.trim() === "") {
-    //     emailInput.classList.add("is-invalid");
-    //     smsErrorEmail.innerHTML = "El campo Email se encuentra vacio";
-    //     return false;
-    // }
-    // if (!expresionRegularEmail.test(email)) {
-    //     emailInput.classList.add("is-invalid");
-    //     smsErrorEmail.innerHTML = "El campo Email es invalido"
-    //     return false;
-    // } else {
-    //     emailInput.classList.add("is-valid");
-    // }
-
-    // if (emailArray.length > 1) {
-    //     emailInput.classList.add("is-invalid");
-    //     smsErrorEmail.innerHTML = "El campo Email solo acepta una palabra";
-    //     return false;
-    // } else {
-    //     emailInput.classList.add("is-valid");
-    // }
-
-    //     for (palabra of emailArray) {
-    //         if (palabra.length > 30) {
-    //             emailInput.classList.add("is-invalid");
-    //             smsErrorEmail.innerHTML = "El campo Apodo solo acepta como maximo 30 caracteres";
-    //             return false;
-    //         } else {
-    //             emailInput.classList.add("is-valid");
-    //         }
-    //     }
-    //Validacion Email Fin
     return true;
 }
 
 //Modal
 function mostrarModal() {
-    let exampleModal = new bootstrap.Modal(document.getElementById('modalMostrarMensajes'));
-    exampleModal.show();
-    let textoModal = document.getElementById("modalTexto");
-    textoModal.innerHTML = "Registrado y guardado exitoso"
-    let formularioAgregarCliente = document.getElementById("frmNuevoCliente");
-    formularioAgregarCliente.reset();
-
-    let nombreInput = document.getElementById("frmNuevoClienteNombre");
-    nombreInput.classList.remove("is-valid");
-    let apellidoInput = document.getElementById("frmNuevoClienteApellido");
-    apellidoInput.classList.remove("is-valid");
-    let apodoInput = document.getElementById("frmNuevoClienteApodo");
-    apodoInput.classList.remove("is-valid");
-    let emailInput = document.getElementById("frmNuevoClienteEmail");
-    emailInput.classList.remove("is-valid");
-}
-
-//Comprobar modal
-function comprobarExito() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('exito')) {
-        mostrarModal();
-    }
+    swal({
+        title: "Cliente creado",
+        icon: "success",
+        button: "Cerrar",
+    });
 }
 
 function cancelarAlta() {

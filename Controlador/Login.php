@@ -4,7 +4,6 @@ session_start();
 
 include '../Controlador/dbTwo.php';
 
-
 if (isset($_SESSION['usuario']) && isset($_SESSION['perfil'])) {
 
     if ($_SESSION['perfil'] == 1) {
@@ -45,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header('Location:../Vista/PaginaNoEncontrada.php', true, 302);
             exit;
         } else {
-            echo '<div class="alert alert-danger" role="alert">Credenciales incorrectas. Por favor, inténtelo de nuevo.</div>';
+            echo '<div class="alert alert-danger" role="alert">Credenciales de usuario incorrectas. Por favor, inténtelo de nuevo.</div>';
         }
     } else {
         echo 'Error los datos se encuentran vacio';

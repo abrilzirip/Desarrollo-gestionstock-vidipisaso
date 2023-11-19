@@ -24,7 +24,7 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
         <div class="card">
             <div class="card-body">
                 <div class="alert alert-danger">
-                    NO tiene permisos para realizar esta acción
+                    No tiene permisos para realizar esta acción.
                 </div>
             </div>
         </div>

@@ -22,7 +22,7 @@ class Database
     public function generarTabla()
     {
         $nroFila = 1;
-        $consultaSelect = $this->conn->query("SELECT `ID_cliente`, `ID_usuario_registrado`, `Nombre`, `Apellido`, `Apodo`, `Fecha_alta`, `Fecha_baja`, `Estado` FROM `cliente`");
+        $consultaSelect = $this->conn->query("SELECT `ID_cliente`, `ID_usuario_registrado`, `Nombre`, `Apellido`, `Apodo`, `Fecha_alta`, `Fecha_baja`, `Estado` FROM `cliente` ORDER BY `ID_cliente` Desc LIMIT 5;");
 
         while ($row = $consultaSelect->fetch()) {
             if ($row['Estado'] == 1) {
@@ -32,8 +32,8 @@ class Database
             }
             echo "<tr>";
             echo "<td class='text-center'>" . $nroFila . "</td>";
-            echo "<td class='text-center'>" . $row['ID_cliente'] . "</td>";
-            echo "<td class='text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center'>" . $row['ID_usuario_registrado'] . "</td>";
+            echo "<td class='text-center d-none'>" . $row['ID_cliente'] . "</td>";
+            echo "<td class='text-center d-none ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center'>" . $row['ID_usuario_registrado'] . "</td>";
             echo "<td class='text-center'>" . $row['Nombre'] . "</td>";
             echo "<td class='text-center ocultar-en-pantalla-xs'>" . $row['Apellido'] . "</td>";
             echo "<td class='text-center d-none'>" . $row['Apodo'] . "</td>";

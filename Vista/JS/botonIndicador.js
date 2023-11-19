@@ -3,7 +3,7 @@ function inicio() {
 }
 
 function mostrarNotificacion() {
-    let notificaciones = document.getElementById("listaNotificaciones");
+    let notificaciones = document.getElementById("divNotificaciones");
 
     if (notificaciones.classList.contains("d-none")) {
         notificaciones.classList.remove("d-none");

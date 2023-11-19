@@ -27,7 +27,6 @@ $db = new Database();
     <!--Css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="./CSS/mystyle.css">
-    <link rel="stylesheet" href="./CSS/Indicador.css">
     <link rel="stylesheet" href="CSS/VendedorBuscador.css">
     <link rel="stylesheet" href="CSS/redimensionar-tabla.css">
     <link rel="icon" href="Icon.ico">
@@ -40,9 +39,7 @@ $db = new Database();
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./JS/scriptBuscarCliente.js"></script>
-    <script src="./JS/botonIndicador.js"></script>
     <script src="./JS/scriptFuncionalidadBoton.js"></script>
-    <script src="./JS/JsonSelectIndicador.js"></script>
     <title>StVent-Iniciar Sesion</title>
 </head>
 
@@ -62,19 +59,6 @@ $db = new Database();
                 </li>
             </ul>
         </div>
-        <ul class="navbar-nav pe-2">
-            <li class="nav-item text-end">
-                <button type="button" class="btn btn-primary position-relative btn-sm" id="botonIndicador">
-                    <span><i class="bi bi-bell-fill"></i></span>
-                    <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle" id="indicadorColor">
-                        <span class="visually-hidden"></span>
-                    </span>
-                </button>
-            </li>
-        </ul>
-        <ul id="listaNotificaciones" class="list-group bg-white list-unstyled d-none">
-
-        </ul>
         <ul class="navbar-nav">
             <li class="nav-item text-end">
                 <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger btn-sm py-1" id="salir">Cerrar sesion</button></a>
@@ -94,7 +78,7 @@ $db = new Database();
                 <div id="smsResultado" class="d-none text-danger">No se encontraron resultados</div>
             </form>
             <div class="mx-auto mt-3" id="divOcultarMostrarBusqueda">
-                <!-- <h6>Filtrar por (predeterminado: nombre):</h6> -->
+                <!--Filtra por (predeterminado: nombre) -->
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <div class="form-check">
@@ -102,19 +86,19 @@ $db = new Database();
                             <label class="form-check-label text-warning" for="flexRadioFiltrarPorNombre">Nombre</label>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ocultar-en-pantalla-xs">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorApellido">
                             <label class="form-check-label text-warning" for="flexRadioFiltrarPorApellido">Apellido</label>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ocultar-en-pantalla-xs">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorIdCliente">
                             <label class="form-check-label text-warning" for="flexRadioFiltrarPorIdCliente">ID Cliente</label>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ocultar-en-pantalla-xs">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarFecha">
                             <label class="form-check-label text-warning" for="flexRadioFiltrarFecha">Fecha</label>
@@ -134,8 +118,8 @@ $db = new Database();
                                 <thead>
                                     <tr>
                                         <th class="" scope="col">#</th>
-                                        <th class="text-center" scope="col">ID Cliente</th>
-                                        <th class="text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">ID Vendedor</th>
+                                        <th class="text-center d-none" scope="col">ID Cliente</th>
+                                        <th class="text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center d-none" scope="col">ID Vendedor</th>
                                         <th class="text-center" scope="col">Nombre</th>
                                         <th class="text-center ocultar-en-pantalla-xs" scope="col">Apellido</th>
                                         <th class="text-center d-none" scope="col">Apodo</th>

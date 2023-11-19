@@ -1,7 +1,7 @@
 function inicio() {
     setTimeout(() => {
         verificarstock();
-    }, 1000);
+    }, 100);
 }
 
 function verificarstock() {
@@ -18,8 +18,11 @@ function verificarstock() {
             const productosBajoStock = data.filter(indicador => indicador.CANTIDAD < indicador.NIVEL);
 
             if (productosBajoStock.length) {
+                document.getElementById("divNoNotificacion").classList.add("d-none")
                 productosBajoStock.forEach(producto => mostrarToast(producto));
                 console.log(productosBajoStock);
+            } else {
+                document.getElementById("divNoNotificacion").classList.remove("d-none")
             }
         })
         .catch(error => {
@@ -28,10 +31,15 @@ function verificarstock() {
 }
 
 function mostrarToast(indicador) {
-    let notificaciones = document.getElementById("listaNotificaciones");
+    let divnotificaciones = document.getElementById("divNotificaciones");
+    let ul = document.createElement("ul");
     let li = document.createElement("li");
-    li.innerHTML = "<h6><span class='text-danger'>Bajo stock</h6></span><span class='text-success'>El producto: </span>" + " " + indicador.NOMBRE + " " + "tiene" + " " + indicador.CANTIDAD + " de cantidad";
-    notificaciones.appendChild(li);
+    ul.setAttribute("class", "list-unstyled listaNotificaciones");
+    li.setAttribute("class", "rounded-3");
+    li.innerHTML = "<h6><span class='text-danger'>Bajo stock</h6></span><span class='text-success'>El producto:&nbsp;</span>" + " " + "<span class='text-dark'>" + indicador.NOMBRE + "</span>" + " " + "<span class='text-danger'>" + "tiene" + " " + indicador.CANTIDAD + " " + "de cantidad</span>";
+    ul.appendChild(li);
+    divnotificaciones.appendChild(ul);
+
 
     let indicadorColor = document.getElementById('indicadorColor');
     if (indicadorColor.classList.contains("bg-success")) {
@@ -39,5 +47,4 @@ function mostrarToast(indicador) {
         indicadorColor.classList.add("bg-danger");
     }
 }
-
 window.addEventListener("load", inicio, false)
