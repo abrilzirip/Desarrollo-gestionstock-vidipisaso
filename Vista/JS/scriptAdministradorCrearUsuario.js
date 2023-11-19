@@ -2,7 +2,9 @@
 //     if (confirm("¿Estas seguro que desea eliminar este usuario?")){
 //         return true;
 //     }
-//     else {
+//     els
+
+e {
 //         e.preventDefault();
 //     }
 // }
