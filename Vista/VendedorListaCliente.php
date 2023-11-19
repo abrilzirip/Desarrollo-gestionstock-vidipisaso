@@ -268,32 +268,32 @@ $db = new Database();
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteID">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-6 d-none" id="divFrmEditarClienteID">
                                         <label for="frmEditarClienteID" class="form-label">ID Cliente:</label>
                                         <input type="number" class="form-control" id="frmEditarClienteID" name="frmEditarClienteID" readonly />
                                         <div class="invalid-feedback" id="errorEditarClienteID"></div>
                                     </div>
-                                    <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteNombre">
+                                    <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-12 col-lg-6" id="divFrmEditarClienteNombre">
                                         <label for="frmEditarClienteNombre" class="form-label">Nombre:</label>
                                         <input type="text" class="form-control" id="frmEditarClienteNombre" name="frmEditarClienteNombre" />
                                         <div class="invalid-feedback" id="errorEditarClienteNombre"></div>
                                     </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApellido">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-6" id="divFrmEditarClienteApellido">
                                         <label for="frmEditarClienteApellido" class="form-label">Apellido:</label>
                                         <input type="text" class="form-control" id="frmEditarClienteApellido" name="frmEditarClienteApellido" />
                                         <div class="invalid-feedback" id="errorEditarClienteApellido"></div>
                                     </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApodo">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12" id="divFrmEditarClienteApodo">
                                         <label for="frmEditarClienteApodo" class="form-label">Apodo:</label>
                                         <input type="text" class="form-control" id="frmEditarClienteApodo" name="frmEditarClienteApodo" />
                                         <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
                                     </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteEstado">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12" id="divFrmEditarClienteEstado">
                                         <label for="frmEditarClienteEstado" class="form-label">Estado Actual:</label>
                                         <input type="text" class="form-control" id="frmEditarClienteEstado" readonly />
                                         <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
                                     </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteEstadoSelect">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12" id="divFrmEditarClienteEstadoSelect">
                                         <label for="frmEditarClienteEstadoSelect" class="form-label">Cambiar estado:</label>
                                         <select class="form-select" name="frmEditarClienteEstadoSelect" id="frmEditarClienteEstadoSelect" aria-label="Default select example">
                                             <option value="1">Habilitar</option>
