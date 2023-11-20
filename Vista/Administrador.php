@@ -71,7 +71,7 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
             </li>
           </ul>
         </div>
-        <ul class="navbar-nav pe-2">
+        <ul class="navbar-nav pe-2" id="divMainNotificaciones">
           <li class="nav-item text-end">
             <button type="button" class="btn btn-primary position-relative btn-sm" id="botonIndicador">
               <span><i class="bi bi-bell-fill"></i></span>
