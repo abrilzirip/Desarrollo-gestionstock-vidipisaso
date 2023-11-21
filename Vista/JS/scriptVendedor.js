@@ -96,12 +96,20 @@ function mostrarListadoCliente(palabraFiltrada,objetoProductoSeleccionado) {
                 obj.PROD_PRECIO_VENTA+"$";
                 
 
-                li.addEventListener('click', () => {
+                if (obj.CANTIDAD==0) {
+                    li.textContent=obj.NOMBRE+" Nos Quedamos sin Stock";
+                    listaCliente.appendChild(li);
+                    ProductoSeleccionado=obj;
+                }else{
+                    li.addEventListener('click', () => {
                     autocompletadoInput.value = obj.NOMBRE;
                     listaCliente.innerHTML = '';
                     ProductoSeleccionado=obj;
-                });
-                listaCliente.appendChild(li);
+                    });
+                    listaCliente.appendChild(li);              
+                }
+
+
             
             
 
@@ -114,16 +122,19 @@ function seleccionarListaProducto(){
     const filaProductoPrecio=document.getElementById("idfilaPrecio");
    // const filaProductoCantidad=document.getElementById("idfilaCantidad");
 
-   filaProductoPrecio.innerHTML=ProductoSeleccionado.PROD_PRECIO_VENTA+" $";
-    let cantidamax=ProductoSeleccionado.CANTIDAD;
-    
-    const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
-    
-    filaProductoPrincipal.classList.remove("d-none")
+    if (ProductoSeleccionado.CANTIDAD!=0) {
+        filaProductoPrecio.innerHTML=ProductoSeleccionado.PROD_PRECIO_VENTA+" $";
 
-    const filaCantidadinput = document.getElementById('idfilaCantidadinput');
-    filaCantidadinput.setAttribute("max",cantidamax);
+    
+        let cantidamax=ProductoSeleccionado.CANTIDAD;
+        
+        const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
+        
+        filaProductoPrincipal.classList.remove("d-none")
 
+        const filaCantidadinput = document.getElementById('idfilaCantidadinput');
+        filaCantidadinput.setAttribute("max",cantidamax);
+    }
 }
 
 function eliminarProductosTabla(){
@@ -223,7 +234,7 @@ function agregarProductoTabla(){
 
     RedondeValor=document.getElementById("idRedondeo").innerHTML=(valorResiduo).toFixed(2)+" $";
     
-    console.log(Math.trunc(subTotal));
+    //console.log(Math.trunc(subTotal));
     
         
     //idtotalApagar
