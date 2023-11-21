@@ -120,7 +120,7 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     
     <?php
       try {
-        $sql = "SELECT * FROM stvent2.telsa";
+        $sql = "SELECT * FROM stvent.telsa";
         $result = $conn->query($sql);
 
         if($result->rowCount() > 0) {
