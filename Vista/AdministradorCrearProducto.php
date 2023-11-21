@@ -116,7 +116,7 @@ $consultaSelect = $conn->query
             </li>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-warning mt-1 fs-6" href="#">Visualizar Logs</a>
+              <a class="nav-link text-warning mt-1 fs-6" href="AdministradorLogs.php">Visualizar Logs</a>
             </li>
           </ul>
         </div>

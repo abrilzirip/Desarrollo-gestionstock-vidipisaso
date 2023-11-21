@@ -37,7 +37,7 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 
-    <script src="JS/scriptAdministrador.js" defer></script>
+    
     <title>StVent-Administrador</title>
   </head>
 
@@ -72,7 +72,7 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
             <li class="nav-item dropdown">
               <a class="nav-link text-warning dropdown-toggle mt-1 fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Generar Reporte</a>
               <ul class="dropdown-menu bg-black">
-              <li><a class="dropdown-item text-warning" href="AdministradorVentas.php">Ventas</a></li>
+                <li><a class="dropdown-item text-warning" href="AdministradorVentas.php">Ventas</a></li>
                 <li><a class="dropdown-item text-warning" href="AdministradorVendedor.php">Vendedor</a></li>
                 <li><a class="dropdown-item text-warning" href="AdministradorRecaudacion.php">Recaudación</a></li>
               </ul>
@@ -92,25 +92,49 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     </nav>
   </div>
     <!-- Fin navbar -->
-    <h1 class="text-center mt-3">Bienvenido - Reportes</h1>
-
-
-
+    <h1 class="text-center mt-3">Logs</h1>
     
+      
+      
+    <div class="table-responsive mx-auto" style="height: 560px !important; width: 100%; overflow-y: scroll;">
+        <table class="table table-striped table-dark">
 
-    <div>
-      <div class="container estadisticas text-center mt-5">
-        <div class="row mt-3">
-          <h2>Vendedores Destacados</h2>
-          <div class="row">
-            <div class="col-md-6  mx-auto">
-              <canvas id="graficoVendedoresMasVendieron"></canvas>
-            </div>
-          </div>
-      </div>
+
+        <thead>
+        <tr>
+            <th class='text-center'>Fecha</th>
+            <th class='text-center'>Operacion</th>
+            <th class='text-center'>Detalle</th>
+            <th class='text-center'>Id_usuario</th>
+            <th class='text-center'>Perfil</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+            $consultaSelect = $conn->query
+            ("SELECT `id`, `fecha`, `operacion`, `detalle`, `id_usuario`, `perfil` FROM `log`");
+
+            $nroFila = 1;
+
+            while ($row = $consultaSelect->fetch()) {
+                echo "<tr>";
+                echo "<td class='text-center'>" . $row['fecha'] . "</td>";
+                echo "<td class='text-center'>" . $row['operacion'] . "</td>";
+                echo "<td class='text-center'>" . $row['detalle'] . "</td>";
+                echo "<td class='text-center'>" . $row['id_usuario'] . "</td>";
+                echo "<td class='text-center'>" . $row['perfil'] . "</td>";
+                echo "</tr>";
+                $nroFila++;
+            }
+            ?>
+
+
+
+        </body>
+        </table>
     </div>
 
-    
+
 
 
 
