@@ -1,8 +1,11 @@
 <?php include '../Controlador/UpdateListaClienteEditar.php'; ?>
 <?php include '../Controlador/SelectVendedorListaCliente.php' ?>
 
-<?php 
+<?php
 session_start();
+
+include '../Controlador/dbTwo.php';
+
 if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     header('Location:index.php');
     die();
@@ -41,30 +44,28 @@ $db = new Database();
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg  bg-black">
-        <div class="container-fluid">
-            <a class="navbar-brand text-light fs-5" href="#">StVent</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="VendedorVender.html">Vender</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-warning mt-1 fs-6" href="VendedorCrearCliente.php">Crear Cliente</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link text-warning mt-1 fs-6" href="VendedorProductoBuscarCargarStock.html">Producto</a>
-                    </li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+        <a class="navbar-brand text-light fs-5" href="#">StVent</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item text-end">
-                <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+                <li class="nav-item">
+                    <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="VendedorVender.html">Vender</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-warning mt-1 fs-6" href="VendedorCrearCliente.php">Crear Cliente</a>
+                </li>
+                <li class="nav-item"><a class="nav-link text-warning mt-1 fs-6" href="VendedorProductoBuscarCargarStock.html">Producto</a>
                 </li>
             </ul>
         </div>
+        <ul class="navbar-nav">
+            <li class="nav-item text-end">
+                <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger btn-sm py-1" id="salir">Cerrar sesion</button></a>
+            </li>
+        </ul>
     </nav>
-    <section class="container mt-4 w-75">
+    <section class="container mt-6 w-75" id=tuSectionID>
         <!-- formulario nuevo usuario - inicio -->
         <div class="bg-black pt-3 pb-3 px-3 rounded-1" id="divOcultarMostrarBusqueda">
             <form class="d-block" role="search" id="divOcultarMostrarBusqueda">
@@ -77,7 +78,7 @@ $db = new Database();
                 <div id="smsResultado" class="d-none text-danger">No se encontraron resultados</div>
             </form>
             <div class="mx-auto mt-3" id="divOcultarMostrarBusqueda">
-                <!-- <h6>Filtrar por (predeterminado: nombre):</h6> -->
+                <!--Filtra por (predeterminado: nombre) -->
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <div class="form-check">
@@ -85,19 +86,19 @@ $db = new Database();
                             <label class="form-check-label text-warning" for="flexRadioFiltrarPorNombre">Nombre</label>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ocultar-en-pantalla-xs">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorApellido">
                             <label class="form-check-label text-warning" for="flexRadioFiltrarPorApellido">Apellido</label>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ocultar-en-pantalla-xs">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorIdCliente">
                             <label class="form-check-label text-warning" for="flexRadioFiltrarPorIdCliente">ID Cliente</label>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ocultar-en-pantalla-xs">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarFecha">
                             <label class="form-check-label text-warning" for="flexRadioFiltrarFecha">Fecha</label>
@@ -117,8 +118,8 @@ $db = new Database();
                                 <thead>
                                     <tr>
                                         <th class="" scope="col">#</th>
-                                        <th class="text-center" scope="col">ID Cliente</th>
-                                        <th class="text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">ID Vendedor</th>
+                                        <th class="text-center d-none" scope="col">ID Cliente</th>
+                                        <th class="text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center d-none" scope="col">ID Vendedor</th>
                                         <th class="text-center" scope="col">Nombre</th>
                                         <th class="text-center ocultar-en-pantalla-xs" scope="col">Apellido</th>
                                         <th class="text-center d-none" scope="col">Apodo</th>
@@ -160,6 +161,35 @@ $db = new Database();
             </div>
         </div>
     </section>
+
+    <footer class="bg-black text-center text-white mt-4">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-facebook"></i></a>
+
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-twitter-x"></i></a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-linkedin"></i></a>
+
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-github"></i></a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-white">StVent</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 
     <!-- Modal Detalle -->
     <div class="modal fade w-100" id="modalDetalleCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -238,32 +268,32 @@ $db = new Database();
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteID">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-6 d-none" id="divFrmEditarClienteID">
                                         <label for="frmEditarClienteID" class="form-label">ID Cliente:</label>
                                         <input type="number" class="form-control" id="frmEditarClienteID" name="frmEditarClienteID" readonly />
                                         <div class="invalid-feedback" id="errorEditarClienteID"></div>
                                     </div>
-                                    <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteNombre">
+                                    <div class="mx-auto mb-3 col-xs-4 col-sm-12 col-md-12 col-lg-6" id="divFrmEditarClienteNombre">
                                         <label for="frmEditarClienteNombre" class="form-label">Nombre:</label>
                                         <input type="text" class="form-control" id="frmEditarClienteNombre" name="frmEditarClienteNombre" />
                                         <div class="invalid-feedback" id="errorEditarClienteNombre"></div>
                                     </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApellido">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-6" id="divFrmEditarClienteApellido">
                                         <label for="frmEditarClienteApellido" class="form-label">Apellido:</label>
                                         <input type="text" class="form-control" id="frmEditarClienteApellido" name="frmEditarClienteApellido" />
                                         <div class="invalid-feedback" id="errorEditarClienteApellido"></div>
                                     </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteApodo">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12" id="divFrmEditarClienteApodo">
                                         <label for="frmEditarClienteApodo" class="form-label">Apodo:</label>
                                         <input type="text" class="form-control" id="frmEditarClienteApodo" name="frmEditarClienteApodo" />
                                         <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
                                     </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteEstado">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12" id="divFrmEditarClienteEstado">
                                         <label for="frmEditarClienteEstado" class="form-label">Estado Actual:</label>
                                         <input type="text" class="form-control" id="frmEditarClienteEstado" readonly />
                                         <div class="invalid-feedback" id="errorEditarClienteApodo"></div>
                                     </div>
-                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="divFrmEditarClienteEstadoSelect">
+                                    <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12" id="divFrmEditarClienteEstadoSelect">
                                         <label for="frmEditarClienteEstadoSelect" class="form-label">Cambiar estado:</label>
                                         <select class="form-select" name="frmEditarClienteEstadoSelect" id="frmEditarClienteEstadoSelect" aria-label="Default select example">
                                             <option value="1">Habilitar</option>
@@ -282,44 +312,7 @@ $db = new Database();
             </div>
         </div>
     </div>
-
-    <br>
-        <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
-            <div class="btn-group btn-group-toggle" >
-                <label class="btn btn-light" id="idlabelventaverde">
-                    
-                </label>
-                <label class="btn btn-dark" id="idlabelventarojo">
-                    
-                </label>
-            </div>
-        </div>
 </body>
 
 </html>
 <?php $db->closeConnection(); ?>
-
-<!-- // $nroFila = 1;
-// $consultaSelect = $conn->query("SELECT `ID_cliente`, `ID_usuario_registrado`, `Nombre`, `Apellido`, `Apodo`, `Fecha_alta`, `Fecha_baja`, `Estado` FROM `cliente`");
-// while ($row = $consultaSelect->fetch()) {
-// if ($row['Estado'] == 1) {
-// $estado = 'Habilitado';
-// } elseif ($row['Estado'] == 0) {
-// $estado = 'Inhabilitado';
-// }
-// echo "<tr>";
-    // echo "<td class='text-center'>" . $nroFila . "</td>";
-    // echo "<td class='text-center'>" . $row['ID_cliente'] . "</td>";
-    // echo "<td class='text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center'>" . $row['ID_usuario_registrado'] . "</td>";
-    // echo "<td class='text-center'>" . $row['Nombre'] . "</td>";
-    // echo "<td class='text-center ocultar-en-pantalla-xs'>" . $row['Apellido'] . "</td>";
-    // echo "<td class='text-center d-none'>" . $row['Apodo'] . "</td>";
-    // echo "<td class='text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md'>" . $row['Fecha_alta'] . "</td>";
-    // echo "<td class='text-center d-none'>" . $row['Fecha_baja'] . "</td>";
-    // echo "<td class='text-center'>" . $estado . "</td>";
-    // echo "<td class='text-center'>
-        <div class='btn-group' role='group' aria-label='Grupo botones'><button type='button' id='botonDetalleCliente' class='btn btn-success btn-sm' data-btn-grupo='mostrar-detalles-cliente'><i class='bi bi-eye'></i></button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'><i class='bi bi-pencil'></i></div>
-    </td>";
-    // echo "</tr>";
-// $nroFila++;
-// } -->

@@ -1,5 +1,6 @@
 body {
     background: linear-gradient(to right, #f2994a, #f2c94c);
+    padding-top: 76px;
 }
 
 footer {
@@ -12,4 +13,16 @@ footer {
 .footerContainer {
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.alert {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
 }

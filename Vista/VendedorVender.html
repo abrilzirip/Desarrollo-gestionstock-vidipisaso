@@ -19,32 +19,26 @@
 
 <body>
         <div>
-            <nav class="navbar navbar-expand-lg  bg-black">
-                <div class="container-fluid">
-                    <a class="navbar-brand text-light fs-5" href="#">StVent</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="VendedorVender.html">Vender</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-warning mt-1 fs-6" href="VendedorCrearCliente.php">Crear Cliente</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-warning mt-1 fs-6" href="VendedorProductoBuscarCargarStock.html">Producto</a>
-                            </li>
-                        </ul>
-                    </div>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+                <a class="navbar-brand text-light fs-5" href="#">StVent</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item text-end">
-                            <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+                        <li class="nav-item">
+                            <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="VendedorVender.html">Vender</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning mt-1 fs-6" href="VendedorCrearCliente.php">Crear Cliente</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link text-warning mt-1 fs-6" href="VendedorProductoBuscarCargarStock.html">Producto</a>
                         </li>
                     </ul>
                 </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item text-end">
+                        <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger btn-sm py-1" id="salir">Cerrar sesion</button></a>
+                    </li>
+                </ul>
             </nav>
         </div>
         <!-- implementar pantalla de venta-->
@@ -210,30 +204,36 @@
 
         </div>
 
-        <br>
-        <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
-            <div class="btn-group btn-group-toggle" >
-                <label class="btn btn-light" id="idlabelventaverde">
-                    
-                </label>
-                <label class="btn btn-dark" id="idlabelventarojo">
-                    
-                </label>
+        <footer class="bg-black text-center text-white mt-4">
+            <!-- Grid container -->
+            <div class="container p-4 pb-0">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                    <!-- Facebook -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-facebook"></i></a>
+    
+                    <!-- Twitter -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-twitter-x"></i></a>
+    
+                    <!-- Linkedin -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-linkedin"></i></a>
+    
+                    <!-- Github -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-github"></i></a>
+                </section>
+                <!-- Section: Social media -->
             </div>
-        </div>
-       
+            <!-- Grid container -->
+    
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2023 Copyright:
+                <a class="text-white">StVent</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
         <!-- implementar pantalla de venta-->
 </body>
 </html>
 
 
-<template id="idtempleteTablaFila">
-    <tr> <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md" scope="row">1</td>
-        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center">"$marca"</td>
-        <td class="text-center">`+nombre+`</td>
-        <td class="ocultar-en-pantalla-xs text-center">`+precio+`</td>
-        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center">`+cantida+`</td>
-        <td class="text-center"><button type="button" class="btn btn-danger btn-sm" data-btn-grupo="eliminar-cliente">
-        <i class="bi bi-trash"></i></button></td> </tr>
-    <tr>
-</template>

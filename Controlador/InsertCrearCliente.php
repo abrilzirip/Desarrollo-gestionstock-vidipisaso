@@ -1,8 +1,10 @@
 <?php include '../Controlador/db.php'; ?>
 
 <?php
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $usuario_registrado = 2;
+    $usuario_registrado = $_SESSION["ID"];
     $estado = 1;
     $nombre = $_POST['frmNuevoClienteNombre'];
     $apellido = $_POST['frmNuevoClienteApellido'];

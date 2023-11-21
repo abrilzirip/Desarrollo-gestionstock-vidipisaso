@@ -23,7 +23,9 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
     />
     <link rel="stylesheet" href="CSS/mystyle.css" />
-    <link rel="stylesheet" href="./CSS/AdministradorReporte.css">
+  <link rel="stylesheet" href="./CSS/AdministradorReporte.css">
+  <link rel="stylesheet" href="./CSS/Indicador.css">
+
     <link rel="icon" href="/Icon.ico" />
 
     <script
@@ -37,6 +39,8 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 
     <script src="JS/scriptAdministrador.js" defer></script>
+    <script src="./JS/botonIndicador.js"></script>
+    <script src="./JS/JsonSelectIndicador.js"></script>
     <title>StVent-Administrador</title>
   </head>
 
@@ -45,50 +49,70 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
 
         <!-- Navbar Admin. -->
         <div>
-    <nav class="navbar navbar-expand-lg bg-black">
-      <div class="container-fluid">
-        <a class="navbar-brand text-light fs-5" href="#">StVent</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="cista/Administrador.htmlollapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="Administrador.php">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearUsuario.php">Crear Usuario</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearProducto.php">Crear Producto</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-warning mt-1 fs-6" href="AdministradorIndicador.php">Crear Inidicador</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-warning mt-1 fs-6" href="AdministradorAjuste.php">Crear Ajuste</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link text-warning dropdown-toggle mt-1 fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Generar Reporte</a>
-              <ul class="dropdown-menu bg-black">
-                <li><a class="dropdown-item text-warning" href="AdministradorVentas.php">Ventas</a></li>
-                <li><a class="dropdown-item text-warning" href="AdministradorVendedor.php">Vendedor</a></li>
-                <li><a class="dropdown-item text-warning" href="AdministradorRecaudacion.php">Recaudación</a></li>
-              </ul>
-            </li>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-warning mt-1 fs-6" href="AdministradorLogs.php">Visualizar Logs</a>
-            </li>
-          </ul>
-        </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand text-light fs-5" href="#">StVent</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item text-end">
-            <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+          <li class="nav-item">
+            <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="Administrador.php">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearUsuario.php">Crear Usuario</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearProducto.php">Crear Producto</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-warning mt-1 fs-6" href="AdministradorIndicador.php">Crear Inidicador</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-warning mt-1 fs-6" href="AdministradorAjuste.php">Crear Ajuste</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link text-warning dropdown-toggle mt-1 fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Generar Reporte</a>
+            <ul class="dropdown-menu bg-black">
+              <li><a class="dropdown-item text-warning" href="AdministradorVentas.php">Ventas</a></li>
+              <li><a class="dropdown-item text-warning" href="AdministradorVendedor.php">Vendedor</a></li>
+              <li><a class="dropdown-item text-warning" href="AdministradorRecaudacion.php">Recaudación</a></li>
+            </ul>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-warning mt-1 fs-6" href="AdministradorLogs.php">Visualizar Logs</a>
           </li>
         </ul>
       </div>
-    </nav>
+      <ul class="navbar-nav pe-2" id="divMainNotificaciones">
+        <li class="nav-item text-end">
+          <button type="button" class="btn btn-primary position-relative btn-sm" id="botonIndicador">
+            <span><i class="bi bi-bell-fill"></i></span>
+            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle d-md-none d-lg-block" id="indicadorColor">
+              <span class="visually-hidden"></span>
+            </span>
+          </button>
+          <div class="bg-white rounded-3 d-none" id="divNotificaciones">
+            <div class="card">
+              <div class="card-header border-bottom border-1 border-secondary py-1 ps-1 bg-black text-light">
+                <h5 class="">Notificaciones</h5>
+              </div>
+              <div id="divNoNotificacion" class="d-none">
+                <h6 class="py-2 px-2">No tiene ninguna notificacion</h6>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item text-end">
+          <a class="nav-link" href="../Controlador/Logout.php"> <button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
   </div>
     <!-- Fin navbar -->
     <h1 class="text-center mt-3">Bienvenido - Reportes</h1>
