@@ -28,8 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $consulta->bindParam(':nombre', $nombre);
         $consulta->execute();
         $usuarioDb = $consulta->fetch();
-
-        if ($usuarioDb && $contraseña === $usuarioDb["PASSWORD"]) {
+        if ($usuarioDb && password_verify($contraseña, $usuarioDb['PASSWORD'])) {
             // LOGIN OK
             $_SESSION['usuario'] = $nombre;
             $_SESSION['perfil'] = $usuarioDb["ID_PERFIL"];

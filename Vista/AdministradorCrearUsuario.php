@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $idturno = 1;
   $idperfil = 1;
   $Nombre = $_POST['nombre'];
-  //$pass = $_POST['password'];
+  $pass = $_POST['password'];
   $mail = $_POST['email'];
   date_default_timezone_set('America/Argentina/Buenos_Aires');
   $pFechaalta = date('Y-m-d H:i:s');
@@ -24,10 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
   // Encriptar la contraseña
   $passEncriptada = password_hash($pass, PASSWORD_DEFAULT);
+  echo $passEncriptada;
 
   $consultaInsert = "INSERT INTO `usuario`(`ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`, `F_ALTA`, `MAIL`) 
   VALUES (:idturno, :Nombre, :passEncriptada, :perfil, :pFechaalta, :mail)";
-
+  echo $passEncriptada;
   try {
       $consulta = $conn->prepare($consultaInsert);
       $consulta->bindParam(':idturno', $idturno);
@@ -48,68 +49,6 @@ if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
   }
 }
 
-// ...
-
-
-
-//   if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
-//     $passEncriptada = password_hash($pass, PASSWORD_DEFAULT);
-//     $consultaInsert = "INSERT INTO `usuario`(`ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`, `F_ALTA`, `MAIL`) 
-//     VALUES ( :idturno, :Nombre, :pass,:perfil ,:pFechaalta, :mail)";
-
-//     try {
-//       $consulta = $conn->prepare($consultaInsert);
-//       $consulta->bindParam(':idturno', $idturno);
-//       $consulta->bindParam(':Nombre', $Nombre);
-//       $consulta->bindParam(':pass', $passEncriptada);
-//       $consulta->bindParam('perfil', $idperfil);
-//      // $consulta->bindParam(':fecha_baja', $fecha_baja);
-//       $consulta->bindParam(':pFechaalta', $pFechaalta);
-//       $consulta->bindParam(':mail', $mail);
-
-//       $consulta->execute();
-//       $conn->beginTransaction();
-//       $conn->commit();
-//       echo "";
-//       header('Location: ' . htmlspecialchars($_SERVER["PHP_SELF"]) . "?succes_ok=1", true, 303);
-//       exit;
-//     } catch (PDOException $e) {
-//       echo "Error: " . $e->getMessage();
-//     }
-//   } else {
-//     echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
-//   }
-// }
-// ...
-
-// if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
-//   // Encriptar la contraseña
- 
-
-//   $consultaInsert = "INSERT INTO `usuario`(`ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`, `F_ALTA`, `MAIL`) 
-//   VALUES (:idturno, :Nombre, :pass, :perfil, :pFechaalta, :mail)";
-
-//   try {
-//       $consulta = $conn->prepare($consultaInsert);
-//       $consulta->bindParam(':idturno', $idturno);
-//       $consulta->bindParam(':Nombre', $Nombre);
-//      // Usar la contraseña encriptada
-//       $consulta->bindParam(':perfil', $idperfil);
-//       $consulta->bindParam(':pFechaalta', $pFechaalta);
-//       $consulta->bindParam(':mail', $mail);
-
-//       $consulta->execute();
-//       $conn->beginTransaction();
-//       $conn->commit();
-//       echo "";
-//       header('Location: ' . htmlspecialchars($_SERVER["PHP_SELF"]) . "?succes_ok=1", true, 303);
-//       exit;
-//   } catch (PDOException $e) {
-//       echo "Error: " . $e->getMessage();
-//   }
-// }
-
-// // ...
 
 $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`,  `F_ALTA`, `MAIL` FROM `usuario`ORDER BY ID_USUARIO_REGISTRADO DESC");
 ?>
@@ -199,9 +138,6 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
           <thead>
             <tr>
               <th>Fila</th>
-              <th>Id_Usuario</th>
-              <th>ID_TURNO</th>
-              <th>ID_PERFIL</th>
               <th>NombreUsuario</th>
               <th>Password</th>
               <!-- <th>F_BAJA</th> -->
@@ -216,9 +152,6 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
             while ($row = $consultaSelect->fetch()) {
               echo "<tr>";
               echo "<td class='text-center'>" . $nroFila . "</td>";
-              echo "<td class='text-center'>" . $row['ID_USUARIO_REGISTRADO'] . "</td>";
-              echo "<td class='text-center'>" . $row['ID_TURNO'] . "</td>";
-              echo "<td class='text-center'>" . $row['ID_PERFIL'] . "</td>";
               echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
               echo "<td class='text-center'>" . '********' . "</td>";
              // echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
