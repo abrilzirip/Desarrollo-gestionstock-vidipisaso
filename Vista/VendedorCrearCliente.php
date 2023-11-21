@@ -1,14 +1,13 @@
 <?php include '../Controlador/InsertCrearCliente.php'; ?>
 
-<?php
-session_start();
-include '../Controlador/dbTwo.php';
 
-if (!isset($_SESSION['usuario'])) {
+
+<?php 
+session_start();
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     header('Location:index.php');
     die();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -96,12 +95,7 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </section>
 
-    <footer class="bg-black text-center text-lg-start mt-4 d-flex">
-        <div class="text-center p-3 text-warning">
-            © 2020 Copyright:
-            <a class="text-warning" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-        </div>
-    </footer>
+
 
     <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -122,6 +116,17 @@ if (!isset($_SESSION['usuario'])) {
         </div>
     </div>
     <!-- modal mensajes - fin -->
+    <br>
+        <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
+            <div class="btn-group btn-group-toggle" >
+                <label class="btn btn-light" id="idlabelventaverde">
+                    
+                </label>
+                <label class="btn btn-dark" id="idlabelventarojo">
+                    
+                </label>
+            </div>
+        </div>
 </body>
 
 </html>

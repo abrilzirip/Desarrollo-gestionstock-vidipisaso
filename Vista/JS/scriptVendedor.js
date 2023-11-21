@@ -1,10 +1,11 @@
 function inicio() {
-    document.getElementById("autocompletadoBuscarCliente").addEventListener("input", buscarCliente, false);
+    document.getElementById("autocompletadoBuscarProducto").addEventListener("input", buscarProducto, false);
     document.getElementById("id_Agregar_producto_Tabla").addEventListener("click", agregarProductoTabla, false);
     document.getElementById("id_Eliminar_producto_Tabla_cancelar").addEventListener("click", eliminarProductosTabla, false);
     document.getElementById("listaProductos").addEventListener("click", seleccionarListaProducto, false);
     document.getElementById("idvenderboton").addEventListener("click", e=>{venderProductos(e)},false);
-    document.getElementById("idabona").addEventListener("click",InporteAbonado,false);
+    document.getElementById("idabonacheck").addEventListener("click",InporteAbonado,false);
+    document.getElementById("idbotonconfirmar").addEventListener("click",ModificarModalVender,false);
 
 }
 //json de para generar el resumen de toda la venta para enviar ala base
@@ -30,7 +31,7 @@ function InporteAbonado(){
  
     let valorAbonado= document.getElementById("idabona").value;
 
-    if (valorAbonado>=subTotal) {
+    if (valorAbonado>=TotalApagar && jsonEnvio.length!=0) {
         console.log("abona con");
         document.getElementById("idbotonconfirmar").disabled = false;
     }else{
@@ -38,9 +39,20 @@ function InporteAbonado(){
     }
 }
 
-function buscarCliente() {
+function ModificarModalVender(){
+    document.getElementById("idcantidadprodmodal").innerHTML=jsonEnvio.length;
+    document.getElementById("idtotalapagarmodal").innerHTML=(TotalApagar).toFixed(2)+" $";
+    let valorAbonado= document.getElementById("idabona").value;
 
-    const autocompletadoInput = document.getElementById("autocompletadoBuscarCliente");
+    let vueltoAmostrar=valorAbonado-TotalApagar;
+    console.log(vueltoAmostrar);
+
+    document.getElementById("idvueltomodal").innerHTML=(vueltoAmostrar).toFixed(2)+" $";
+}
+
+function buscarProducto() {
+
+    const autocompletadoInput = document.getElementById("autocompletadoBuscarProducto");
     const inputTexto = autocompletadoInput.value.toLowerCase();
 
     const listaCliente = document.getElementById("listaProductos");
@@ -63,7 +75,7 @@ function buscarCliente() {
 
 function mostrarListadoCliente(palabraFiltrada,objetoProductoSeleccionado) {
 
-    const autocompletadoInput = document.getElementById("autocompletadoBuscarCliente");
+    const autocompletadoInput = document.getElementById("autocompletadoBuscarProducto");
 
     const listaCliente = document.getElementById("listaProductos");
 
@@ -84,12 +96,20 @@ function mostrarListadoCliente(palabraFiltrada,objetoProductoSeleccionado) {
                 obj.PROD_PRECIO_VENTA+"$";
                 
 
-                li.addEventListener('click', () => {
+                if (obj.CANTIDAD==0) {
+                    li.textContent=obj.NOMBRE+" Nos Quedamos sin Stock";
+                    listaCliente.appendChild(li);
+                    ProductoSeleccionado=obj;
+                }else{
+                    li.addEventListener('click', () => {
                     autocompletadoInput.value = obj.NOMBRE;
                     listaCliente.innerHTML = '';
                     ProductoSeleccionado=obj;
-                });
-                listaCliente.appendChild(li);
+                    });
+                    listaCliente.appendChild(li);              
+                }
+
+
             
             
 
@@ -102,16 +122,19 @@ function seleccionarListaProducto(){
     const filaProductoPrecio=document.getElementById("idfilaPrecio");
    // const filaProductoCantidad=document.getElementById("idfilaCantidad");
 
-   filaProductoPrecio.innerHTML=ProductoSeleccionado.PROD_PRECIO_VENTA+" $";
-    let cantidamax=ProductoSeleccionado.CANTIDAD;
-    
-    const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
-    
-    filaProductoPrincipal.classList.remove("d-none")
+    if (ProductoSeleccionado.CANTIDAD!=0) {
+        filaProductoPrecio.innerHTML=ProductoSeleccionado.PROD_PRECIO_VENTA+" $";
 
-    const filaCantidadinput = document.getElementById('idfilaCantidadinput');
-    filaCantidadinput.setAttribute("max",cantidamax);
+    
+        let cantidamax=ProductoSeleccionado.CANTIDAD;
+        
+        const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
+        
+        filaProductoPrincipal.classList.remove("d-none")
 
+        const filaCantidadinput = document.getElementById('idfilaCantidadinput');
+        filaCantidadinput.setAttribute("max",cantidamax);
+    }
 }
 
 function eliminarProductosTabla(){
@@ -119,10 +142,12 @@ function eliminarProductosTabla(){
     document.getElementById("tablaProductos").innerHTML="";
     let filaProductoPrincipal=document.getElementById("idfilaProductoprincipal");
     filaProductoPrincipal.classList.add("d-none");
-    document.getElementById("autocompletadoBuscarCliente").value="";
+    document.getElementById("autocompletadoBuscarProducto").value="";
     document.getElementById("idRedondeo").innerHTML="0 $"
     document.getElementById("idtotal").innerHTML="0 $"
     document.getElementById("idtotalApagar").innerHTML="0 $"
+    document.getElementById("idbotonconfirmar").disabled = true;
+    document.getElementById("idabona").value=null;
     jsonEnvio=[];
     localStorage.setItem("subTotal",0);
     subTotal=0;
@@ -145,7 +170,7 @@ function agregarProductoTabla(){
    
     
     
-    if (document.getElementById("autocompletadoBuscarCliente").value.length>=3) {
+    if (document.getElementById("autocompletadoBuscarProducto").value.length>=3) {
     
         
 
@@ -195,13 +220,13 @@ function agregarProductoTabla(){
         //console.log(jsonEnvio);
         
     }
-    document.getElementById("autocompletadoBuscarCliente").value="";
+    document.getElementById("autocompletadoBuscarProducto").value="";
     
     document.getElementById("idfilaCantidadinput").value=1;
     const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
     filaProductoPrincipal.classList.add("d-none")
 
-    document.getElementById("idtotal").innerHTML=subTotal+" $";
+    document.getElementById("idtotal").innerHTML= (subTotal).toFixed(2)+" $";
 
     //idRedondeo idtotalApagar
 
@@ -209,7 +234,7 @@ function agregarProductoTabla(){
 
     RedondeValor=document.getElementById("idRedondeo").innerHTML=(valorResiduo).toFixed(2)+" $";
     
-    console.log(Math.trunc(subTotal));
+    //console.log(Math.trunc(subTotal));
     
         
     //idtotalApagar
@@ -232,7 +257,12 @@ function GuardarVenta() {
 
         console.log(data);
 
-         document.getElementById("idestadoDeVenta").innerHTML="Venta Exitosa"+data;
+        swal("Vendido","Gracias por elegirnos","success");
+        document.getElementById("idvenderboton").disabled = true;
+        setTimeout(function(){
+            window.location.reload();
+        },4000);
+        //document.getElementById("idestadoDeVenta").innerHTML="Venta Exitosa"+data;
 
     });
 }

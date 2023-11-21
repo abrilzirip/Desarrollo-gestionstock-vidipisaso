@@ -1,12 +1,9 @@
 <?php include '../Controlador/UpdateListaClienteEditar.php'; ?>
 <?php include '../Controlador/SelectVendedorListaCliente.php' ?>
 
-<?php
+<?php 
 session_start();
-
-include '../Controlador/dbTwo.php';
-
-if (!isset($_SESSION['usuario'])) {
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     header('Location:index.php');
     die();
 }
@@ -163,12 +160,7 @@ $db = new Database();
             </div>
         </div>
     </section>
-    <footer class="bg-black text-center text-lg-start mt-4 d-flex">
-        <div class="text-center p-3 text-warning">
-            © 2020 Copyright:
-            <a class="text-warning" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-        </div>
-    </footer>
+
     <!-- Modal Detalle -->
     <div class="modal fade w-100" id="modalDetalleCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -290,6 +282,18 @@ $db = new Database();
             </div>
         </div>
     </div>
+
+    <br>
+        <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
+            <div class="btn-group btn-group-toggle" >
+                <label class="btn btn-light" id="idlabelventaverde">
+                    
+                </label>
+                <label class="btn btn-dark" id="idlabelventarojo">
+                    
+                </label>
+            </div>
+        </div>
 </body>
 
 </html>

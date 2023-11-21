@@ -1,4 +1,11 @@
 <?php include("../Controlador/db.php"); ?>
+<?php 
+session_start();
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
+    header('Location:index.php');
+    die();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -36,88 +43,51 @@
 
         <!-- Navbar Admin. -->
         <div>
-      <nav class="navbar navbar-expand-lg bg-black">
-        <div class="container-fluid">
-          <a class="navbar-brand text-light fs-5" href="Administrador.php">StVent</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="cista/Administrador.htmlollapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a
-                  class="nav-link active text-warning mt-1 fs-6"
-                  aria-current="page"
-                  href="Administrador.php"
-                  >Inicio</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearUsuario.php"
-                  >Crear Usuario</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearProducto.php"
-                  >Crear Producto</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-warning mt-1 fs-6" href="#"
-                  >Crear Inidicador</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-warning mt-1 fs-6" href="AdministradorAjuste.php"
-                  >Crear Ajuste</a
-                >
-              </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link text-warning dropdown-toggle mt-1 fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Generar Reporte
-                </a>
-                <ul class="dropdown-menu bg-black">
-                  <li><a class="dropdown-item text-warning" href="#">Ventas</a></li>
-                  <li><a class="dropdown-item text-warning" href="#">Vendedor</a></li>
-                  <li><a class="dropdown-item text-warning" href="#">Recaudación</a></li>
-                </ul>
-              </li>
-
-
-              <!-- <li class="nav-item">
-                <a class="nav-link text-warning mt-1 fs-6" href="#"
-                  >Generar Reporte</a
-                > -->
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-warning mt-1 fs-6" href="#"
-                  >Visualizar Logs</a
-                >
-              </li>
-            </ul>
-          </div>
+    <nav class="navbar navbar-expand-lg bg-black">
+      <div class="container-fluid">
+        <a class="navbar-brand text-light fs-5" href="#">StVent</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="cista/Administrador.htmlollapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item text-end">
-              <a class="nav-link" href="../Controlador/Logout.php"
-                ><button class="btn btn-danger py-1" id="salir">
-                  Cerrar sesion
-                </button></a
-              >
+            <li class="nav-item">
+              <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="Administrador.php">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearUsuario.php">Crear Usuario</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning mt-1 fs-6" href="AdministradorCrearProducto.php">Crear Producto</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning mt-1 fs-6" href="AdministradorIndicador.php">Crear Inidicador</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning mt-1 fs-6" href="AdministradorAjuste.php">Crear Ajuste</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link text-warning dropdown-toggle mt-1 fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Generar Reporte</a>
+              <ul class="dropdown-menu bg-black">
+              <li><a class="dropdown-item text-warning" href="AdministradorVentas.php">Ventas</a></li>
+                <li><a class="dropdown-item text-warning" href="AdministradorVendedor.php">Vendedor</a></li>
+                <li><a class="dropdown-item text-warning" href="AdministradorRecaudacion.php">Recaudación</a></li>
+              </ul>
+            </li>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning mt-1 fs-6" href="#">Visualizar Logs</a>
             </li>
           </ul>
         </div>
-      </nav>
-    </div>
-    <div>
+        <ul class="navbar-nav">
+          <li class="nav-item text-end">
+            <a class="nav-link" href="../Controlador/Logout.php"><button class="btn btn-danger py-1" id="salir">Cerrar sesion</button></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
     <!-- Fin navbar -->
 
     <div>

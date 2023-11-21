@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
     // Datos codificados de vendedores destacados
     var vendedoresDestacados = {
-        labels: ['Paola', 'Carlos', 'Enrique'],
+        labels: ['Salvador', 'Vicky', 'Abril'],
         data: [230, 500, 380]
     };
 
