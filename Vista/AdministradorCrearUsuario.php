@@ -16,12 +16,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $mail = $_POST['email'];
   date_default_timezone_set('America/Argentina/Buenos_Aires');
   $pFechaalta = date('Y-m-d H:i:s');
-  $fecha_baja = date('Y-m-d H:i:s');
+  //$fecha_baja = date('Y-m-d H:i:s');
 
 
   if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
-    $consultaInsert = "INSERT INTO `usuario`(`ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`, `F_BAJA`, `F_ALTA`, `MAIL`) 
-    VALUES ( :idturno, :Nombre, :pass,:perfil ,:fecha_baja, :pFechaalta, :mail)";
+    $consultaInsert = "INSERT INTO `usuario`(`ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`, `F_ALTA`, `MAIL`) 
+    VALUES ( :idturno, :Nombre, :pass,:perfil ,:pFechaalta, :mail)";
 
     try {
       $consulta = $conn->prepare($consultaInsert);
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $consulta->bindParam(':Nombre', $Nombre);
       $consulta->bindParam(':pass', $pass);
       $consulta->bindParam('perfil', $idperfil);
-      $consulta->bindParam(':fecha_baja', $fecha_baja);
+     // $consulta->bindParam(':fecha_baja', $fecha_baja);
       $consulta->bindParam(':pFechaalta', $pFechaalta);
       $consulta->bindParam(':mail', $mail);
 
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
   }
 }
-$consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`, `F_BAJA`, `F_ALTA`, `MAIL` FROM `usuario`ORDER BY ID_USUARIO_REGISTRADO DESC");
+$consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`,  `F_ALTA`, `MAIL` FROM `usuario`ORDER BY ID_USUARIO_REGISTRADO DESC");
 ?>
 
 
@@ -67,6 +67,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
   <script src="js/scriptAdminsitradorCrearUsuario.js" defer></script>
+  <script src="js/AccionesUsuarios.js " defer></script>
   <title>AdministradorCrearUsuario</title>
 </head>
 
@@ -118,6 +119,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
       </div>
     </nav>
   </div>
+  <section  class="container mt-4 w-75">
   <div id="cardProductos">
     <div class="card-header py-2">
       <h1 class="text-center mt-3">Crear Usuario</h1>
@@ -137,10 +139,10 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
               <th>ID_PERFIL</th>
               <th>NombreUsuario</th>
               <th>Password</th>
-              <th>F_BAJA</th>
+              <!-- <th>F_BAJA</th> -->
               <th>F_ALTA</th>
               <th>Email</th>
-              <th>#</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -154,14 +156,20 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
               echo "<td class='text-center'>" . $row['ID_PERFIL'] . "</td>";
               echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
               echo "<td class='text-center'>" . $row['PASSWORD'] . "</td>";
-              echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
+             // echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
               echo "<td class='text-center'>" . $row['F_ALTA'] . "</td>";
               echo "<td class='text-center'>" . $row['MAIL'] . "</td>";
               echo "<td class='text-center'>
-                                <div class='table__item__link' role='group' aria-label='Grupo botones'>
-                                </button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'>
-                                <i class='bi bi-pencil'></i></button><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'><i class='bi bi-trash'></i></button></div></td>";
-              echo "</tr>";
+                        <div class='table__item__link' role='group' aria-label='Grupo botones'>
+                          <button class='btn btn-primary btn-sm' data-btn-grupo='editar-cliente' data-cliente-id='" . $row['ID_USUARIO_REGISTRADO'] . "'>
+                            <i class='bi bi-pencil'></i>
+                          </button>
+                          <button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente' data-cliente-id='" . $row['ID_USUARIO_REGISTRADO'] . "'>
+                            <i class='bi bi-trash'></i>
+                          </button>
+                        </div>
+                      </td>";
+                echo "</tr>";
               $nroFila++;
             }
             ?>
@@ -219,6 +227,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
     </div>
   </div>
 </div>
+          </section>
 
 <!-- Pie de Indicadores -->
 <br>
