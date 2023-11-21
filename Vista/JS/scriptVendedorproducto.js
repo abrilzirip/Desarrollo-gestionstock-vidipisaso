@@ -116,7 +116,10 @@ function ActualizarProductoStockenBase(){
 
         console.log("seconecto ala base"+data);
 
-       
+        swal("Actualizo Stock","","success");
+        setTimeout(function(){
+            window.location.reload();
+        },4000);
 
     });
 }

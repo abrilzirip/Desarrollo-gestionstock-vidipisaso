@@ -246,7 +246,12 @@ function GuardarVenta() {
 
         console.log(data);
 
-         document.getElementById("idestadoDeVenta").innerHTML="Venta Exitosa"+data;
+        swal("Vendido","Gracias por elegirnos","success");
+        document.getElementById("idvenderboton").disabled = true;
+        setTimeout(function(){
+            window.location.reload();
+        },4000);
+        //document.getElementById("idestadoDeVenta").innerHTML="Venta Exitosa"+data;
 
     });
 }
