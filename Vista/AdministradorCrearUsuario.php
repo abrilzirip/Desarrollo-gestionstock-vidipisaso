@@ -1,15 +1,12 @@
 <?php
 include '../Controlador/db.php';
 
-
-
- 
 session_start();
-if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
-    header('Location:index.php');
-    die();
-}
 
+if (!isset($_SESSION['usuario']) && isset($_SESSION['perfil'])) {
+  header('Location:index.php');
+  die();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $idturno = 1;
@@ -19,56 +16,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $mail = $_POST['email'];
   date_default_timezone_set('America/Argentina/Buenos_Aires');
   $pFechaalta = date('Y-m-d H:i:s');
-  $fecha_baja = date('Y-m-d H:i:s');
+  //$fecha_baja = date('Y-m-d H:i:s');
+}
 
+// ...
 
-  if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
-    $consultaInsert = "INSERT INTO `usuario`(`ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`, `F_BAJA`, `F_ALTA`, `MAIL`) 
-    VALUES ( :idturno, :Nombre, :pass,:perfil ,:fecha_baja, :pFechaalta, :mail)";
+if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
+  // Encriptar la contraseña
+  $passEncriptada = password_hash($pass, PASSWORD_DEFAULT);
+  echo $passEncriptada;
 
-    try {
+  $consultaInsert = "INSERT INTO `usuario`(`ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`, `F_ALTA`, `MAIL`) 
+  VALUES (:idturno, :Nombre, :passEncriptada, :perfil, :pFechaalta, :mail)";
+  echo $passEncriptada;
+  try {
       $consulta = $conn->prepare($consultaInsert);
       $consulta->bindParam(':idturno', $idturno);
       $consulta->bindParam(':Nombre', $Nombre);
-      $consulta->bindParam(':pass', $pass);
-      $consulta->bindParam('perfil', $idperfil);
-      $consulta->bindParam(':fecha_baja', $fecha_baja);
+      $consulta->bindParam(':passEncriptada', $passEncriptada); // Usar la contraseña encriptada
+      $consulta->bindParam(':perfil', $idperfil);
       $consulta->bindParam(':pFechaalta', $pFechaalta);
       $consulta->bindParam(':mail', $mail);
 
       $consulta->execute();
       $conn->beginTransaction();
       $conn->commit();
-
-      date_default_timezone_set('America/Argentina/Buenos_Aires');
-      $FECHA_ALTA = date('Y-m-d H:i:s');
-      $insertLog="INSERT INTO `log`(`fecha`, `operacion`, `detalle`, `id_usuario`, `perfil`) 
-      VALUES (:FECHA_ALTA,:stringdato1, :stringdato2,1,2)"; 
-      
-      $consulta =$conn->prepare($insertLog);
-
-      $stringdato1= "Crear";
-      $stringdato2= "Creo el usuario ".$Nombre;
-      $consulta->bindParam(':FECHA_ALTA', $FECHA_ALTA);
-      $consulta->bindParam(':stringdato1', $stringdato1);
-      $consulta->bindParam(':stringdato2', $stringdato2);
-      $consulta->execute();
-      $conn->beginTransaction();
-      $conn->commit();
-
       echo "";
       header('Location: ' . htmlspecialchars($_SERVER["PHP_SELF"]) . "?succes_ok=1", true, 303);
       exit;
-    } catch (PDOException $e) {
+  } catch (PDOException $e) {
       echo "Error: " . $e->getMessage();
-    }
-  } else {
-    echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
   }
 }
-$consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`, `F_BAJA`, `F_ALTA`, `MAIL` FROM `usuario`ORDER BY ID_USUARIO_REGISTRADO DESC");
-?>
 
+
+$consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`,  `F_ALTA`, `MAIL` FROM `usuario`ORDER BY ID_USUARIO_REGISTRADO DESC");
+?>
 
 
 <!DOCTYPE html>
@@ -156,6 +139,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
     </div>
   </nav>
   </div>
+  <section  class="container mt-4 w-75">
   <div id="cardProductos">
     <div class="card-header py-2">
       <h1 class="text-center mt-3">Crear Usuario</h1>
@@ -170,15 +154,12 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
           <thead>
             <tr>
               <th>Fila</th>
-              <th>Id_Usuario</th>
-              <th>ID_TURNO</th>
-              <th>ID_PERFIL</th>
               <th>NombreUsuario</th>
               <th>Password</th>
-              <th>F_BAJA</th>
+              <!-- <th>F_BAJA</th> -->
               <th>F_ALTA</th>
               <th>Email</th>
-              <th>#</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -187,19 +168,22 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
             while ($row = $consultaSelect->fetch()) {
               echo "<tr>";
               echo "<td class='text-center'>" . $nroFila . "</td>";
-              echo "<td class='text-center'>" . $row['ID_USUARIO_REGISTRADO'] . "</td>";
-              echo "<td class='text-center'>" . $row['ID_TURNO'] . "</td>";
-              echo "<td class='text-center'>" . $row['ID_PERFIL'] . "</td>";
               echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
-              echo "<td class='text-center'>" . $row['PASSWORD'] . "</td>";
-              echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
+              echo "<td class='text-center'>" . '********' . "</td>";
+             // echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
               echo "<td class='text-center'>" . $row['F_ALTA'] . "</td>";
               echo "<td class='text-center'>" . $row['MAIL'] . "</td>";
               echo "<td class='text-center'>
-                                <div class='table__item__link' role='group' aria-label='Grupo botones'>
-                                </button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-cliente'>
-                                <i class='bi bi-pencil'></i></button><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente'><i class='bi bi-trash'></i></button></div></td>";
-              echo "</tr>";
+                        <div class='table__item__link' role='group' aria-label='Grupo botones'>
+                          <button class='btn btn-primary btn-sm' data-btn-grupo='editar-cliente' data-cliente-id='" . $row['ID_USUARIO_REGISTRADO'] . "'>
+                            <i class='bi bi-pencil'></i>
+                          </button>
+                          <button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente' data-cliente-id='" . $row['ID_USUARIO_REGISTRADO'] . "'>
+                            <i class='bi bi-trash'></i>
+                          </button>
+                        </div>
+                      </td>";
+                echo "</tr>";
               $nroFila++;
             }
             ?>
@@ -208,41 +192,9 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
 
 </body>
 </table>
-<!-- <div class="table-responsive">
-                <table class="table table-striped table-dark" id="productosTabla">
-                    <thead>
-                    <th>Id_Usuario</th>
-                    <th>Nombre</th>
-                    <th>Password</th>
-                    <th>Email</th>
-                    <th></th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="row">1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button class="btn btn-primary" id="btnLapiz">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                <button class="btn btn-danger" id="btnTacho">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
 
 <div id="idbotones-pantalla-venta">
   <div>
-    <button class="btn btn-danger py-1">Ver Lista Usuarios</button>
     <button class="btn btn-danger py-1" id="btnInsertar" data-bs-toggle="modal" data-bs-target="#modalCarga">Agregar Usuario</button>
   </div>
 </div>
@@ -289,6 +241,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
     </div>
   </div>
 </div>
+          </section>
 
 <!-- Pie de Indicadores -->
 <br>
