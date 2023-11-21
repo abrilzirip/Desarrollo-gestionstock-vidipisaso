@@ -8,7 +8,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nivel = $_POST['limiteDeAviso'];
     $producto = $_POST['selectProducto'];
     $categoria = $_POST['selectCategoria'];
-    $idUsuario = $_SESSION['ID'];
+    $idUsuario = 1;
+
+    echo $_SERVER["REQUEST_METHOD"];
 
     if (!empty($nivel) && !empty($producto) && !empty($categoria) && !empty($idUsuario)) {
 
@@ -22,6 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $consulta->bindParam(':IDProducto', $producto);
             $consulta->bindParam(':Nivel', $nivel);
             $consulta->execute();
+            $conn->beginTransaction();
+            $conn->commit();
         } catch (PDOException $e) {
             echo "Error en la consulta: " . $e->getMessage();
         }

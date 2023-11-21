@@ -29,8 +29,8 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     <script src="../Vista/JS/JsonIndicador.js"></script>
     <script src="../Vista/JS/JsonProductoIndicador.js"></script>
     <script src="../Vista/JS/JsonCategoriaIndicador.js"></script>
-    <script src="./JS/botonIndicador.js"></script>
-    <script src="./JS/JsonSelectIndicador.js"></script>
+    <script src="../Vista/JS/botonIndicador.js"></script>
+    <script src="../Vista/JS/JsonSelectIndicador.js"></script>
     <title>Indicador</title>
 </head>
 
