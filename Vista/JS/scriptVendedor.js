@@ -8,15 +8,6 @@ function inicio() {
     document.getElementById("idbotonconfirmar").addEventListener("click",ModificarModalVender,false);
 
 }
-//json de para generar el resumen de toda la venta para enviar ala base
-let jsonEnvio=[
-        //{id:0,marca:"Milka",nombre:"Alfajor Triple Milka Oreo 61g",precio:300,cantidad:200},
-
-    ];  
-
-
-
-
 
 
 

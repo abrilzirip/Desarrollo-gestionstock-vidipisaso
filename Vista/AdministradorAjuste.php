@@ -198,20 +198,22 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
                                          <div id="smsResultado" class="card position-absolute d-none text-danger">No se encontraron resultados</div> 
 
                                 </div>
-                  <div>
+                  <div class="table-responsive mx-auto">
                   <table class="table table-dark mt-2">
     <thead>
                             <tr>
-                                <th>Producto</th>
-                                <th>Ajuste(%)</th>
-                                <th>Acciones</th>
+                                <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">Marca</th>
+                                <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">Descripción</th>
+                                <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" scope="col">Ajuste(%)</th>
+                                <th class="text-center" scope="col">Acciones</th>
 
                             </tr>
                         </thead>
                         <tbody>
                         <tr id="idfilaProductoprincipal" class="d-none">
-                                                <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md" scope="row"></td>
-                                                <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"
+                                                <td id="idfilamarca" class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md" scope="col"></td>
+                                                <td class="text-center" id="idfiladecripcion" scope="col"></td>
+                                                <!-- <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"
                                                 id="idfilaCantidad" scope="col">
                                                     <input type="number" id="idfilaCantidadinput" class="form-control text-center" value="1"  min="0" step='5'>
                                                 </td>
@@ -230,11 +232,25 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
                                                 <td class="text-center" scope="col"></td>
                                                 <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center" 
                                                 id="idfilaPrecio" scope="col">
-                                                    <!-- si saco el td solucion el problema de reajuste
-                                                         de pagina pero no accedo a idfilaCantidadinput-->
+                                                    ***si saco el td solucion el problema de reajuste
+                                                         de pagina pero no accedo a idfilaCantidadinput***
                                                
-                                                </td>
-                                                
+                                                </td> -->
+                                                <form id="idformilarioUpdateSotck">
+                                                    <td class="col-1 ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"
+                                                    id="idfilaCantidad" name="cantidaStock" scope="col">
+                                                        <input type="number" id="idfilaCantidadinput" class="form-control text-center" value="5"  min="5"  max="100" step="5">
+                                                        <input class="d-none" type="text"name="datostxtstock" id="idinputdatosTxtstock" >
+                                                    </td>
+
+                                                    <td  class="col-1 ocultar-en-pantalla-sm ocultar-en-pantalla-md text-center"scope="col">
+                                                        <div class="btn-group" role="group" aria-label="Grupo botones">
+                                                            <button type="submit" id="id_modificar_cantidad_producto" class="btn btn-primary btn-sm" data-btn-grupo="modificar-cliente">
+                                                                <i  class="bi bi-check-lg"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </form>
                                             </tr>
                         </tbody>
 

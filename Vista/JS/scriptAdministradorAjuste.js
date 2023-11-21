@@ -1,9 +1,9 @@
 function inicio() {
     document.getElementById("autocompletadoBuscarCliente").addEventListener("input", buscarCliente, false);
-    document.getElementById("id_Agregar_producto_Tabla").addEventListener("click", agregarProductoTabla, false);
-    document.getElementById("id_Eliminar_producto_Tabla").addEventListener("click", eliminarProductosTabla, false);
+    // document.getElementById("id_Agregar_producto_Tabla").addEventListener("click", agregarProductoTabla, false);
+    // document.getElementById("id_Eliminar_producto_Tabla").addEventListener("click", eliminarProductosTabla, false);
     document.getElementById("listaProductos").addEventListener("click", seleccionarListaProducto, false);
-    document.getElementById("idvenderboton").addEventListener("click", e=>{venderProductos(e)},false);
+    document.getElementById("id_modificar_cantidad_producto").addEventListener("click",e=>{ ActualizarProductoStock(e)},false);
 }
 
 const posicionJson=0;
@@ -75,6 +75,31 @@ function mostrarListadoCliente(palabraFiltrada,objetoProductoSeleccionado) {
         });
     }
 }
+
+
+
+function seleccionarListaProducto(){
+    console.log("selcciono producto lista");
+    // let filaProductoPrecio=document.getElementById("idfilaPrecio");
+    let filaProductoMarca=document.getElementById("idfilamarca");
+    let filaProductoDescripcion=document.getElementById("idfiladecripcion");
+    //idfiladecripcion  idfilamarca
+
+    // filaProductoPrecio.innerHTML=ProductoSeleccionado.PROD_PRECIO_VENTA;
+    filaProductoMarca.innerHTML=ProductoSeleccionado.MARCA;
+    filaProductoDescripcion.innerHTML=ProductoSeleccionado.NOMBRE;
+
+
+    const filaProductoPrincipal = document.getElementById('idfilaProductoprincipal');
+
+    filaProductoPrincipal.classList.remove("d-none")
+
+    const filaCantidadinput = document.getElementById('idfilaCantidadinput');
+
+
+}
+
+
 
 
 
