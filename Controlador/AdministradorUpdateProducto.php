@@ -39,6 +39,6 @@ if(!empty($subcategoria) && !empty($Nombre) && !empty($Pmarca) && !empty($pFecha
 
 }
 
-$conn = null;
+
 
 ?>

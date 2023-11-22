@@ -3,12 +3,11 @@
 include '../Controlador/dbTwo.php';
 
 include '../Controlador/AdministradorUpdateProducto.php';
-
-// session_start();
-// if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
-//     header('Location:index.php');
-//     die();
-// }
+session_start();
+if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
+     header('Location:index.php');
+     die();
+ }
 
 
 ?>

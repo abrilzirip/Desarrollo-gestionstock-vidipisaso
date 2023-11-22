@@ -36,7 +36,7 @@ function editarProducto(evento) {
     tituloM.innerHTML = "Editar Producto: " + nombre;
     inputID.value = idProducto;
     inputSubcategoria.value = idSubcategoria;
-    inputNombre.value = "tomate diego";
+    inputNombre.value = nombre;
     inputMarca.value = marca;
     inputPrecioCompra.value = compra;
     inputPrecioVenta.value = venta;
