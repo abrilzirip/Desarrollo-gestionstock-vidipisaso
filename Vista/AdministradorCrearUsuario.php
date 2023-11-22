@@ -50,6 +50,7 @@ if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
 }
 
 
+
 $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOMBRE`, `PASSWORD`, `ID_PERFIL`,  `F_ALTA`, `MAIL` FROM `usuario`ORDER BY ID_USUARIO_REGISTRADO DESC");
 ?>
 
@@ -70,8 +71,14 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
   
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
-  <script src="js/scriptAdminsitradorCrearUsuario.js" defer></script>
-  <script src="js/AccionesUsuarios.js " defer></script>
+  <script src="./JS/scriptAdminsitradorCrearUsuario.js" defer></script>
+  <script src="./JS/AccionesUsuarios.js " defer></script>
+  <script src="./JS/scriptAdministradorEditaUsuario.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="./JS/scriptAdminsitradorCrearUsuario.js" defer></script>
+  <script src="./JS/scriptAdminsitradorEditaUsuario.js" defer></script>
+  <script src="./JS/AccionesUsuarios.js" defer></script>
+
   <title>AdministradorCrearUsuario</title>
 </head>
 
@@ -154,23 +161,20 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
               echo "<td class='text-center'>" . $nroFila . "</td>";
               echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
               echo "<td class='text-center'>" . '********' . "</td>";
-             // echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
+              // echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
               echo "<td class='text-center'>" . $row['F_ALTA'] . "</td>";
               echo "<td class='text-center'>" . $row['MAIL'] . "</td>";
-              echo "<td class='text-center'>
-                        <div class='table__item__link' role='group' aria-label='Grupo botones'>
-                          <button class='btn btn-primary btn-sm' data-btn-grupo='editar-cliente' data-cliente-id='" . $row['ID_USUARIO_REGISTRADO'] . "'>
-                            <i class='bi bi-pencil'></i>
-                          </button>
-                          <button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-cliente' data-cliente-id='" . $row['ID_USUARIO_REGISTRADO'] . "'>
-                            <i class='bi bi-trash'></i>
-                          </button>
-                        </div>
-                      </td>";
-                echo "</tr>";
+              echo "<td class='text-center'>";
+              echo "<a href='AdministradorEditaUsuario.php' class='btn btn-sm btn-warning editar-btn' data-bs-toggle='modal' data-bs-target='#editaModal' data-id='" . $row['ID_USUARIO_REGISTRADO'] . "' data-nombre='" . $row['NOMBRE'] . "' data-password='" . $row['PASSWORD'] . "' data-email='" . $row['MAIL'] . "'><i class='fa-solid fa-pen-to-square'></i> Editar</a>";
+
+              echo "<a href='AdministradorEliminarUsuario.php' class='btn btn-sm btn-danger' data-bs-toggle='modal' data-bs-target='#eliminaModal' data-bs-id='" . $row['ID_USUARIO_REGISTRADO'] . "'><i class='fa-solid fa-trash'></i> Eliminar</a>";
+              
+              echo "</td>";
+              echo "</tr>";
               $nroFila++;
-            }
-            ?>
+          }
+          ?>
+          
 
 
 
@@ -225,6 +229,38 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
     </div>
   </div>
 </div>
+
+<!-- Modal de Edición -->
+<div class="modal fade" id="editaModal" tabindex="-1" role="dialog" aria-labelledby="editaModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editaModalLabel">Editar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Campos de formulario para editar la información -->
+                <form id="formEditaUsuario">
+                    <input type="hidden" id="editaUsuarioId" name="editaUsuarioId">
+                    <label for="editaNombre">Nombre</label>
+                    <input type="text" class="form-control" id="editaNombre" name="editaNombre">
+                    <label for="editaPassword">Password</label>
+                    <input type="password" class="form-control" id="editaPassword" name="editaPassword">
+                    <label for="editaEmail">Email</label>
+                    <input type="email" class="form-control" id="editaEmail" name="editaEmail">
+                    <!-- Agrega más campos según sea necesario -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="btnGuardarCambios">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
           </section>
 
 <!-- Pie de Indicadores -->
@@ -241,6 +277,50 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `NOM
 </div>
 
 
+<!-- ... (tu código existente) -->
+
+<!-- Agrega el enlace a jQuery antes de tu script de manejo de edición -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="js/scriptAdminsitradorCrearUsuario.js" defer></script>
+<script src="js/scriptAdminsitradorEditaUsuario.js" defer></script>
+
+<script src="js/AccionesUsuarios.js" defer></script>
+
+<!-- Tu script de manejo de edición (el script que maneja el modal de edición y la actualización) -->
+<script>
+    $(document).ready(function () {
+        $('#editaModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var idUsuario = button.data('id');
+            var nombre = button.data('nombre');
+            var password = button.data('password');
+            var email = button.data('email');
+
+            $('#editaUsuarioId').val(idUsuario);
+            $('#editaNombre').val(nombre);
+            $('#editaPassword').val(password);
+            $('#editaEmail').val(email);
+        });
+
+        $('#btnGuardarCambios').on('click', function () {
+            var formData = $('#formEditaUsuario').serialize();
+            $.ajax({
+                type: 'POST',
+                url: 'ActualizarUsuario.php', 
+                data: formData,
+                success: function (response) {
+                    console.log(response);
+                    $('#editaModal').modal('hide');
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
 
 
 </body>

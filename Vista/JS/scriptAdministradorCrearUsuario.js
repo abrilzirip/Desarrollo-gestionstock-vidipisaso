@@ -4,7 +4,7 @@
 //     }
 //     els
 
-e {
+// e {
 //         e.preventDefault();
 //     }
 // }
@@ -16,7 +16,7 @@ e {
 function inicio() {
 
     //Boton submit
-    document.getElementById("frmCrearCliente").addEventListener("submit", Formulario, false);
+    document.getElementById("frmCrearUsuario").addEventListener("submit", Formulario, false);
 
     //Boton Detalle
     let botonMostrarDetalle = document.querySelectorAll("button[data-btn-grupo='modificar-usuario']");
