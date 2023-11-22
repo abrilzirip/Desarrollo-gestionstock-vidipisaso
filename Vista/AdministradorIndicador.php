@@ -112,11 +112,14 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
                             <div class="invalid-feedback" id="errorIndicadorAviso"></div>
 
                             <select class="form-select mt-2" aria-label="Default select example" id="selectProducto" name="selectProducto">
-                                <option selected disabled>Productos</option>
+                                <option selected disabled value="Productos">Productos</option>
                             </select>
+                            <div class="invalid-feedback" id="errorIndicadorSelectProducto"></div>
+
                             <select class="form-select mt-2" aria-label="Default select example" id="selectCategoria" name="selectCategoria">
-                                <option selected disabled>Categorias</option>
+                                <option selected disabled value="Categorias">Categorias</option>
                             </select>
+                            <div class="invalid-feedback" id="errorIndicadorSelectCategoria"></div>
                         </div>
                         <div class="card-footer bg-black">
                             <button type="submit" class="btn btn-primary">Guardar Configuracion</button>
@@ -127,13 +130,16 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
         </div>
         <?php
         if (isset($Acierto['exitoso']) && $Verificador == true) {
-            echo '<div id="smsExitoso" class="alert alert-success mt-2 ok" role="alert">';
-            echo '<span class="enviado">' . $Acierto['exitoso'] . '</span>';
-            echo '</div>';
+            imprimirMensaje('smsExitoso', 'alert-success ok', 'enviado', $Acierto['exitoso']);
         }
         if (isset($Error['indicador']) && $Verificador == true) {
-            echo '<div id="smsError" class="alert alert-danger mt-2 problem" role="alert">';
-            echo '<span class="error">' . $Error['indicador'] . '</span>';
+            imprimirMensaje('smsError', 'alert-danger problem', 'error', $Error['indicador']);
+        }
+
+        function imprimirMensaje($id, $clases, $claseSpan, $mensaje)
+        {
+            echo '<div id="' . $id . '" class="alert ' . $clases . ' mt-2" role="alert">';
+            echo '<span class="' . $claseSpan . '">' . $mensaje . '</span>';
             echo '</div>';
         }
         ?>

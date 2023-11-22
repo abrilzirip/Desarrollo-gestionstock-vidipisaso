@@ -20,7 +20,6 @@ function verificarstock() {
             if (productosBajoStock.length) {
                 document.getElementById("divNoNotificacion").classList.add("d-none")
                 productosBajoStock.forEach(producto => mostrarToast(producto));
-                console.log(productosBajoStock);
             } else {
                 document.getElementById("divNoNotificacion").classList.remove("d-none")
             }
