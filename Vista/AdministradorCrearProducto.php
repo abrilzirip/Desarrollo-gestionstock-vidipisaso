@@ -1,77 +1,33 @@
-<?php include '../Controlador/db.php';
+<?php include '../Controlador/dbTwo.php' ;
 
-session_start();
-if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
-    header('Location:index.php');
-    die();
-}
+include "../Controlador/AdministradorUpdateProducto.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user = 2;
-    $subcategoria = $_POST['subcategoria'];
-    date_default_timezone_set('America/Argentina/Buenos_Aires');
-    $pFecha = date('Y-m-d H:i:s');
-    $Nombre = $_POST['pNombre'];
-    $Pmarca = $_POST['marca'];
-    $Pcantidad = $_POST['cantidad'];
-    $precioDeCompra = $_POST['precioCompra'];
-    $precioDeVenta = $_POST['precioVenta'];
-    $pPeso = $_POST['peso'];
+// session_start();
+// if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
+//     header('Location:index.php');
+//     die();
+// }
 
-    if (!empty($Nombre) && !empty($Pmarca) && !empty($Pcantidad) && !empty($pFecha) && !empty($precioDeCompra) && !empty($precioDeVenta)) {
-        $consultaInsert =
-            "INSERT INTO `producto` 
-            (`ID_USUARIO_REGISTRADO`, `ID_SUBCATEGORIA`, `FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO_GRAMOS`) 
-            VALUES 
-            (:user, :subcategoria, :fecha, :Nombre, :marca, :cantidad, :precioCompra,:precioVenta, :peso)";
-
-        try {
-            $consulta = $conn->prepare($consultaInsert);
-            $consulta->bindParam(':user', $user);
-            $consulta->bindParam(':subcategoria', $subcategoria);
-            $consulta->bindParam(':fecha', $pFecha);
-            $consulta->bindParam(':Nombre', $Nombre);
-            $consulta->bindParam(':marca', $Pmarca);
-            $consulta->bindParam(':cantidad', $Pcantidad);
-            $consulta->bindParam(':precioCompra', $precioDeCompra);
-            $consulta->bindParam(':precioVenta', $precioDeVenta);
-            $consulta->bindParam(':peso', $peso);
-            $consulta->execute();
-            $conn->beginTransaction();
-            $conn->commit();
-            echo "Inserccion exitosa";
-            header('Location: ' . htmlspecialchars($_SERVER["PHP_SELF"]) . "?succes_ok=1", true, 303);
-            exit;
-
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    } else {
-        echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
-    }
-}
-
-$consultaSelect = $conn->query
-("SELECT 
-        `ID_PRODUCTO`,`ID_SUBCATEGORIA`,`FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO_GRAMOS` 
-        FROM 
-        `producto`");
-
+$consultaSelect = $conn->query("SELECT `ID_PRODUCTO`, `ID_USUARIO_REGISTRADO`, `ID_SUBCATEGORIA`, `FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO_GRAMOS` FROM `producto`");
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table-locale-all.min.js"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
     <link rel="stylesheet" href="css/mystyle.css">
     <link rel="icon" href="/Icon.ico">
     <script src="./js/scriptAdministradorCrearProducto.js"></script>
+    <script src="./js/scriptAdministradorUpdateProducto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"
         defer></script>
@@ -134,7 +90,7 @@ $consultaSelect = $conn->query
     <!-- Fin navbar -->
 
     <!-- Menu Productos -->
-    <div id="cardProductos">
+    <div class="container" id="cardProductos">
         <div class="card-header py-2">
             <h1 class="text-center mt-3">Productos</h1>
             <div class="card-body">
@@ -153,22 +109,43 @@ $consultaSelect = $conn->query
                                 <th>Peso</th>
                                 <th>#</th>
                                 <th>Accion</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <?php while ($row = $consultaSelect->fetch()): ?>
-
                                 <tr>
-                                    <th><?= $row['ID_PRODUCTO'] ?></th>
-                                    <th><?= $row['ID_SUBCATEGORIA'] ?></th>
-                                    <th><?= $row['FECHA'] ?></th>
-                                    <th><?= $row['NOMBRE'] ?></th>
-                                    <th><?= $row['MARCA'] ?></th>
-                                    <th><?= $row['CANTIDAD'] ?></th>
-                                    <th><?= $row['PROD_PRECIO_COMPRA'] ?></th>
-                                    <th><?= $row['PROD_PRECIO_VENTA'] ?></th>
-                                    <th><?= $row['PESO_GRAMOS'] ?></th>
-                                    <th><button class='btn btn-primary btn-sm bi-pencil' data-bs-toggle="modal" data-bs-target="#modalEditarProducto"></th>
-                                    <th><button class='btn btn-danger btn-sm bi-trash'></button></th>
+                                    <td>
+                                        <?= $row['ID_PRODUCTO'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['ID_SUBCATEGORIA'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['FECHA'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['NOMBRE'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['MARCA'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['CANTIDAD'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['PROD_PRECIO_COMPRA'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['PROD_PRECIO_VENTA'] ?>
+                                    </td>
+                                    <td>
+                                        <?= $row['PESO_GRAMOS'] ?>
+                                    </td>
+                                    <td><button class='btn btn-primary btn-sm bi-pencil' data-bs-toggle="modal"
+                                            data-bs-target="#modalEditarProducto" editar='tabla'>
+                                    </td>
+                                    <td><button class='btn btn-danger btn-sm bi-trash'></button>
+                                    </td>
                                 </tr>
 
                             <?php endwhile; ?>
@@ -179,125 +156,110 @@ $consultaSelect = $conn->query
                 <div id="idbotones-pantalla-venta">
                     <div>
                         <button class="btn btn-danger py-1">Buscar</button>
-                        <button class="btn btn-danger py-1" id="btnInsertar" data-bs-toggle="modal"
-                            data-bs-target="#modalCarga">Agregar Producto</button>
+                        <button type="button" class="btn btn-danger py-1" id="btnInsertar">Agregar Producto</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal Carga-->
-    <div class="modal" id="modalCarga">
+    <!-- Modal Update-->
+    <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-
-                <!-- Header -->
-                <div class="modal-header bg-dark text-white">
-                    <h4 class="modal-title">Nuevo producto</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body bg-dark text-white">
-                    <!-- Form -->
-                    <form method="post" action="./AdministradorCrearProducto.php" id="formProducto" required>
-
-                        <label for="subcategoria">Subcategoria</label><br>
-                        <input class="form-control" type="text" id="subcategoria" name="subcategoria" required><br>
-
-                        <!-- <label for="fecha">Fecha</label><br>
-                        <input class="form-control" type="text" id="fecha" name="fecha"><br> -->
-
-                        <label for="pNombre">Nombre</label><br>
-                        <input class="form-control" type="text" id="pNombre" name="pNombre" required><br>
-
-                        <label for="marca">Marca</label><br>
-                        <input class="form-control" type="text" id="marca" name="marca" required><br>
-
-                        <label for="cantidad">Cantidad</label><br>
-                        <input class="form-control" type="text" id="cantidad" name="cantidad" required><br>
-
-                        <label for="precioCompra">Precio de compra</label><br>
-                        <input class="form-control" type="text" id="precioCompra" name="precioCompra" required><br>
-
-                        <label for="precioVenta">Precio de venta</label><br>
-                        <input class="form-control" type="text" id="precioVenta" name="precioVenta" required><br>
-
-
-
-                        <label for="peso">Peso gr</label><br>
-                        <input class="form-control" type="text" id="peso" name="peso">
-
-                        <!-- Submit btn -->
-                        <input type="submit" class="btn btn-success" value="Agregar" id="btnAgregarProducto">
-
-                    </form>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer bg-dark text-white">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Volver</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Modal Edicion-->
-    <div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary-subtle">
-                    <h1 class="modal-title fs-5" id="">Editar Producto</h1>
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="tituloModal"></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body bg-black">
-                    <div class="card bg-dark text-light">
-                        <div class="card-header text-light">
-                            <h5 id="infoEditarCliente"></h5>
+                <div class="modal-body">
+                    <form method="post" action="" id="formUpdate" required>
+                        <div class="card">
+                            <div class="card-header">
+                            </div>
+                            <div class="card-body">
+                                <div class="mt-2">
+                                    <input class="form-control" type="text" id="id" name="id" required>
+                                </div>
+                                <div class="mt-2">
+                                    <label for="subcategoria">Subcategoria</label>
+                                </div>
+                                <div class="mt-2">
+                                    <input class="form-control" type="text" id="subcategoria" name="subcategoria"
+                                        required>
+                                </div>
+                                <div class="mt-2">
+                                    <label class ="form-label" for="pNombre">Nombre</label>
+                                    <input class="form-control" type="text" id="pNombre" name="pNombre" required>
+                                </div>
+                                <div class="mt-2">
+                                    <label class ="form-label" for="marca">Marca</label>
+                                    <input class="form-control" type="text" id="marca" name="marca" required>
+                                </div>
+                                <div class="mt-2">
+                                    <label class ="form-label" for="precioCompra">Precio de compra</label>
+                                    <input class="form-control" type="text" id="precioCompra" name="precioCompra"
+                                        required>
+                                </div>
+                                <div class="mt-2">
+                                    <label for="precioVenta">Precio de venta</label>
+                                    <input class="form-control" type="text" id="precioVenta" name="precioVenta"
+                                        required>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <!-- Form -->
-                            <form method="post" action="./AdministradorEditarProductos.php" id="formEditarProducto" required>
-
-
-                <input type="hidden" name="id" value="<?= $row['ID_PRODUCTO']?>">
-                <input type="text" name="pNombre" placeholder="Nombre" value="<?= $row['NOMBRE']?>">
-                <input type="text" name="lastname" placeholder="Apellidos" value="<?= $row['lastname']?>">
-                <input type="text" name="username" placeholder="Username" value="<?= $row['username']?>">
-                <input type="text" name="password" placeholder="Password" value="<?= $row['password']?>">
-                <input type="text" name="email" placeholder="Email" value="<?= $row['email']?>">
-
-                <input type="submit" value="Actualizar">
-
-                            </form>
-                        </div>
-                    </div>  
+                    </form>
                 </div>
-                <div class="modal-footer bg-black">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" id="botonGuardarCambios"
-                        form="frmModificarCliente">Guardar Cambios</button>
+                <div class="card-footer">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary" form='formUpdate' >Guardar</button>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
-
-    <!-- Pie de Indicadores -->
-    <br>
-    <div id="iddivindicadores" class="fixed-bottom p-3 mb-2 bg-dark text-white">Indicador
-        <div class="btn-group btn-group-toggle">
-            <label class="btn btn-light" id="idlabelventaverde">
-            </label>
-            <label class="btn btn-dark" id="idlabelventarojo">
-            </label>
+    <!-- Modal Carga-->
+    <div class="modal fade" id="modalCarga" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="">Agregar Producto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="" id="formCarga" required>
+                        <label for="subcategoria">Subcategoria</label>
+                        <select class="form-select" id="subcategoria" name="subcategoria" size="1">
+                            
+                        </select><br>
+                        <label for="pNombre">Nombre</label><br>
+                        <input class="form-control" type="text" id="pNombre" name="pNombre" required><br>
+                        <label for="marca">Marca</label><br>
+                        <input class="form-control" type="text" id="marca" name="marca" required><br>
+                        <label for="cantidad">Cantidad</label><br>
+                        <input class="form-control" type="text" id="cantidad" name="cantidad" required><br>
+                        <label for="precioCompra">Precio de compra</label><br>
+                        <input class="form-control" type="text" id="precioCompra" name="precioCompra" required><br>
+                        <label for="precioVenta">Precio de venta</label><br>
+                        <input class="form-control" type="text" id="precioVenta" name="precioVenta" required><br>
+                        <label for="mostrarPeso">Colocar Peso</label>
+                        <input type="checkbox" id="mostrarPeso" />
+                        <div id="campoPeso" class="d-none">
+                            <label for="peso">Peso gr</label><br>
+                            <input class="form-control" type="text" id="peso" name="peso">
+                            </label><br>
+                            <!-- Submit btn -->
+                            <!-- <input type="submit" class="btn btn-success" value="Agregar" id="btnAgregarProducto"> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
 
 </html>
-
 <?php $conn = null; ?>

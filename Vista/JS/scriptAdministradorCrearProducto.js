@@ -3,6 +3,13 @@ window.onload = inicio;
 function inicio() {
     const btnAgregarProd = document.getElementById('btnAgregarProducto');
     btnAgregarProd.addEventListener('click',agregarFila);
+    
+
+}
+
+
+function muestraPeso(){
+
 }
 
 function agregarFila() {
