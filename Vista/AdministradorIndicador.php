@@ -1,8 +1,7 @@
 <?php
 
-session_start();
-
 include '../Controlador/dbTwo.php';
+include '../Controlador/InsertIndicador.php';
 
 if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     header('Location:index.php');
@@ -126,12 +125,18 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
                 </form>
             </div>
         </div>
-        <div class="alert alert-success d-none mt-2" role="alert" id="errorIndicadorValid">
-
-        </div>
-        <div class="alert alert-danger d-none mt-2" role="alert" id="errorIndicadorInvalid">
-
-        </div>
+        <?php
+        if (isset($Acierto['exitoso']) && $Verificador == true) {
+            echo '<div id="smsExitoso" class="alert alert-success mt-2 ok" role="alert">';
+            echo '<span class="enviado">' . $Acierto['exitoso'] . '</span>';
+            echo '</div>';
+        }
+        if (isset($Error['indicador']) && $Verificador == true) {
+            echo '<div id="smsError" class="alert alert-danger mt-2 problem" role="alert">';
+            echo '<span class="error">' . $Error['indicador'] . '</span>';
+            echo '</div>';
+        }
+        ?>
     </section>
 </body>
 

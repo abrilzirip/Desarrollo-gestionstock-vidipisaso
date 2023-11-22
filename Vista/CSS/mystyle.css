@@ -19,7 +19,7 @@ footer {
     margin-top: 20px;
 }
 
-.alert {
+#alertLogin {
     position: absolute;
     top: 10px;
     left: 50%;
