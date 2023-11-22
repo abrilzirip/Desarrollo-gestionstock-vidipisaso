@@ -1,7 +1,7 @@
 function inicio() {
     document.getElementById("autocompletadoBuscarCliente").addEventListener("input", buscarCliente, false);
-    // document.getElementById("id_Agregar_producto_Tabla").addEventListener("click", agregarProductoTabla, false);
-    // document.getElementById("id_Eliminar_producto_Tabla").addEventListener("click", eliminarProductosTabla, false);
+    document.getElementById("id_Agregar_producto_Tabla").addEventListener("click", agregarProductoTabla, false);
+    document.getElementById("id_Eliminar_producto_Tabla").addEventListener("click", eliminarProductosTabla, false);
     document.getElementById("listaProductos").addEventListener("click", seleccionarListaProducto, false);
     document.getElementById("id_modificar_cantidad_producto").addEventListener("click",e=>{ ActualizarProductoStock(e)},false);
 }
@@ -12,9 +12,9 @@ let ProductoSeleccionado;
 localStorage.setItem("cantidadDeFilas", cantidadDeFilas);
 localStorage.setItem("subTotal", subTotal);
 
-function buscarProducto() {
+function buscarCliente() {
 
-    const autocompletadoInput = document.getElementById("autocompletadoBuscarProducto");
+    const autocompletadoInput = document.getElementById("autocompletadoBuscarCliente");
     const inputTexto = autocompletadoInput.value.toLowerCase();
 
     const listaCliente = document.getElementById("listaProductos");
@@ -39,7 +39,7 @@ function buscarProducto() {
 
 function mostrarListadoCliente(palabraFiltrada,objetoProductoSeleccionado) {
 
-    const autocompletadoInput = document.getElementById("autocompletadoBuscarProducto");
+    const autocompletadoInput = document.getElementById("autocompletadoBuscarCliente");
 
     const listaCliente = document.getElementById("listaProductos");
 
