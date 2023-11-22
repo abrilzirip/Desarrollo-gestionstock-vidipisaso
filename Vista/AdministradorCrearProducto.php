@@ -83,7 +83,7 @@ include '../Controlador/AdministradorUpdateProducto.php';
             </div>
             <ul class="navbar-nav">
                 <li class="nav-item text-end">
-                    <a class="nav-link" href="index.html"><button class="btn btn-danger py-1" id="salir">Cerrar
+                    <a class="nav-link" href="index.php"><button class="btn btn-danger py-1" id="salir">Cerrar
                             sesion</button></a>
                 </li>
             </ul>

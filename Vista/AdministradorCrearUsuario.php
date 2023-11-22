@@ -278,8 +278,6 @@ echo password_hash("rasmuslerdorf", PASSWORD_DEFAULT)."\n";
                 <label for="email">email</label><br>
                 <input class="form-control" type="email"  id="email" name="email" ><br>
 
-                
-
                 <!-- Submit btn -->
                 <input type="submit" class="btn btn-success" value="Agregar" id="btnAgregarUsuario">
               </form>
