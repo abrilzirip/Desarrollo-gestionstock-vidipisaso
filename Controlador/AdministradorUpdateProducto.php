@@ -1,4 +1,5 @@
-<?php include '../Controlador/db.php';
+<?php include '../Controlador/dbTwo.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $user = 2; //AGREGAR USUARIOS
@@ -38,7 +39,6 @@ if(!empty($subcategoria) && !empty($Nombre) && !empty($Pmarca) && !empty($pFecha
 
 }
 
-
-
+$conn = null;
 
 ?>

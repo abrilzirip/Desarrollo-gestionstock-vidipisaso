@@ -1,6 +1,8 @@
-<?php include '../Controlador/dbTwo.php' ;
+<?php 
 
-include "../Controlador/AdministradorUpdateProducto.php";
+include '../Controlador/dbTwo.php';
+
+include '../Controlador/AdministradorUpdateProducto.php';
 
 // session_start();
 // if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
@@ -8,7 +10,7 @@ include "../Controlador/AdministradorUpdateProducto.php";
 //     die();
 // }
 
-$consultaSelect = $conn->query("SELECT `ID_PRODUCTO`, `ID_USUARIO_REGISTRADO`, `ID_SUBCATEGORIA`, `FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO_GRAMOS` FROM `producto`");
+
 ?>
 
 
@@ -112,47 +114,27 @@ $consultaSelect = $conn->query("SELECT `ID_PRODUCTO`, `ID_USUARIO_REGISTRADO`, `
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = $consultaSelect->fetch()): ?>
-                                <tr>
-                                    <td>
-                                        <?= $row['ID_PRODUCTO'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['ID_SUBCATEGORIA'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['FECHA'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['NOMBRE'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['MARCA'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['CANTIDAD'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['PROD_PRECIO_COMPRA'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['PROD_PRECIO_VENTA'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['PESO_GRAMOS'] ?>
-                                    </td>
-                                    <td><button class='btn btn-primary btn-sm bi-pencil' data-bs-toggle="modal"
-                                            data-bs-target="#modalEditarProducto" editar='tabla'>
-                                    </td>
-                                    <td><button class='btn btn-danger btn-sm bi-trash'></button>
-                                    </td>
-                                </tr>
-
-                            <?php endwhile; ?>
+                            <?php
+                            $consultaSelect="SELECT `ID_PRODUCTO`, `ID_USUARIO_REGISTRADO`, `ID_SUBCATEGORIA`, `FECHA`, `NOMBRE`, `MARCA`, `CANTIDAD`, `PROD_PRECIO_COMPRA`, `PROD_PRECIO_VENTA`, `PESO_GRAMOS` FROM `producto`";
+                            $consulta = $conn->query($consultaSelect);
+                            while ($row = $consulta->fetch()) {
+                                echo "<tr>";
+                                echo "<td class='text-center'>" . $row['ID_PRODUCTO'] . "</td>";
+                                echo "<td class='text-center'>" . $row['ID_SUBCATEGORIA'] . "</td>";
+                                echo "<td class='text-center'>" . $row['FECHA'] . "</td>";
+                                echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
+                                echo "<td class='text-center'>" . $row['MARCA'] . "</td>";
+                                echo "<td class='text-center'>" . $row['CANTIDAD'] . "</td>";
+                                echo "<td class='text-center'>" . $row['PROD_PRECIO_COMPRA'] . "</td>";
+                                echo "<td class='text-center'>" . $row['PROD_PRECIO_VENTA'] . "</td>";
+                                echo "<td class='text-center'>" . $row['PESO_GRAMOS'] . "</td>";  
+                                echo "<td><button class='btn btn-primary btn-sm bi-pencil' data-bs-toggle='modal' data-bs-target='#modalEditarProducto' editar='tabla'></button></td>";
+                                echo "<td><button class='btn btn-danger btn-sm bi-trash'></button></td>";
+                                echo "</tr>";
+                            }?>
                         </tbody>
                     </table>
                 </div>
-
                 <div id="idbotones-pantalla-venta">
                     <div>
                         <button class="btn btn-danger py-1">Buscar</button>
@@ -171,7 +153,7 @@ $consultaSelect = $conn->query("SELECT `ID_PRODUCTO`, `ID_USUARIO_REGISTRADO`, `
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="" id="formUpdate" required>
+                    <form method="post" action="" id="formUpdate">
                         <div class="card">
                             <div class="card-header">
                             </div>
@@ -260,6 +242,5 @@ $consultaSelect = $conn->query("SELECT `ID_PRODUCTO`, `ID_USUARIO_REGISTRADO`, `
         </div>
     </div>
 </body>
-
 </html>
-<?php $conn = null; ?>
+<?php $conn = null;?>

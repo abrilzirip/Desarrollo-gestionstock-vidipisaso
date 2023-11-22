@@ -1,4 +1,4 @@
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = 2; //AGREGAR USUARIOS
     $subcategoria = $_POST['subcategoria'];
     date_default_timezone_set('America/Argentina/Buenos_Aires');
@@ -42,3 +42,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
     }
 }
+?>
