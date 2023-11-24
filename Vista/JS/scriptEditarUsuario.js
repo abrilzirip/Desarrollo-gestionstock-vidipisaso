@@ -48,3 +48,8 @@ function enviarformulario(e) {
     document.getElementById("formEditaUsuario").submit();
 
 }
+
+function formulario2(e) {
+    evento.preventDefault();
+    document.getElementById('frmCreaUsuario').submit();
+}
