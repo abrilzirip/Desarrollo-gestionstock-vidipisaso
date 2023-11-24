@@ -4,34 +4,34 @@
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!empty($_POST['Turnos']) && !empty($_POST['Perfiles'] && !empty($_POST['nombre']) && !empty($_POST['password']) && !empty($_POST['email']))) {
+    var_dump($_POST);
+    if (!empty($_POST['IDUpdate']) && !empty($_POST['TurnosUpdate']) && !empty($_POST['PerfilesUpdate']) && !empty($_POST['NombreUpdate'])  && !empty($_POST['EmailUpdate'])) {
 
-        $idUsuario = $_POST['idUsuario'];
-        $idTurno = $_POST['Turnos'];
-        $idPerfil = $_POST['Perfiles'];
-        $nombre = $_POST['nombre'];
-        $password = $_POST['password'];
-        $email = $_POST['email'];
-
-
+        $IDUpdate = $_POST['IDUpdate'];
+        $TurnosUpdate = $_POST['TurnosUpdate'];
+        $PerfilesUpdate = $_POST['PerfilesUpdate'];
+        $NombreUpdate = $_POST['NombreUpdate'];
+        $Contraseña = $_POST['ContraseñaUpdate'];
+        $EmailUpdate = $_POST['EmailUpdate'];
         date_default_timezone_set('America/Argentina/Buenos_Aires');
         $pFechaalta = date('Y-m-d H:i:s');
-        // $passEncriptada = password_hash($pass, PASSWORD_DEFAULT);
+        //$passEncriptada = password_hash($ContraseñaUpdate, PASSWORD_DEFAULT);
 
-        if (!empty($Nombre) && !empty($pass) && !empty($mail)) {
-            try {
-                $consultaUpdate = $conn->prepare("UPDATE usuario SET  `NOMBRE` = :Nombre,`PASSWORD` = :pass, `MAIL` = :email WHERE `ID_USUARIO_REGISTRADO` = :idUsuario");
-                // $consultaUpdate->bindParam(':turno', $idturno);
-                // $consultaUpdate->bindParam(':Id_Perfil', $idperfil);
-                $consultaUpdate->bindParam(':Nombre', $Nombre);
-                $consultaUpdate->bindParam(':pass', $passEncriptada);
-                $consultaUpdate->bindParam(':mail', $mail);
-                $consultaUpdate->bindParam(':idUsuario', $idUsuario);
-                $consultaUpdate->execute();
-            } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage();
-            }
+        try {
+            $consultaUpdate = $conn->prepare("UPDATE `usuario` SET `ID_TURNO`=:Turnos,`ID_PERFIL`= :Perfil,`NOMBRE`= :Nombre,`PASSWORD`=:Contraseña,`F_ALTA`=:FechaAlta,`MAIL`=:Mail WHERE `ID_USUARIO_REGISTRADO` = :IDUsuario");
+            $consultaUpdate->bindParam(':Turnos', $TurnosUpdate);
+            $consultaUpdate->bindParam(':Perfil', $PerfilesUpdate);
+            $consultaUpdate->bindParam(':Nombre', $NombreUpdate);
+            $consultaUpdate->bindParam(':Contraseña', $Contraseña);
+            $consultaUpdate->bindParam(':FechaAlta', $pFechaalta);
+            $consultaUpdate->bindParam(':Mail', $EmailUpdate);
+            $consultaUpdate->bindParam(':IDUsuario', $IDUpdate);
+            $consultaUpdate->execute();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
         }
+    } else {
+        echo "falla algo";
     }
 }
 

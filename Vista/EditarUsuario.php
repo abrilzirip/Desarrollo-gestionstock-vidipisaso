@@ -9,6 +9,8 @@ include '../Controlador/UpdateUsuario.php';
 //     header('Location:index.php');
 //     die();
 // }
+
+$conn = new PDO("mysql:host=$servername;dbname=" . $db . ";charset=utf8", $username, $password);
 $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_PERFIL`,`NOMBRE`, `PASSWORD`,   `F_ALTA`, `MAIL` FROM `usuario`ORDER BY ID_USUARIO_REGISTRADO DESC");
 ?>
 
@@ -85,12 +87,11 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_
                     <thead>
                         <tr>
                             <th>Fila</th>
-                            <!-- <th>Id</th> -->
-                            <!-- <th>Turno</th> -->
-                            <!-- <th>Perfil</th> -->
+                            <th>Id</th>
+                            <th>Turno</th>
+                            <th>Perfil</th>
                             <th>Nombre</th>
                             <th>Password</th>
-                            <!-- <th>F_BAJA</th> -->
                             <th>F_ALTA</th>
                             <th>Email</th>
                             <th>Acciones</th>
@@ -102,12 +103,11 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_
                         while ($row = $consultaSelect->fetch()) {
                             echo "<tr>";
                             echo "<td class='text-center'>" . $nroFila . "</td>";
-                            // echo "<td class='text-center'>" . $row['ID_USUARIO_REGISTRADO'] . "</td>";
-                            // echo "<td class='text-center'>" . $row['ID_TURNO'] . "</td>";
-                            // echo "<td class='text-center'>" . $row['ID_PERFIL'] . "</td>";
+                            echo "<td class='text-center'>" . $row['ID_USUARIO_REGISTRADO'] . "</td>";
+                            echo "<td class='text-center'>" . $row['ID_TURNO'] . "</td>";
+                            echo "<td class='text-center'>" . $row['ID_PERFIL'] . "</td>";
                             echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
-                            echo "<td class='text-center'>" . '********' . "</td>";
-                            // echo "<td class='text-center'>" . $row['F_BAJA'] . "</td>";
+                            echo "<td class='text-center'>" . $row['PASSWORD'] . "</td>";
                             echo "<td class='text-center'>" . $row['F_ALTA'] . "</td>";
                             echo "<td class='text-center'>" . $row['MAIL'] . "</td>";
                             echo "<td class='text-center'>";
@@ -208,23 +208,30 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_
                 </div>
                 <div class="modal-body bg-dark text-white">
                     <form id="formEditaUsuario" action="EditarUsuario.php" method='POST'>
-                        <label class="form-label" for="edita">id </label>
-                        <input type="number" class="form-control" id="editaUsuarioId" name="editaUsuarioId"> -->
+                        <label class="form-label" for="IDUpdate">id </label>
+                        <input type="number" class="form-control" id="IDUpdate" name="IDUpdate">
 
-                        <label class="form-label" for="Id_Turno">Turno</label>
-                        <input type="number" class="form-control" id="Id_Turno" name="Id_Turno">
+                        <select class="form-select mt-2" aria-label="Default select example" name="TurnosUpdate">
+                            <option selected disabled>Turnos</option>
+                            <option value="1">Mañana</option>
+                            <option value="2">Tarde</option>
+                            <option value="3">Noche</option>
+                        </select>
 
-                        <label class="form-label" for="Id_Perfil">Perfil </label>
-                        <input type="number" class="form-control" id="Id_Perfil" name="Id_Perfil">
+                        <select class="form-select mt-2" aria-label="Default select example" name="PerfilesUpdate">
+                            <option selected disabled>Perfiles</option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Vendedor</option>
+                        </select>
 
-                        <label class="form-label" for="editaNombre">Nombre</label>
-                        <input type="text" class="form-control" id="editaNombre" name="editaNombre">
+                        <label class="form-label" for="NombreUpdate">Nombre</label>
+                        <input type="text" class="form-control" id="NombreUpdate" name="NombreUpdate">
 
-                        <label class="form-label" for="editaPassword">Password</label>
-                        <input type="password" class="form-control" id="editaPassword" name="editaPassword">
+                        <label class="form-label" for="ContraseñaUpdate">Password</label>
+                        <input type="password" class="form-control" id="ContraseñaUpdate" name="ContraseñaUpdate">
 
-                        <label class="form-label" for="editaEmail">Email</label>
-                        <input type="email" class="form-control" id="editaEmail" name="editaEmail">
+                        <label class="form-label" for="EmailUpdate">Email</label>
+                        <input type="email" class="form-control" id="EmailUpdate" name="EmailUpdate">
 
                     </form>
                 </div>
@@ -238,3 +245,6 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_
 </body>
 
 </html>
+<?php
+$conn = null;
+?>

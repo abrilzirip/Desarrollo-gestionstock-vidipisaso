@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'];
         date_default_timezone_set('America/Argentina/Buenos_Aires');
         $pFechaalta = date('Y-m-d H:i:s');
-        $passEncriptada = password_hash($pass, PASSWORD_DEFAULT);
+        //$passEncriptada = password_hash($pass, PASSWORD_DEFAULT);
 
         $consultaInsert = "INSERT INTO `usuario`( `ID_TURNO`, `ID_PERFIL`, `NOMBRE`, `PASSWORD`,  `F_ALTA`, `MAIL`)
         VALUES (:Turnos,:Perfiles,:nombre,:pass,:fechaA,:email)";
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $consulta->bindParam(':Turnos', $idTurno);
             $consulta->bindParam(':Perfiles', $idPerfil);
             $consulta->bindParam(':nombre', $nombre);
-            $consulta->bindParam(':pass', $passEncriptada);
+            $consulta->bindParam(':pass', $pass);
             $consulta->bindParam(':fechaA', $pFechaalta);
             $consulta->bindParam(':email', $email);
             $consulta->execute();
@@ -35,4 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Campos incompletos o vacíos.";
     }
+    
 }
+
+
+?>
+
