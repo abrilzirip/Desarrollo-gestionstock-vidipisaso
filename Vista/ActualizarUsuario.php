@@ -1,4 +1,3 @@
-
 <?php
 include '../Controlador/db.php';
 
@@ -7,8 +6,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['editaNombre'];
     $password = $_POST['editaPassword'];
     $email = $_POST['editaEmail'];
+      // Encriptar la contraseña
+    
 
     try {
+        if (!empty($nombre) && !empty($password) && !empty($email)) {
+           
+        }
         $consultaUpdate = $conn->prepare("UPDATE usuario SET NOMBRE = :nombre, PASSWORD = :password, MAIL = :email WHERE ID_USUARIO_REGISTRADO = :idUsuario");
         $consultaUpdate->bindParam(':nombre', $nombre);
         $consultaUpdate->bindParam(':password', $password);
