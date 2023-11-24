@@ -2,12 +2,12 @@
 
 include '../Controlador/dbTwo.php';
 
-include '../Controlador/AdministradorUpdateProducto.php';
-session_start();
-if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
-     header('Location:index.php');
-     die();
- }
+// include '../Controlador/AdministradorUpdateProducto.php';
+// session_start();
+// if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
+//      header('Location:index.php');
+//      die();
+//  }
 
 
 ?>
@@ -91,7 +91,7 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     <!-- Fin navbar -->
 
     <!-- Menu Productos -->
-    <div class="container" id="cardProductos">
+    <div class="container-fluid" id="cardProductos" >
         <div class="card-header py-2">
             <h1 class="text-center mt-3">Productos</h1>
             <div class="card-body">
@@ -124,8 +124,8 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
                                 echo "<td class='text-center'>" . $row['NOMBRE'] . "</td>";
                                 echo "<td class='text-center'>" . $row['MARCA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['CANTIDAD'] . "</td>";
-                                echo "<td class='text-center'>" . $row['PROD_PRECIO_COMPRA'] . "</td>";
-                                echo "<td class='text-center'>" . $row['PROD_PRECIO_VENTA'] . "</td>";
+                                echo "<td class='text-center'>$" . $row['PROD_PRECIO_COMPRA'] . "</td>";
+                                echo "<td class='text-center'>$" . $row['PROD_PRECIO_VENTA'] . "</td>";
                                 echo "<td class='text-center'>" . $row['PESO_GRAMOS'] . "</td>";  
                                 echo "<td><button class='btn btn-primary btn-sm bi-pencil' data-bs-toggle='modal' data-bs-target='#modalEditarProducto' editar='tabla'></button></td>";
                                 echo "<td><button class='btn btn-danger btn-sm bi-trash'></button></td>";

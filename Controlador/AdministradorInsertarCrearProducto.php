@@ -1,5 +1,7 @@
-<?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user = 2; //AGREGAR USUARIOS
+<?php include '../Controlador/dbTwo.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user = 2;
     $subcategoria = $_POST['subcategoria'];
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     $pFecha = date('Y-m-d H:i:s');
