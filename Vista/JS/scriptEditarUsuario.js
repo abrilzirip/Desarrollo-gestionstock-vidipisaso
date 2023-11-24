@@ -41,8 +41,3 @@ function EditarUsuario(e) {
 
 
 }
-
-function enviarformulario(e) {
-    e.preventDefault();
-    document.getElementById("formEditaUsuario").submit();
-}

@@ -166,12 +166,19 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_
                 </div>
                 <div class="modal-body">
                     <form id="frmCreaUsuario" action="EditarUsuario.php" method="POST">
-                        <label class="form-label" for ="idperfil">Eliga tipo de usuario</label>
-                        <select class="form-select" >
-                            <option value="0"></option>
+
+                        <select class="form-select mt-2" aria-label="Default select example" name="Turnos">
+                            <option selected disabled>Turnos</option>
+                            <option value="1">Mañana</option>
+                            <option value="2">Tarde</option>
+                            <option value="3">Noche</option>
+                        </select>
+
+                        <select class="form-select mt-2" aria-label="Default select example" name="Perfiles">
+                            <option selected disabled>Perfiles</option>
                             <option value="1">Administrador</option>
                             <option value="2">Vendedor</option>
-                        </select><br>
+                        </select>
 
                         <label class="form-label" for="nombre">Nombre</label>
                         <input class="form-control" type="text" id="nombre" name="nombre">
@@ -195,19 +202,20 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_
     <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class=" modal-header bg-dark text-white">
                     <h1 class="modal-title fs-5" id="modalTitulo"></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body bg-dark text-white">
                     <form id="formEditaUsuario" action="EditarUsuario.php" method='POST'>
-                        <!-- <label class="form-label" for="edita">id </label>
+                        <label class="form-label" for="edita">id </label>
                         <input type="number" class="form-control" id="editaUsuarioId" name="editaUsuarioId"> -->
 
-                        <!-- <label class="form-label" for="Id_Turno">Turno</label>
-                        <input type="number" class="form-control" id="Id_Turno" name="Id_Turno"> -->
-                        <!-- <label class="form-label" for="Id_Perfil">Perfil </label>
-                        <input type="number" class="form-control" id="Id_Perfil" name="Id_Perfil"> -->
+                        <label class="form-label" for="Id_Turno">Turno</label>
+                        <input type="number" class="form-control" id="Id_Turno" name="Id_Turno">
+
+                        <label class="form-label" for="Id_Perfil">Perfil </label>
+                        <input type="number" class="form-control" id="Id_Perfil" name="Id_Perfil">
 
                         <label class="form-label" for="editaNombre">Nombre</label>
                         <input type="text" class="form-control" id="editaNombre" name="editaNombre">
@@ -220,7 +228,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_
 
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer bg-dark text-white">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">volver</button>
                     <button form="formEditaUsuario" type="submit" class="btn btn-primary">enviar</button>
                 </div>
