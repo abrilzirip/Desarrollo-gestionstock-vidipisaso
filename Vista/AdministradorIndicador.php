@@ -139,7 +139,7 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
         </div>
         <div class="row mt-4">
             <div class="col">
-                <form action="../Controlador/ModeloIndicador.php" method="post" id="configForm">
+                <form action="../Controlador/ModeloInsertIndicador.php" method="post" id="configForm">
                     <div class="card">
                         <div class="card-header bg-black text-light">
                             <h6>Configurar Indicador</h6>
