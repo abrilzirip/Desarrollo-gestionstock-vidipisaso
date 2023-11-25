@@ -23,6 +23,7 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="stylesheet" href="../Vista/CSS/mystyle.css">
     <link rel="stylesheet" href="./CSS/Indicador.css">
+    <link rel="stylesheet" href="./CSS/redimensionar-tabla.css">
 
     <!--icon-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
@@ -121,10 +122,10 @@ if (!isset($_SESSION['usuario']) && !isset($_SESSION['perfil'])) {
                                     <th scope="col" class="text-center">Nivel</th>
                                     <th scope="col" class="text-center d-none">ID Producto</th>
                                     <th scope="col" class="text-center">Producto</th>
-                                    <th scope="col" class="text-center">Marca</th>
-                                    <th scope="col" class="text-center">Cantidad</th>
+                                    <th scope="col" class="text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ">Marca</th>
+                                    <th scope="col" class="text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ">Cantidad</th>
                                     <th scope="col" class="text-center d-none">ID Categoria</th>
-                                    <th scope="col" class="text-center">Categoria</th>
+                                    <th scope="col" class="text-center ocultar-en-pantalla-xs ocultar-en-pantalla-sm ">Categoria</th>
                                     <th scope="col" class="text-center">Acciones</th>
                                 </tr>
                             </thead>
