@@ -7,7 +7,7 @@ INNER JOIN `producto` AS p ON i.`ID_PRODUCTO` = p.`ID_PRODUCTO`
 INNER JOIN `categoria` AS c ON i.`ID_CATEGORIA` = c.`ID_CATEGORIA`;";
 try {
     $consulta = $conn->query($consultaSelect);
-    $registro = $consulta->fetchAll(PDO::FETCH_ASSOC);
+    $registro = $consulta->fetchAll(PDO::FETCH_ASSOC);  
     header('Content-Type: application/json');
     echo json_encode($registro);
 } catch (Exception $e) {
