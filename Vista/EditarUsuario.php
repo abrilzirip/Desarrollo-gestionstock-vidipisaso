@@ -1,6 +1,6 @@
 <?php
 include '../Controlador/dbTwo.php';
-include '../Controlador/InsertAgregarUsuario.php';
+
 include '../Controlador/UpdateUsuario.php';
 
 
@@ -102,6 +102,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_
                         $nroFila = 1;
                         while ($row = $consultaSelect->fetch()) {
                             echo "<tr>";
+                            echo "<tr id='fila" . $row['ID_USUARIO_REGISTRADO'] . "'>";
                             echo "<td class='text-center'>" . $nroFila . "</td>";
                             echo "<td class='text-center'>" . $row['ID_USUARIO_REGISTRADO'] . "</td>";
                             echo "<td class='text-center'>" . $row['ID_TURNO'] . "</td>";
@@ -112,7 +113,7 @@ $consultaSelect = $conn->query("SELECT `ID_USUARIO_REGISTRADO`, `ID_TURNO`, `ID_
                             echo "<td class='text-center'>" . $row['MAIL'] . "</td>";
                             echo "<td class='text-center'>";
                             echo "<button class='btn btn-sm btn-warning' edit='usuario' ><i class='fa-solid fa-pen-to-square'></i>Editar</button>";
-                            echo "<button class='btn btn-sm btn-danger' delete='usuario' ><i class='fa-solid fa-trash'></i>Borrar</button>";
+                            //echo "<button class='btn btn-sm btn-danger' delete='usuario' data-id='" . $row['ID_USUARIO_REGISTRADO'] . "'><i class='fa-solid fa-trash'></i>Borrar</button>";
                             echo "</td>";
                             echo "</tr>";
                             $nroFila++;
